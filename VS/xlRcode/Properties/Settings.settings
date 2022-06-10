@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="xlRcode.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="RHome" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\R\R-4.0.2</Value>
+    </Setting>
+    <Setting Name="RPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\R\R-4.0.2\bin\x64</Value>
+    </Setting>
+    <Setting Name="ConsoleLineLimit" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
+    <Setting Name="InitializationCodeFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\InitializationCode.txt</Value>
+    </Setting>
+    <Setting Name="FunctionsFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\Functions</Value>
+    </Setting>
+    <Setting Name="CRANMirror" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://cloud.r-project.org/</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

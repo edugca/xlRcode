@@ -1,0 +1,24 @@
+﻿<IntelliSense xmlns="http://schemas.excel-dna.net/intellisense/1.0">
+  <FunctionInfo>
+    <Function Name="TempCelsius" 
+              Description="Converts the temperature in degrees Fahrenheit to degrees Celsius" >
+      <Argument Name="tempInFahrenheit" 
+                Description="is the temperature in degrees Fahrenheit" />
+    </Function>
+    <Function Name="TempFahrenheit" 
+              Description="Converts the temperature in degrees Celsius to degrees Fahrenheit " >
+      <Argument Name="tempInCelsius" 
+                Description="is the temperature in degrees Celsius" />
+    </Function>
+    <Function Name="TempDeltaFromHeat"
+              Description="Calculates the temperature change for a body, from the amount of heat absorbed or released, in K (or equivalantly degrees C)" 
+              HelpTopic="https://www.softschools.com/formulas/physics/temperature_formula/640/">
+      <Argument Name="heatDelta"
+                Description="is the amount of heat absorbed or released (in J)" />
+      <Argument Name="mass"
+                Description="is the mass of the body (in kg)" />
+      <Argument Name="specificHeatCapacity"
+                Description="is the specific heat capacity of the substance (in J/Kg/°C)" />
+    </Function>
+  </FunctionInfo>
+</IntelliSense>
