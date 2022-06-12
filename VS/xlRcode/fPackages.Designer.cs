@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fPackages));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageInstalled = new System.Windows.Forms.TabPage();
             this.loadingImage_Installed = new System.Windows.Forms.PictureBox();
@@ -82,11 +83,12 @@
             this.loadingImage_Installed.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.loadingImage_Installed.Image = global::xlRcode.Properties.Resources.Spinner;
-            this.loadingImage_Installed.InitialImage = global::xlRcode.Properties.Resources.Spinner;
-            this.loadingImage_Installed.Location = new System.Drawing.Point(266, 185);
+            this.loadingImage_Installed.ErrorImage = global::xlRcode.Properties.Resources.RedSpinner;
+            this.loadingImage_Installed.Image = global::xlRcode.Properties.Resources.RedSpinner;
+            this.loadingImage_Installed.InitialImage = global::xlRcode.Properties.Resources.RedSpinner;
+            this.loadingImage_Installed.Location = new System.Drawing.Point(325, 222);
             this.loadingImage_Installed.Name = "loadingImage_Installed";
-            this.loadingImage_Installed.Size = new System.Drawing.Size(149, 143);
+            this.loadingImage_Installed.Size = new System.Drawing.Size(68, 66);
             this.loadingImage_Installed.TabIndex = 4;
             this.loadingImage_Installed.TabStop = false;
             this.loadingImage_Installed.Visible = false;
@@ -122,11 +124,12 @@
             this.loadingImage_CRAN.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.loadingImage_CRAN.Image = global::xlRcode.Properties.Resources.Spinner;
-            this.loadingImage_CRAN.InitialImage = global::xlRcode.Properties.Resources.Spinner;
-            this.loadingImage_CRAN.Location = new System.Drawing.Point(266, 185);
+            this.loadingImage_CRAN.ErrorImage = global::xlRcode.Properties.Resources.RedSpinner;
+            this.loadingImage_CRAN.Image = global::xlRcode.Properties.Resources.RedSpinner;
+            this.loadingImage_CRAN.InitialImage = global::xlRcode.Properties.Resources.RedSpinner;
+            this.loadingImage_CRAN.Location = new System.Drawing.Point(325, 220);
             this.loadingImage_CRAN.Name = "loadingImage_CRAN";
-            this.loadingImage_CRAN.Size = new System.Drawing.Size(149, 143);
+            this.loadingImage_CRAN.Size = new System.Drawing.Size(68, 66);
             this.loadingImage_CRAN.TabIndex = 4;
             this.loadingImage_CRAN.TabStop = false;
             this.loadingImage_CRAN.Visible = false;
@@ -135,7 +138,7 @@
             // 
             this.dgvCRAN.AllowUserToAddRows = false;
             this.dgvCRAN.AllowUserToDeleteRows = false;
-            this.dgvCRAN.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvCRAN.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvCRAN.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCRAN.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCRAN.Location = new System.Drawing.Point(3, 3);
@@ -224,8 +227,10 @@
             this.Controls.Add(this.btInstallSelected);
             this.Controls.Add(this.btLoadSelected);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "fPackages";
             this.Text = "xlRcode Packages";
+            this.TopMost = true;
             this.tabControl1.ResumeLayout(false);
             this.tabPageInstalled.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.loadingImage_Installed)).EndInit();

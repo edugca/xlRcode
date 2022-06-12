@@ -10,7 +10,7 @@ using ExcelDna.Integration.CustomUI;
 
 namespace xlRcode
 {
-    internal static class CTPManager
+    internal static class dCTPManager
     {
         public static CustomTaskPane ctp;
 

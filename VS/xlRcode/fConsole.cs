@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -28,17 +29,23 @@ namespace xlRcode
             InitializeComponent();
             (new TabOrderManager(this)).SetTabOrder(TabOrderManager.TabScheme.AcrossFirst);
 
+            Font f = new Font("Lucida Console", 10, FontStyle.Regular);
+
+            tbConsoleCode.Font = f;
             tbConsoleCode.Text = "> ";
             tbConsoleCode.SelectAll();
             tbConsoleCode.SelectionProtected = true;
             tbConsoleCode.Select(tbConsoleCode.Text.Length, 0);
             tbConsoleCode.Tag = 2; //keep the position of the last protected character
 
+            tbConsoleExcel.Font = f;
             tbConsoleExcel.Text = "> ";
             tbConsoleExcel.SelectAll();
             tbConsoleExcel.SelectionProtected = true;
             tbConsoleExcel.Select(tbConsoleExcel.Text.Length, 0);
             tbConsoleExcel.Tag = 2; //keep the position of the last protected character
+
+            tbCode.Font = f;
 
         }
 
@@ -103,8 +110,8 @@ namespace xlRcode
         {
             RichTextBox tbCodeSelected = (RichTextBox)this.tabControlCode.SelectedTab.Controls[0];
             string code = tbCodeSelected.Text;
-            string result = xlRcode.MyFunctions.XLRCODE_Routine(code);
-            WinFormsExtensions.AppendLine(tbConsoleCode, result + System.Environment.NewLine + "> ", Color.Black, SetUp.rConsoleLineLimit);
+            string result = xlRcode.MyFunctions.XLRCODE_Routine(code, false, false);
+            WinFormsExtensions.AppendLine(tbConsoleCode, "> ", Color.Black, SetUp.rConsoleLineLimit);
             tbConsoleCode.SelectAll();
             tbConsoleCode.SelectionProtected = true;
             tbConsoleCode.Select(tbConsoleCode.Text.Length, 0);
@@ -115,8 +122,8 @@ namespace xlRcode
         {
             RichTextBox tbCodeSelected = (RichTextBox)this.tabControlCode.SelectedTab.Controls[0];
             string code = tbCodeSelected.SelectedText;
-            string result = xlRcode.MyFunctions.XLRCODE_Routine(code);
-            WinFormsExtensions.AppendLine(tbConsoleCode, result + System.Environment.NewLine + "> ", Color.Black, SetUp.rConsoleLineLimit);
+            string result = xlRcode.MyFunctions.XLRCODE_Routine(code, false, false);
+            WinFormsExtensions.AppendLine(tbConsoleCode, "> ", Color.Black, SetUp.rConsoleLineLimit);
             tbConsoleCode.SelectAll();
             tbConsoleCode.SelectionProtected = true;
             tbConsoleCode.Select(tbConsoleCode.Text.Length, 0);
@@ -150,7 +157,7 @@ namespace xlRcode
                 previousCommands.Add(code);
                 idxPreviousCommands = previousCommands.Count;
 
-                string result = xlRcode.MyFunctions.XLRCODE_Routine(code, true);
+                string result = xlRcode.MyFunctions.XLRCODE_Routine(code, true, false);
 
                 WinFormsExtensions.AppendLine(tb, "> ", Color.Black, SetUp.rConsoleLineLimit);
                 tb.SelectAll();
@@ -306,6 +313,8 @@ namespace xlRcode
 
             // Create a code RichTextBox and add it to TabPage1  
             RichTextBox tbCodeTabPage1 = tbCode.Clone();
+            tbCodeTabPage1.Click += tbCode_Click;
+            tbCodeTabPage1.KeyDown += tbCode_KeyDown;
 
             // Clear text
             tbCodeTabPage1.Clear();
@@ -387,4 +396,5 @@ namespace xlRcode
             tb.ContextMenu = cm;
         }
     }
+
 }

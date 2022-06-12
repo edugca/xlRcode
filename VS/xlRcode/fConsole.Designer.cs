@@ -46,6 +46,7 @@
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadingWheel = new System.Windows.Forms.PictureBox();
             this.tabControlConsole.SuspendLayout();
             this.tabPageConsoleCode.SuspendLayout();
             this.tabPageConsoleExcel.SuspendLayout();
@@ -53,6 +54,7 @@
             this.tabControlCode.SuspendLayout();
             this.tabPageCode1.SuspendLayout();
             this.msMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.loadingWheel)).BeginInit();
             this.SuspendLayout();
             // 
             // tbConsoleCode
@@ -123,6 +125,7 @@
             this.tableLayoutPanel.ColumnCount = 2;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel.Controls.Add(this.loadingWheel, 1, 0);
             this.tableLayoutPanel.Controls.Add(this.tabControlCode, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.tabControlConsole, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.msMenu, 0, 0);
@@ -237,6 +240,19 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.tabsCloseToolStripMenuItem_Click);
             // 
+            // loadingWheel
+            // 
+            this.loadingWheel.ErrorImage = global::xlRcode.Properties.Resources.RedSpinner;
+            this.loadingWheel.Image = global::xlRcode.Properties.Resources.RedSpinner;
+            this.loadingWheel.InitialImage = global::xlRcode.Properties.Resources.RedSpinner;
+            this.loadingWheel.Location = new System.Drawing.Point(622, 3);
+            this.loadingWheel.Name = "loadingWheel";
+            this.loadingWheel.Size = new System.Drawing.Size(24, 19);
+            this.loadingWheel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.loadingWheel.TabIndex = 3;
+            this.loadingWheel.TabStop = false;
+            this.loadingWheel.Visible = false;
+            // 
             // fConsole
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -248,6 +264,7 @@
             this.MainMenuStrip = this.msMenu;
             this.Name = "fConsole";
             this.Text = "xlRcode Console";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.fConsole_FormClosing);
             this.tabControlConsole.ResumeLayout(false);
             this.tabPageConsoleCode.ResumeLayout(false);
@@ -258,6 +275,7 @@
             this.tabPageCode1.ResumeLayout(false);
             this.msMenu.ResumeLayout(false);
             this.msMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.loadingWheel)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -280,5 +298,6 @@
         private System.Windows.Forms.TabControl tabControlCode;
         private System.Windows.Forms.TabPage tabPageCode1;
         private System.Windows.Forms.RichTextBox tbCode;
+        private System.Windows.Forms.PictureBox loadingWheel;
     }
 }

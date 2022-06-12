@@ -1,19 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
-
-using RDotNet;
-using RDotNet.Utilities;
-using System.Windows.Forms.Integration;
-
-using static xlRcode.Global;
+using System.Windows.Forms;
 
 namespace xlRcode
 {
@@ -26,7 +14,7 @@ namespace xlRcode
             InitializeComponent();
 
             //Instantiate tbConsoleExcel
-            tbConsoleExcel = ((RichTextBox)Global.myfConsole.Controls["tableLayoutPanel"].Controls["tabControlConsole"].Controls["tabPageConsoleCode"].Controls["tbConsoleCode"]).Clone() ;
+            tbConsoleExcel = ((RichTextBox)Global.myfConsole.Controls["tableLayoutPanel"].Controls["tabControlConsole"].Controls["tabPageConsoleCode"].Controls["tbConsoleCode"]).Clone();
             tbConsoleExcel.Text = "> ";
             tbConsoleExcel.SelectAll();
             tbConsoleExcel.SelectionProtected = true;
@@ -34,7 +22,7 @@ namespace xlRcode
             tbConsoleExcel.Tag = 2; //keep the position of the last protected character
         }
 
-        
+
 
         private void tbConsole_MouseClick(object sender, MouseEventArgs e)
         {
@@ -52,8 +40,8 @@ namespace xlRcode
                 RichTextBox tbConsoleCode = (RichTextBox)sender;
                 int lastProtected = (int)tbConsoleCode.Tag;
                 string code = tbConsoleCode.Text.Substring(lastProtected);
-                string result = xlRcode.MyFunctions.XLRCODE_Routine(code, true);
-                WinFormsExtensions.AppendLine(tbConsoleCode, result + System.Environment.NewLine + "> ", Color.Black, SetUp.rConsoleLineLimit);
+                string result = xlRcode.MyFunctions.XLRCODE_Routine(code, true, false);
+                WinFormsExtensions.AppendLine(tbConsoleCode, System.Environment.NewLine + "> ", Color.Black, SetUp.rConsoleLineLimit);
                 tbConsoleCode.SelectAll();
                 tbConsoleCode.SelectionProtected = true;
                 tbConsoleCode.Select(tbConsoleCode.Text.Length, 0);

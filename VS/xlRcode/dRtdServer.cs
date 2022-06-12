@@ -11,7 +11,7 @@ using ExcelDna.Integration.Rtd;
 namespace xlRcode
 {
     [ComVisible(true)]
-    public class RtdServer : ExcelRtdServer
+    public class dRtdServer : ExcelRtdServer
     {
         Dictionary<Topic, IDisposable> _dataSources;
 

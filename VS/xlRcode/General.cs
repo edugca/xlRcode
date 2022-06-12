@@ -13,6 +13,7 @@ using ExcelDna.Integration;
 using ExcelDna.Logging;
 using ExcelDna.Registration;
 using Microsoft.CSharp;
+using Microsoft.VisualBasic;
 using RDotNet;
 
 using Microsoft.CodeAnalysis.Scripting;
@@ -20,6 +21,8 @@ using Microsoft.CodeAnalysis.CSharp.Scripting;
 
 using static xlRcode.Global;
 using System.Drawing;
+
+using Squirrel;
 
 namespace xlRcode
 {
@@ -29,6 +32,7 @@ namespace xlRcode
         public static REngine _engine { get; set; }
         public static CustomCharacterDevice consoleDotNet { get; set; }
         public static Form myfConsole { get; set; }
+        public static bool isEngineWorking { get; set; }
     }
 
 
@@ -41,26 +45,41 @@ namespace xlRcode
         public void AutoOpen()
         {
 
+            // Check for updates
+            CheckForUpdates();
+
             // Instantiate form
             myfConsole = new xlRcode.fConsole(); // Instantiate a Form object.
             myfConsole.Hide();
 
             // Initialize RDotNet
-            myRDotNet.InitializeRDotNet();
+            isEngineWorking = myRDotNet.InitializeRDotNet();
 
-            // Run all scripts in the Functions Folder
-            RunFunctionScripts();
+            if (isEngineWorking)
+            {
+                // Run all scripts in the Functions Folder
+                RunFunctionScripts();
 
-            // Register functions from scripts in the Functions Folder
-            CreateFunctions();
+                // Register functions from scripts in the Functions Folder
+                CreateFunctions();
 
-            // Register functions from the AddIn
-            RegisterFunctions();
+                // Register functions from the AddIn
+                RegisterFunctions();
+            }
+           
 
         }
 
         public void AutoClose()
         {
+        }
+
+        public async Task CheckForUpdates()
+        {
+            using (var manager = new UpdateManager(@"C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\UpdateTest"))
+            { 
+            
+            }
         }
 
         public void RegisterFunctions()
@@ -84,17 +103,24 @@ namespace xlRcode
         public static void RunFunctionScripts()
         {
 
+            // Check whether R engine has been correctly initialized
+            if (Global.isEngineWorking == false) { return; }
+
             // Find script files
             string path = xlRcode.Properties.Settings.Default.FunctionsFolder;
             var allowedExtensions = new[] { ".r" };
-            string[] fileEntries = Directory.GetFiles(path).Where(file => allowedExtensions.Any(file.ToLower().EndsWith)).ToArray();
 
-            // Run scripts
-
-            foreach (string fileName in fileEntries) 
+            if (Directory.Exists(path)) 
             {
-                string script = File.ReadAllText(fileName);
-                _engine.Evaluate(script);
+                string[] fileEntries = Directory.GetFiles(path).Where(file => allowedExtensions.Any(file.ToLower().EndsWith)).ToArray();
+
+                // Run scripts
+
+                foreach (string fileName in fileEntries)
+                {
+                    string script = File.ReadAllText(fileName);
+                    _engine.Evaluate(script);
+                }
             }
 
         }
@@ -337,18 +363,6 @@ namespace xlRcode
 
     }
 
-    public class MyCharacterDevice : RDotNet.Devices.ConsoleDevice
-    {
-        public StringBuilder sb = new StringBuilder();
-
-        public new void WriteConsole(string output, int length, RDotNet.Internals.ConsoleOutputType outputType)
-        {
-            sb.Append(output);
-        }
-
-        //rest of the implementation here
-    }
-
     public class CustomCharacterDevice : RDotNet.Devices.ICharacterDevice
     {
         public StringBuilder msg = new StringBuilder();
@@ -365,6 +379,7 @@ namespace xlRcode
         // functions below are copy-pasted from ConsoleDevice implementation
         public string ReadConsole(string prompt, int capacity, bool history)
         {
+            
             Console.Write(prompt);
             //return Console.ReadLine();
 
@@ -372,7 +387,18 @@ namespace xlRcode
             RichTextBox tbConsoleExcel = (RichTextBox)xlRcode.Global.myfConsole.Controls["tableLayoutPanel"].Controls["tabControlConsole"].Controls["tabPageConsoleExcel"].Controls["tbConsoleExcel"];
             WinFormsExtensions.AppendLine(tbConsoleExcel, System.Environment.NewLine + prompt, Color.Black, SetUp.rConsoleLineLimit);
 
-            return WinFormsExtensions.ReadLine(tbConsoleExcel);
+            System.InputBoxDialog questionBox = new System.InputBoxDialog();
+            questionBox.TopMost = true;
+            questionBox.FormPrompt = prompt;
+            questionBox.FormCaption = "xlRcode";
+            questionBox.Icon = xlRcode.Properties.Resources.xlRcode;
+            questionBox.DefaultValue = "";
+            questionBox.ShowDialog();
+
+            string ans = questionBox.InputResponse;
+
+            //return WinFormsExtensions.ReadLine(tbConsoleExcel);
+            return ans;
         }
 
         public void ShowMessage(string message)
@@ -383,9 +409,14 @@ namespace xlRcode
         public void Busy(RDotNet.Internals.BusyType which)
         {
             if (which == RDotNet.Internals.BusyType.None)
-            { }
+            {
+                myfConsole.Controls["tableLayoutPanel"].Controls["loadingWheel"].Visible = false; 
+            }
             else if (which == RDotNet.Internals.BusyType.ExtendedComputation)
-            { }
+            {
+                myfConsole.Show();
+                myfConsole.Controls["tableLayoutPanel"].Controls["loadingWheel"].Visible = true; 
+            }
         }
 
         public void Callback()
@@ -503,8 +534,10 @@ namespace xlRcode
     public static class myRDotNet
     {
 
-        internal static void InitializeRDotNet()
+        internal static bool InitializeRDotNet()
         {
+
+            bool success = true;
 
             SetUp.rHome = Properties.Settings.Default.RHome;
             SetUp.rPath = Properties.Settings.Default.RPath;
@@ -546,8 +579,22 @@ namespace xlRcode
             }
             catch (Exception ex)
             {
-                LogDisplay.WriteLine("Error initializing RDotNet: " + ex.Message);
+                
+                success = false;
+
+                DialogResult d;
+                d = MessageBox.Show("Something went wrong with the initialization of the R engine. In the ribbon, go to xlRcode / SetUp and check your settings."
+                                    + System.Environment.NewLine
+                                    + System.Environment.NewLine
+                                    + ex.Message,
+                                    "xlRcode",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+
+                //LogDisplay.WriteLine("Error initializing RDotNet: " + ex.Message);
             }
+
+            return success;
         }
     }
 

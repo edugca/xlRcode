@@ -40,7 +40,11 @@ namespace xlRcode
                 || tbInitializationCode.Text.Replace("\r", "") != SetUp.initialInstructions.Replace("\r", "") ) 
             {
                 DialogResult d;
-                d = MessageBox.Show("You will have to manually restart Excel for changes to become effective. Do you want to continue?", "xlRcode", MessageBoxButtons.YesNo);
+                d = MessageBox.Show(this,
+                                    "You will have to manually restart Excel for changes to become effective. Do you want to continue?", 
+                                    "xlRcode",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Question);
 
                 if (d == DialogResult.Yes)
                 {

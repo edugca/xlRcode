@@ -49,36 +49,6 @@ namespace xlRcode
         }
 
 
-        [ExcelFunction(HelpTopic = "http://www.google.com")]
-        public static object XLRFUNCTION(string functionName, string functionComplement, params object[] paramsList)
-        {
-            int paramsCount = paramsList.Length;
-            string[] paramsListTypeNames = new string[paramsList.Length];
-            string[] paramsString = new string[paramsList.Length];
-
-            REnvironment env = _engine.GlobalEnvironment;
-
-            for (int i = 0; i < paramsList.Length; i++)
-            {
-                paramsListTypeNames[i] = paramsList[i].GetType().ToString();
-
-                xlR_ArgumentParser("xlR_param_" + i, paramsListTypeNames[i], paramsList[i], env);
-
-                paramsString[i] = "xlR_param_" + i;
-                
-            }
-
-
-            string expression = functionName + "(" + string.Join(",", paramsString) + ")" + functionComplement;
-            RichTextBox tbConsoleExcel = (RichTextBox)xlRcode.Global.myfConsole.Controls["tableLayoutPanel"].Controls["tabControlConsole"].Controls["tabPageConsoleExcel"].Controls["tbConsoleExcel"];
-            WinFormsExtensions.AppendLine(tbConsoleExcel, System.Environment.NewLine + expression, Color.Black, SetUp.rConsoleLineLimit);
-            SymbolicExpression result = _engine.Evaluate(expression);
-
-            return xlR_ConvertOutput(result);
-            
-        }
-
-
         private static void xlR_ArgumentParser(string paramName, string  paramsListTypeNames, object paramsList, REnvironment env)
         {
 
@@ -255,6 +225,69 @@ namespace xlRcode
 
 
         [ExcelFunction(HelpTopic = "http://www.google.com")]
+        public static object XLRFUNCTION(string functionName, string afterFunction, params object[] paramsList)
+        {
+            string environment = "xlRcode_localFunction_env";
+
+            // Define environment
+            REnvironment env = _engine.GlobalEnvironment;
+            if (environment.Length != 0)
+            {
+                if (_engine.Evaluate("exists('" + environment + "', mode='environment')", env).AsLogical()[0] == false)
+                {
+                    _engine.Evaluate(environment + " <- new.env()", env);
+                }
+                env = _engine.Evaluate(environment, env).AsEnvironment();
+            }
+
+            string[] paramsString = new string[paramsList.Length];
+            string[] paramsListTypeNames = new string[paramsList.Length];
+            for (int i = 0; i < paramsList.Length; i += 2)
+            {
+                string paramName = (string)paramsList[i];
+                string paramInternalName = "xlRcode_param_" + i.ToString();
+
+                if (paramName == "...")
+                {
+
+                    for (int j = i+1; j < paramsList.Length; j += 1)
+                    {
+                        paramInternalName = "xlRcode_param_" + j.ToString();
+                        
+                        paramsListTypeNames[j] = paramsList[j].GetType().ToString();
+                        
+                        xlR_ArgumentParser(paramInternalName, paramsListTypeNames[j], paramsList[j], env);
+                        
+                        paramsString[j] = paramInternalName;
+                    }
+
+                    break;
+                }
+                else 
+                {
+                    paramsString[i] = paramName + " = " + paramInternalName;
+                    
+                    paramsListTypeNames[i+1] = paramsList[i+1].GetType().ToString();
+                    
+                    xlR_ArgumentParser(paramInternalName, paramsListTypeNames[i + 1], paramsList[i + 1], env);
+                }
+                
+            }
+
+
+            paramsString = paramsString.Where(val => val != null).ToArray();
+            string expression = functionName + "(" + string.Join(",", paramsString) + ")" + afterFunction;
+
+            string commands = expression;
+
+            object result = XLRCODE_ENV(commands, environment);
+
+            return result;
+
+        }
+
+
+        [ExcelFunction(HelpTopic = "http://www.google.com")]
         public static object XLRCODE(string commands, params object[] paramsList)
         {
 
@@ -272,6 +305,8 @@ namespace xlRcode
         [ExcelFunction(HelpTopic = "http://www.google.com")]
         public static object XLRCODE_ENV(string commands, string environment, params object[] paramsList)
         {
+            // Check whether R engine has been correctly initialized
+            if (Global.isEngineWorking == false){ return "# R engine is not working"; }
 
             // Define environment
             REnvironment env = _engine.GlobalEnvironment;
@@ -308,7 +343,7 @@ namespace xlRcode
             }
             catch {
                 result = _engine.Evaluate("geterrmessage()");
-                WinFormsExtensions.AppendLine(tbConsoleExcel, result + System.Environment.NewLine, Color.Red, SetUp.rConsoleLineLimit);
+                WinFormsExtensions.AppendLine(tbConsoleExcel, result.AsCharacter().ToArray()[0] + System.Environment.NewLine, Color.Red, SetUp.rConsoleLineLimit);
             }
 
             //Block selection
@@ -322,18 +357,26 @@ namespace xlRcode
         }
 
 
-        public static string XLRCODE_Routine(string commands, bool silentCommands = false)
+        public static string XLRCODE_Routine(string commands, bool silentCommands = false, bool silentResult = false)
         {
-
-            REnvironment env = _engine.GlobalEnvironment;
-
-            SymbolicExpression result;
-
             // Define result string
             string dummyResultString = String.Empty;
             string msgWarnings = String.Empty;
             bool isError = false;
             bool isVisible = true;
+
+            RichTextBox tbConsoleCode = (RichTextBox)xlRcode.Global.myfConsole.Controls["tableLayoutPanel"].Controls["tabControlConsole"].Controls["tabPageConsoleCode"].Controls["tbConsoleCode"];
+
+            // Check whether R engine has been correctly initialized
+            if (Global.isEngineWorking == false)
+            {
+                dummyResultString = Environment.NewLine + "# R engine is not working";
+                goto Final;
+            }
+
+            REnvironment env = _engine.GlobalEnvironment;
+            SymbolicExpression result;
+            
 
             // Adapt commands to show visibility status
             //string adaptedCommands = "withVisible(" + commands + ");";
@@ -342,17 +385,17 @@ namespace xlRcode
             //string preCommands = "xlRcode_warningsAfter <- NULL; xlRcode_warningsBefore <- warnings(); assign('last.warning', NULL, envir = baseenv());";
             //string postCommands = "xlRcode_warningsAfter <- warnings(); if( length(last.warning)==0 ){ assign('last.warning', xlRcode_warningsBefore, envir = baseenv()) };";
 
-            RichTextBox tbConsoleCode = (RichTextBox)xlRcode.Global.myfConsole.Controls["tableLayoutPanel"].Controls["tabControlConsole"].Controls["tabPageConsoleCode"].Controls["tbConsoleCode"];
+            if (!silentCommands)
+            {
+                WinFormsExtensions.AppendLine(tbConsoleCode, commands + System.Environment.NewLine, Color.Blue, SetUp.rConsoleLineLimit);
+            }
+            else { WinFormsExtensions.AppendLine(tbConsoleCode, System.Environment.NewLine, Color.Blue, SetUp.rConsoleLineLimit); }
+
             try
             {
-                if (!silentCommands)
-                {
-                    WinFormsExtensions.AppendLine(tbConsoleCode, commands + System.Environment.NewLine, Color.Blue, SetUp.rConsoleLineLimit);
-                }
-                else { WinFormsExtensions.AppendLine(tbConsoleCode, System.Environment.NewLine, Color.Blue, SetUp.rConsoleLineLimit);  }
-
+                
                 // Check if code is syntatically perfect
-                SymbolicExpression hasParsed = _engine.Evaluate("str2expression('" + commands + "')", env);
+                SymbolicExpression hasParsed = _engine.Evaluate("str2expression('" + commands.Replace("'", "\\'") + "')", env);
 
                 //_engine.Evaluate(preCommands, env);
                 result = _engine.Evaluate(commands, env);
@@ -390,7 +433,7 @@ namespace xlRcode
             else
             {
                 // Check for null result
-                if (result == null || result.Type.ToString() == "Null")
+                if (result == null || result.Type.ToString() == "Null" || result.Type.ToString() == "Closure")
                 {
                     //return dummyResultString;
                 }
@@ -398,10 +441,12 @@ namespace xlRcode
                 {
                     try
                     {
+
                         CharacterMatrix resultObj = result.AsCharacterMatrix();
                         int nRows = resultObj.RowCount;
                         int nCols = resultObj.ColumnCount;
                         bool resultIsList = result.IsList();
+                        bool resultIsString = result.Type.ToString() == "CharacterVector";
 
                         CharacterMatrix listNames = null;
                         if (resultIsList) 
@@ -409,23 +454,39 @@ namespace xlRcode
                             listNames = result.GetAttribute("names").AsCharacterMatrix();
                         }
 
-                        if (nRows == 1 && nCols == 1)
+                        if (nRows == 0 && nCols == 1)
                         {
+                            if (resultObj.AsCharacter().Length == 0)
+                            {
+                                if (resultIsString)
+                                { dummyResultString += "character(0)"; }
+                                else { dummyResultString += "numeric(0)"; }
+
+                            }
+                        }
+                        else if (nRows == 1 && nCols == 1)
+                        {
+                            string val = resultObj.AsCharacter()[0];
+                            if (resultIsString & !isError)
+                            {
+                                val =  "\"" + val + "\"";
+                            }
+
                             if (!isError)
                             {
                                 if (!resultIsList)
                                 {
-                                    dummyResultString += "[1] " + resultObj.AsCharacter()[0];
+                                    dummyResultString += "[1] " + val;
                                 }
                                 else
                                 {
-                                    dummyResultString += "$" + listNames[0,0] + Environment.NewLine + resultObj.AsCharacter()[0];
+                                    dummyResultString += "$" + listNames[0,0] + Environment.NewLine + val;
                                 }
                                 
                             }
                             else 
                             {
-                                dummyResultString += resultObj.AsCharacter()[0];
+                                dummyResultString += val;
                             }
                         }
                         else if (nCols == 1)
@@ -483,6 +544,8 @@ namespace xlRcode
 
             }
 
+            Final:
+
             // Append warnings
             if (msgWarnings.Length != 0) {
                 if (dummyResultString.Length != 0)
@@ -505,8 +568,13 @@ namespace xlRcode
                 msgColor = Color.Black;
                 if (dummyResultString.Length != 0) { dummyResultString += Environment.NewLine; }
             }
-            
-            WinFormsExtensions.AppendLine(tbConsoleCode, dummyResultString, msgColor, SetUp.rConsoleLineLimit);
+
+
+            if (!silentResult)
+            {
+                WinFormsExtensions.AppendLine(tbConsoleCode, dummyResultString, msgColor, SetUp.rConsoleLineLimit);
+            }
+            else { WinFormsExtensions.AppendLine(tbConsoleCode, System.Environment.NewLine, Color.Blue, SetUp.rConsoleLineLimit); }
 
             return dummyResultString;
 
@@ -598,8 +666,21 @@ namespace xlRcode
                             hasColNames = true;
                             rowNamesField = "dimnames";
                             colNamesField = "dimnames";
-                            rowNames = _engine.Evaluate(result.GetAttribute(rowNamesField).AsCharacter().ToArray()[0]).AsCharacter().ToArray();
-                            colNames = _engine.Evaluate(result.GetAttribute(colNamesField).AsCharacter().ToArray()[1]).AsCharacter().ToArray();
+
+                            var rowNamesVar = _engine.Evaluate(result.GetAttribute(rowNamesField).AsCharacter().ToArray()[0]).AsCharacter();
+                            if (rowNamesVar != null)
+                            {
+                                rowNames = rowNamesVar.ToArray();
+                            }
+                            else { hasRowNames = false; }
+                            
+                            var colNamesVar = _engine.Evaluate(result.GetAttribute(colNamesField).AsCharacter().ToArray()[1]).AsCharacter();
+                            if (colNamesVar != null)
+                            {
+                                colNames = colNamesVar.ToArray();
+                            }
+                            else { hasColNames = false; }
+
                         }
 
 
@@ -803,20 +884,25 @@ namespace xlRcode
         public static DataTable ArraytoDatatable(Object[,] numbers)
         {
             DataTable dt = new DataTable();
-            for (int i = 0; i < numbers.GetLength(1); i++)
-            {
-                dt.Columns.Add("Column" + (i + 1));
-            }
 
-            for (var i = 0; i < numbers.GetLength(0); ++i)
+            if (numbers != null)
             {
-                DataRow row = dt.NewRow();
-                for (var j = 0; j < numbers.GetLength(1); ++j)
+                for (int i = 0; i < numbers.GetLength(1); i++)
                 {
-                    row[j] = numbers[i, j];
+                    dt.Columns.Add("Column" + (i + 1));
                 }
-                dt.Rows.Add(row);
+
+                for (var i = 0; i < numbers.GetLength(0); ++i)
+                {
+                    DataRow row = dt.NewRow();
+                    for (var j = 0; j < numbers.GetLength(1); ++j)
+                    {
+                        row[j] = numbers[i, j];
+                    }
+                    dt.Rows.Add(row);
+                }
             }
+            
             return dt;
         }
     }

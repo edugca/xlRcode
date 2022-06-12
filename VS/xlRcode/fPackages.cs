@@ -27,6 +27,9 @@ namespace xlRcode
 
         private void loadPackages()
         {
+            // Check whether R engine has been correctly initialized
+            if (Global.isEngineWorking == false) { return; }
+
             // LOADING
             SetLoading(loadingImage_Installed, true);
 
@@ -41,9 +44,12 @@ namespace xlRcode
             // Fill in table
             DataTable dtPackages = new DataTable();
             dtPackages = Helpers.ArraytoDatatable(listPackages);
-            dtPackages.Columns[0].ColumnName = "Package";
-            dtPackages.Columns[1].ColumnName = "Version";
-            dtPackages.Columns[2].ColumnName = "Loaded";
+            if (dtPackages != null)
+            {
+                dtPackages.Columns[0].ColumnName = "Package";
+                dtPackages.Columns[1].ColumnName = "Version";
+                dtPackages.Columns[2].ColumnName = "Loaded";
+            }
 
             dgvInstalled.DataSource = dtPackages;
 
@@ -70,7 +76,7 @@ namespace xlRcode
             }
 
             string code = String.Empty;
-            if (nRows == nRowsNotLoaded)
+            if (nRows == nRowsNotLoaded & nRows > 0)
             {
                 // LOAD ALL SELECTED PACKAGES
                 foreach (DataGridViewRow r in dvg.SelectedRows)
@@ -82,7 +88,7 @@ namespace xlRcode
                 writeToCodeConsole(code);
 
             }
-            else if (nRowsNotLoaded == 0)
+            else if (nRowsNotLoaded == 0 & nRows > 0)
             {
                 // UNLOAD ALL SELECTED PACKAGES
                 foreach (DataGridViewRow r in dvg.SelectedRows)
@@ -96,7 +102,7 @@ namespace xlRcode
             else
             {
                 DialogResult d;
-                d = MessageBox.Show("You must select only loaded or only not loaded packages.", "xlRcode");
+                d = MessageBox.Show(this, "You must select either only loaded or only not loaded packages.", "xlRcode");
             }
 
         }
@@ -143,6 +149,9 @@ namespace xlRcode
 
         private void loadCRAN()
         {
+            // Check whether R engine has been correctly initialized
+            if (Global.isEngineWorking == false) { return; }
+
             // LOADING
             SetLoading(loadingImage_CRAN, true);
 
@@ -189,6 +198,7 @@ namespace xlRcode
             DataGridView dvg = dgvCRAN;
 
             int nRows = dvg.SelectedRows.Count;
+            int iPckg = 0;
 
             if (nRows > 0)
             {
@@ -197,8 +207,13 @@ namespace xlRcode
                 // INSTALL ALL SELECTED PACKAGES
                 foreach (DataGridViewRow r in dvg.SelectedRows)
                 {
+                    iPckg++;
                     string pck = r.Cells[0].Value.ToString();
-                    code += "install.packages('" + pck + "')" + Environment.NewLine;
+                    if (iPckg > 1)
+                    {
+                        code += System.Environment.NewLine;
+                    }
+                    code += "install.packages('" + pck + "')";
                 }
                 this.Close();
                 writeToCodeConsole(code);
@@ -206,7 +221,7 @@ namespace xlRcode
             else if (nRows == 0)
             {
                 DialogResult d;
-                d = MessageBox.Show("You must select at least one package to install.", "xlRcode");
+                d = MessageBox.Show(this, "You must select at least one package to install.", "xlRcode");
             }
         }
 
@@ -232,7 +247,7 @@ namespace xlRcode
             else if (nRows == 0)
             {
                 DialogResult d;
-                d = MessageBox.Show("You must select at least one package to install.", "xlRcode");
+                d = MessageBox.Show(this, "You must select at least one package to uninstall.", "xlRcode");
             }
         }
 
@@ -240,8 +255,8 @@ namespace xlRcode
         {
             myfConsole.Show();
             RichTextBox tb = (RichTextBox)xlRcode.Global.myfConsole.Controls["tableLayoutPanel"].Controls["tabControlConsole"].Controls["tabPageConsoleCode"].Controls["tbConsoleCode"];
-            object result = xlRcode.MyFunctions.XLRCODE_Routine(code, false);
-            WinFormsExtensions.AppendLine(tb, result + System.Environment.NewLine + "> ", Color.Black, SetUp.rConsoleLineLimit);
+            object result = xlRcode.MyFunctions.XLRCODE_Routine(code, false, false);
+            WinFormsExtensions.AppendLine(tb, System.Environment.NewLine + "> ", Color.Black, SetUp.rConsoleLineLimit);
             tb.SelectAll();
             tb.SelectionProtected = true;
             tb.Select(tb.Text.Length, 0);

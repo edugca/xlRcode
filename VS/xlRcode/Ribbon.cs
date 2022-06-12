@@ -32,6 +32,7 @@ namespace Ribbon
                     <group id='group_main' label='Main'>
                         <button id='button_console' label='Console' onAction='OnButtonPressed_Console' imageMso='CodeEdit'/>
                         <button id='button_graphic' label='Graphic' onAction='OnButtonPressed_Graphic' imageMso='ChartInsert'/>
+                        <button id='button_environment' label='Environment' onAction='OnButtonPressed_Environment' imageMso='ObjectsUngroup'/>
                         <button id='button_clearObjects' label='Clear objects' onAction='OnButtonPressed_ClearObjects' getImage='GetCustomImage_clearObjects'/>
                         <button id='button_garbageCollector' label='Garbage collector' onAction='OnButtonPressed_GarbageCollector' imageMso='EmptyTrash'/>
                     </group>
@@ -67,14 +68,13 @@ namespace Ribbon
         public void OnButtonPressed_Packages(IRibbonControl control)
         {
             Form f = new xlRcode.fPackages(); // Instantiate a Form object.
-            f.ShowDialog();
+            f.Show();
         }
 
         public void OnButtonPressed_Console(IRibbonControl control)
         {
             //Form myfConsole = new xlR.fConsole(); // Instantiate a Form object.
             xlRcode.Global.myfConsole.Show();
-            xlRcode.Global.myfConsole.BringToFront();
         }
 
         public void OnButtonPressed_Graphic(IRibbonControl control)
@@ -82,24 +82,33 @@ namespace Ribbon
             xlRcode.MyFunctions.XLRCODE("x11()");
         }
 
+        public void OnButtonPressed_Environment(IRibbonControl control)
+        {
+            Form f = new xlRcode.fEnvironment(); // Instantiate a Form object.
+            f.Show();
+        }
+
         public void OnButtonPressed_GarbageCollector(IRibbonControl control)
         {
             //Call garbage collector
-            xlRcode.MyFunctions.XLRCODE("gc()");
+            xlRcode.MyFunctions.XLRCODE_ENV("gc()", "");
 
             
-            DialogResult d;
-            d = MessageBox.Show("Garbage collected!", "xlRcode");
+            //DialogResult d;
+            //d = MessageBox.Show("Garbage collected!", "xlRcode");
         }
 
         public void OnButtonPressed_ClearObjects(IRibbonControl control)
         {
             //Clear objects from the workspace
-            xlRcode.MyFunctions.XLRCODE("rm(list = ls())");
-            xlRcode.MyFunctions.XLRCODE( File.ReadAllText(xlRcode.Properties.Settings.Default.InitializationCodeFile) );
+            xlRcode.MyFunctions.XLRCODE_ENV("rm(list = ls())", "");
+            xlRcode.MyFunctions.XLRCODE_ENV( File.ReadAllText(xlRcode.Properties.Settings.Default.InitializationCodeFile), "" );
+            
+            // Run all scripts in the Functions Folder
+            xlRcode.AddIn.RunFunctionScripts();
 
-            DialogResult d;
-            d = MessageBox.Show("Objects cleared!", "xlRcode");
+            //DialogResult d;
+            //d = MessageBox.Show("Objects cleared!", "xlRcode");
         }
 
         public void OnButtonPressed_RegisterFunctions(IRibbonControl control)
@@ -111,7 +120,7 @@ namespace Ribbon
         public void OnButtonPressed_excelConsole(IRibbonControl control)
         {
             //Form myfConsole = new xlR.fConsole(); // Instantiate a Form object.
-            xlRcode.CTPManager.ShowCTP();
+            xlRcode.dCTPManager.ShowCTP();
         }
 
         public void OnButtonPressed_CalculateRange(IRibbonControl control)
@@ -122,8 +131,13 @@ namespace Ribbon
             try
             {
                 Excel.Range selectedRange = (Excel.Range)(xlApp.Selection);
-                selectedRange.Dirty();
-                selectedRange.Calculate();
+
+                if (selectedRange != null)
+                {
+                    selectedRange.Dirty();
+                    selectedRange.Calculate();
+                }
+                
             }
             catch
             {
