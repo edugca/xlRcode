@@ -11,12 +11,12 @@ For documentation, check the spreadsheet file "xlRcode - Main.xlsx".
 	
 New Excel functions				
 				
-	XLRCODE				Run R code in a local environment and transfer values from and to Excel. Function memory is cleared after calculation.
-	XLRCODE_ENV			Run R code in a pre-specified environment and transfer values from and to Excel
-	XLRSCRIPT			Run R script in a local environment and transfer values from and to Excel. Function memory is cleared after calculation.
-	XLRSCRIPT_ENV		Run R script in a pre-specified environment and transfer values from and to Excel
-	XLRFUNCTION			Call an R function in a local environment and transfer values from and to Excel
-	XLRFUNCTION_ENV		Call an R function in a pre-specified environment and transfer values from and to Excel
+XLRCODE				Run R code in a local environment and transfer values from and to Excel. Function memory is cleared after calculation.
+XLRCODE_ENV			Run R code in a pre-specified environment and transfer values from and to Excel
+XLRSCRIPT			Run R script in a local environment and transfer values from and to Excel. Function memory is cleared after calculation.
+XLRSCRIPT_ENV			Run R script in a pre-specified environment and transfer values from and to Excel
+XLRFUNCTION			Call an R function in a local environment and transfer values from and to Excel
+XLRFUNCTION_ENV			Call an R function in a pre-specified environment and transfer values from and to Excel
 
 ## Requirements?
 
@@ -26,7 +26,7 @@ This add-in has been tested on Microsoft Excel 365 64-bit. It may work with othe
 
 You are going to need to have R installed on your machine. You can download an installer from here: https://cran.r-project.org/index.html.
 
-This add-in was tested with R v. 4.0.2. It may work with other versions.
+This add-in was tested with R v. 4.0.2. It may work with other versions, though.
 
 If you already have R installed on your machine, you may wish to make an independent installation just for this add-in. It is up to you.
 
