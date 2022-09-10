@@ -1,4 +1,0 @@
-﻿myFunction <- function()
-    {
-        1
-    }

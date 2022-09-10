@@ -1,22 +1,29 @@
+# This collection of functions provides useful functions
 #
-# Somar 2 valores
+# Author: Eduardo G C Amaral
+# Last update: September 10, 2022
 #
-Somar2Valores <- function(x, y){
+# Use at your own risk
+
+#
+# Sum 2 values
+#
+Sum2Values <- function(x, y){
   x + y
 }
 
 #
-# Somar N valores
+# Sum N values
 #
-SomarNValores <- function(...){
+SumNValues <- function(...){
   sum(...)
 }
 
 #
-# Produto elemento a elemento de 2 vetores (retorna um vetor)
+# Multiply element by element 2 vectors (returns a vector)
 #
-ProdutoVetores <- function(vetor1, vetor2){
-  vetor1 * vetor2
+MultiplyVectors <- function(vector1, vector2){
+  vector1 * vector2
 }
 
 

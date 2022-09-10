@@ -1,7 +1,7 @@
 # This collection of functions provides access to FILTER methods
 #
 # Author: Eduardo G C Amaral
-# Last update: March 26, 2021
+# Last update: September 10, 2022
 #
 # Use at your own risk
 
@@ -10,32 +10,11 @@
 
 local({
   
-        # Define project for safe replication
-        #packrat::init("~/filters")
-
+        # List of necessary packages to be installed from online repository
         #
-        # Change repository so as to only get packages up to R version 3.5.X
-        #  
-        #r_compatible <- getOption("repos")
-        #r_compatible["CRAN"] <- "https://cran.microsoft.com/snapshot/2019-04-15/" 
-        #options(repos=r_compatible)
-
-        #
-        # List of necessary packages to be installed from compatible repository
-        #
-        #list.of.packages <- c("packrat")
-        #new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-        #if(length(new.packages)) install.packages(new.packages)
-
-
-        #
-        # List of packages to be installed from specific repository
-        #
-        #r_specific <- getOption("repos")
-        #r_specific["CRAN"] <- "https://cran.microsoft.com/snapshot/2021-03-28/" 
-        #list.of.packages <- c("mFilter")
-        #new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-        #if(length(new.packages)) install.packages(new.packages, repos = r_specific)
+        list.of.packages <- c("mFilter")
+        new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+        if(length(new.packages)) install.packages(new.packages)
 
 })
 
