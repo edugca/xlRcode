@@ -52,7 +52,7 @@ Whenever you open Excel, the add-in should be automatically loaded now!
 10) You will need to set the paths for the folders of your R installation.
 11) R Home should be equivalent to "C:\Program Files\R\R-x.x.x", where x.x.x stands for the version of your R installation.
 12) R Path should be equivalent to "C:\Program Files\R\R-x.x.x\bin\yyy", where x.x.x stands for the version of your R installation and yyy is either x64 or i386. If your Excel is 32-bits, you should choose i386.
-13) Scripts folder could be any folder, but I strongly advise you either to select the subfolder "R Scripts" located inside the folder you installed xlRcode or copy the scripts located there to your scripts folder.
+13) Scripts folder could be any folder, but I strongly advise you to either select the subfolder "R Scripts" located inside the folder you installed xlRcode or copy the scripts located there to your scripts folder.
 14) You will not be able to pick a packages repository until you restart Excel. Later on, feel free to do it.
 15) Click on the "Save" button.
 16) Restart Excel!
