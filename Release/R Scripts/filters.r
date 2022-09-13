@@ -1,7 +1,7 @@
 # This collection of functions provides access to FILTER methods
 #
 # Author: Eduardo G C Amaral
-# Last update: September 10, 2022
+# Last update: September 11, 2022
 #
 # Use at your own risk
 
@@ -40,6 +40,11 @@ filterHP <- function(values, trendOrCycle = 'C', lambdaParameter = 14400, hasDri
     errorMsg = '# hasDrift must be TRUE or FALSE'
     return(errorMsg)
   }
+  isColumn <- TRUE
+  if( dim(values)[1] == 1 ){
+	isColumn <- FALSE
+	values <- matrix(values)
+  }
 
   # Convert values to time series
   valuesTS <- ts(values)
@@ -49,12 +54,19 @@ filterHP <- function(values, trendOrCycle = 'C', lambdaParameter = 14400, hasDri
 
   # Define return value
   if (toupper(trendOrCycle) == 'T' || toupper(trendOrCycle) == 'TREND'){
-    as.numeric(filtered$trend)
+    final <- as.numeric(filtered$trend)
   } else if (toupper(trendOrCycle) == 'C' || toupper(trendOrCycle) == 'CYCLE'){
-    as.numeric(filtered$cycle)
+    final <- as.numeric(filtered$cycle)
   } else {
     errorMsg = '# trendOrCycle must be T (or TREND) or C (or CYCLE)'
     return(errorMsg)
+  }
+
+  # Transpose if needed
+  if (isColumn){
+	final
+  } else {
+	t(final)
   }
 
   #print(unemp.hp)
@@ -76,6 +88,17 @@ filterTS <- function(values, trendOrCycle, filterName = 'HP', ...){
 
   # Load packages
   library(mFilter)
+
+  # Treat arguments
+  if( !any(toupper(trendOrCycle) , c('T', 'C', 'TREND', 'CYCLE') ) ){
+    errorMsg = '# trendOrCycle must be "T", "C", "TREND" or "CYCLE"'
+    return(errorMsg)
+  }
+  isColumn <- TRUE
+  if( dim(values)[1] == 1 ){
+	isColumn <- FALSE
+	values <- matrix(values)
+  }
 
   valuesTS <- ts(values)
 
