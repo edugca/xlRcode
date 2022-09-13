@@ -39,7 +39,7 @@ If you already have R installed on your machine, you may wish to make an indepen
 
 1) At the top-right corner of this webpage, click on "Code" and then on "Download ZIP".
 2) Find on your computer the zip file you have just downloaded.
-3) Extract all files in Release subfolder of the zip file to a folder on your computer. This is where the add-in will be installed.
+3) Extract all files in the Release subfolder of the zip file to a folder on your computer. This is where the add-in will be installed.
 4) Open Excel. Go to File / Options / Add-ins. Then on the drop-down named "Manage", select "Excel Add-ins" and click on "Go...".
 5) It will pop-up a window named "Add-ins". Click on "Browse...".
 6) Find the folder you have created for installing the add-in. From there access the subfolder "Release" and select the file xlRcode-AddIn64.xll. If your Excel is 32-bits, you should select xlRcode-AddIn.xll instead. Click on the "Open" button.
