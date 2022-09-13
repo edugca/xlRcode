@@ -19,7 +19,7 @@ New Excel functions
 - **XLRSCRIPT_ENV**
   - Run R script in a pre-specified environment and transfer values from and to Excel
 - **XLRFUNCTION**
-  - Call an R function in a local environment and transfer values from and to Excel
+  - Call an R function in a local environment and transfer values from and to Excel. Function memory is cleared after calculation.
 - **XLRFUNCTION_ENV**
   - Call an R function in a pre-specified environment and transfer values from and to Excel
 
@@ -51,9 +51,11 @@ Whenever you open Excel, the add-in should be automatically loaded now!
 9) Click on the button "SetUp". A window named "xlRcode SetUp" will pop-up.
 10) You will need to set the paths for the folders of your R installation.
 11) R Home should be equivalent to "C:\Program Files\R\R-x.x.x", where x.x.x stands for the version of your R installation.
-12) R Path should be equivalent to "C:\Program Files\R\R-x.x.x\bin\x64", where x.x.x stands for the version of your R installation.
-13) Click on the "Save" button.
-14) Restart Excel!
+12) R Path should be equivalent to "C:\Program Files\R\R-x.x.x\bin\yyy", where x.x.x stands for the version of your R installation and yyy is either x64 or i386. If your Excel is 32-bits, you should choose i386.
+13) Scripts folder could be any folder, but I strongly advise you to either select the subfolder "R Scripts" located inside the folder you installed xlRcode or copy the scripts located there to your scripts folder.
+14) You will not be able to pick a packages repository until you restart Excel. Later on, feel free to do it.
+15) Click on the "Save" button.
+16) Restart Excel!
 
 That should do the trick!
 
