@@ -1,4 +1,4 @@
-# xlRcode (v. 0.1.1)
+# xlRcode (v. 0.1.2)
 
 Call R from Excel. Create new Excel functions that make use of R packages. Integrate both tools seamlessly.
 
@@ -18,9 +18,9 @@ New Excel functions
   - Run R script in a local environment and transfer values from and to Excel. Function memory is cleared after calculation.
 - **XLRSCRIPT_ENV**
   - Run R script in a pre-specified environment and transfer values from and to Excel
-- **XLRFUNCTION**
+- **XLRFUNC**
   - Call an R function in a local environment and transfer values from and to Excel. Function memory is cleared after calculation.
-- **XLRFUNCTION_ENV**
+- **XLRFUNC_ENV**
   - Call an R function in a pre-specified environment and transfer values from and to Excel
 
 ## Requirements
@@ -74,6 +74,24 @@ That should do the trick!
 That should do the trick!
 
 ## History
+
+### v. 0.1.2
+Major change, minor improvements and bug handling.
+- Major change: functions XLRFUNCTION and XLRFUNCTION_ENV were renamed to XLRFUNC and XLRFUNC_ENV, respectively;
+- Improvement: functions XLRFUNCTION and XLRFUNCTION_ENV now accept datatype coercion suffixes in their parameter names.
+- Improvement: the R datatype Sys.Date is now recognized and automatically converted to Excel dates when it is the output of a xlRcode function.
+- Improvement: the R datatype Sys.Date is now displayed in the format 'YYYY-mm-dd' in the console. It was being displayed as an integer.
+- Improvement: new function XLRDATE allows the user to convert dates from Excel to R and vice-versa.
+- Improvement: new functionality allows the user to automatically convert R functions into Excel Lambda ones; the button "Make it Lambda" was added to the Ribbon tab.
+- Improvement: functions will not recalculate if the function wizard is open. This avoids long waitings and freezing in case of very slow calculations.
+- Improvement: registering/logging of Excel calls to xlRcode is optional now. It was added a checkbox to the SetUp form to control this. When disabled (default), it should improve speed.
+- Improvement: the button "Reload scripts" was added to the Ribbon tab.
+- Improvement: when button "Calculate range" is pressed, a message is displayed at Excel's Status Bar while calculating.
+- Improvement: added an informative handler for unhandled exceptions with ExcelDna (ExcelIntegration.RegisterUnhandledExceptionHandler).
+- Bug fix: loading scripts from the Scripts folder with syntax errors or dependency of resources in uninstalled/unloaded packages was raising untreated error. Informative message was implemented.
+- Bug fix: calling xlRcode functions and leaving the argument of the last parameter missing was making that parameter to be ignored instead of treated as missing.
+- Bug fix: listing Environment objects when there was a missing object raised untreated error.
+- Bug fix: script files in subfolders of the Scripts folder were being ignored during start-up.
 
 ### v. 0.1.1
 Minor improvements and bug handling.
