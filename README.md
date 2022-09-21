@@ -22,6 +22,8 @@ New Excel functions
   - Call an R function in a local environment and transfer values from and to Excel. Function memory is cleared after calculation.
 - **XLRFUNC_ENV**
   - Call an R function in a pre-specified environment and transfer values from and to Excel.
+- **XLRDATE**
+  - Convert Excel dates to R dates or vice-versa.
 
 ## Requirements
 
