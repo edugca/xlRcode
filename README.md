@@ -13,15 +13,15 @@ New Excel functions
 - **XLRCODE**
   - Run R code in a local environment and transfer values from and to Excel. Function memory is cleared after calculation.
 - **XLRCODE_ENV**
-  - Run R code in a pre-specified environment and transfer values from and to Excel
+  - Run R code in a pre-specified environment and transfer values from and to Excel.
 - **XLRSCRIPT**
   - Run R script in a local environment and transfer values from and to Excel. Function memory is cleared after calculation.
 - **XLRSCRIPT_ENV**
-  - Run R script in a pre-specified environment and transfer values from and to Excel
+  - Run R script in a pre-specified environment and transfer values from and to Excel.
 - **XLRFUNC**
   - Call an R function in a local environment and transfer values from and to Excel. Function memory is cleared after calculation.
 - **XLRFUNC_ENV**
-  - Call an R function in a pre-specified environment and transfer values from and to Excel
+  - Call an R function in a pre-specified environment and transfer values from and to Excel.
 
 ## Requirements
 
