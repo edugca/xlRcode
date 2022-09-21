@@ -76,9 +76,10 @@ That should do the trick!
 ## History
 
 ### v. 0.1.3
-Major change, minor improvements and bug handling.
+Bug handling.
 - Bug fix: boolean arguments in the xlRcode functions were not being correctly parsed from Excel to R.
 - Bug fix: strict type parsing of arguments in "Make it Lambda" functions was not working and it was disabled for now.
+- Bug fix: last optional argument of xlRcode functions was not being transferred from Excel to R.
 
 ### v. 0.1.2
 Major change, minor improvements and bug handling.
