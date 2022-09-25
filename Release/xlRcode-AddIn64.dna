@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DnaLibrary Name="xlRcode Add-In" RuntimeVersion="v4.0" xmlns="http://schemas.excel-dna.net/addin/2020/07/dnalibrary">
-	<ExternalLibrary Path="xlRcode.dll" ExplicitExports="false" LoadFromBytes="true" Pack="true" IncludePdb="false" ExplicitRegistration="true" />
+	<ExternalLibrary Path="xlRcode.dll" ExplicitExports="false" ExplicitRegistration="true" LoadFromBytes="true" Pack="true" IncludePdb="false" />
 
 	<Reference Path="ExcelDna.Registration.dll" Pack="true" />
 

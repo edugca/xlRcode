@@ -1,4 +1,4 @@
-# xlRcode (v. 0.1.3)
+# xlRcode (v. 0.1.4)
 
 Call R from Excel. Create new Excel functions that make use of R packages. Integrate both tools seamlessly.
 
@@ -77,6 +77,15 @@ That should do the trick!
 
 ## History
 
+### v. 0.1.4
+Minor improvements and bug handling.
+- Improvement: xlRcode functions have now full descriptions, including their arguments, in the Function Wizard.
+- Improvement: xlRcode functions have now intellisense.
+- Improvement: user can specify a packages library folder at the SetUp form.
+- Bug fix: arguments of functions XLRCODE, XLRFUNC and XLRSCRIPT were being processed in the global environment instead of a temporary one.
+- Bug fix: non-modal forms were being exhibited at the top of all windows, including those outside Excel. Now, they are exhibited at the top of Excel.
+- Bug fix: listing Environment objects when object was boolean raised untreated error.
+
 ### v. 0.1.3
 Bug handling.
 - Bug fix: boolean arguments in the xlRcode functions were not being correctly parsed from Excel to R.
@@ -91,7 +100,7 @@ Major change, minor improvements and bug handling.
 - Improvement: the R datatype Sys.Date is now displayed in the format 'YYYY-mm-dd' in the console. It was being displayed as an integer.
 - Improvement: new function XLRDATE allows the user to convert dates from Excel to R and vice-versa.
 - Improvement: new functionality allows the user to automatically convert R functions into Excel Lambda ones; the button "Make it Lambda" was added to the Ribbon tab.
-- Improvement: functions will not recalculate if the function wizard is open. This avoids long waitings and freezing in case of very slow calculations.
+- Improvement: functions will not recalculate if the Function Wizard is open. This avoids long waitings and freezing in case of very slow calculations.
 - Improvement: registering/logging of Excel calls to xlRcode is optional now. It was added a checkbox to the SetUp form to control this. When disabled (default), it should improve speed.
 - Improvement: the button "Reload scripts" was added to the Ribbon tab.
 - Improvement: when button "Calculate range" is pressed, a message is displayed at Excel's Status Bar while calculating.
