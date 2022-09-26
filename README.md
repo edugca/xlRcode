@@ -1,4 +1,4 @@
-# xlRcode (v. 0.1.4)
+# xlRcode (v. 0.1.5)
 
 Call R from Excel. Create new Excel functions that make use of R packages. Integrate both tools seamlessly.
 
@@ -76,6 +76,10 @@ That should do the trick!
 That should do the trick!
 
 ## History
+
+### v. 0.1.5
+Minor improvement.
+- Improvement: xlRcode was not passing through some anti-virus detectors due to a false alert raised for ExcelDna XLL files. Packing was disabled for it is unnecessary and ExcelDna was updated to version 1.6.0-rc1.
 
 ### v. 0.1.4
 Minor improvements and bug handling.
