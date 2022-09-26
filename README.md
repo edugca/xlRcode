@@ -39,7 +39,7 @@ If you already have R installed on your machine, you may wish to make an indepen
 
 ## How to install for the first time?
 
-1) At the top-right corner of this webpage, click on "Code" and then on "Download ZIP".
+1) On this webpage, download the ZIP file with the latest version of xlRcode.
 2) Find on your computer the zip file you have just downloaded.
 3) Extract all files in the Release subfolder of the zip file to a folder on your computer. This is where the add-in will be installed.
 4) Open Excel. Go to File / Options / Add-ins. Then on the drop-down named "Manage", select "Excel Add-ins" and click on "Go...".
@@ -66,7 +66,7 @@ That should do the trick!
 1) Close Excel.
 2) If, by any chance, your Scripts folder is inside the folder you previously installed this addin and you have added or made changes to any of its scripts, make a backup copy of your Scripts folder.
 3) Go to the folder you previously installed this addin and delete all of its contents.
-4) At the top-right corner of this webpage, click on "Code" and then on "Download ZIP".
+4) On this webpage, download the ZIP file with the latest version of xlRcode.
 5) Find on your computer the zip file you have just downloaded.
 6) Extract all files in the zip file to the same folder in your computer you had previously installed the add-in.
 7) If step-2 advice applies to you, this is the time to bring the backup scripts back to their original folder.
