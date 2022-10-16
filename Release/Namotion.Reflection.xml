@@ -619,6 +619,13 @@
             <exception cref="T:System.NotSupportedException">The System.IO.File API is not available on this platform.</exception>
         </member>
         <member name="M:Namotion.Reflection.Infrastructure.DynamicApis.DirectoryGetAllFiles(System.String,System.String)">
+            <summary>Gets all files of directory and its sub-directories.</summary>
+            <param name="path">The directory path.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <returns>true or false</returns>
+            <exception cref="T:System.NotSupportedException">The System.IO.Directory API is not available on this platform.</exception>
+        </member>
+        <member name="M:Namotion.Reflection.Infrastructure.DynamicApis.DirectoryGetFiles(System.String,System.String)">
             <summary>Gets all files of directory.</summary>
             <param name="path">The directory path.</param>
             <param name="searchPattern">The search pattern.</param>
@@ -691,6 +698,38 @@
             Caching layer hiding the details of accessing DLL documentation.
             </summary>
         </member>
+        <member name="T:Namotion.Reflection.StringBuilderExtensions">
+            <summary>
+            Contains extension for <see cref="T:System.Text.StringBuilder"/>.
+            </summary>
+        </member>
+        <member name="M:Namotion.Reflection.StringBuilderExtensions.Append(System.Text.StringBuilder,System.String[])">
+            <summary>
+            Allows to append multiple strings to the <see cref="T:System.Text.StringBuilder"/> at once.
+            </summary>
+            <remarks>
+            Only strings that are neither <c>null</c> nor <c>string.Empty</c> will be added.
+            </remarks>
+            <param name="stringBuilder">The instance of <see cref="T:System.Text.StringBuilder"/>.</param>
+            <param name="values">The values to appends.</param>
+            <returns>The value of <paramref name="stringBuilder"/>.</returns>
+        </member>
+        <member name="M:Namotion.Reflection.StringBuilderExtensions.Append(System.Text.StringBuilder,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Allows to append multiple strings to the <see cref="T:System.Text.StringBuilder"/> at once.
+            </summary>
+            <remarks>
+            Only strings that are neither <c>null</c> nor <c>string.Empty</c> will be added.
+            </remarks>
+            <param name="stringBuilder">The instance of <see cref="T:System.Text.StringBuilder"/>.</param>
+            <param name="value1">First value to append.</param>
+            <param name="value2">Second value to append.</param>
+            <param name="value3">Third value to append. (optional)</param>
+            <param name="value4">Fourth value to append. (optional)</param>
+            <param name="value5">Fifth value to append. (optional)</param>
+            <param name="value6">Sixth value to append. (optional)</param>
+            <returns>The value of <paramref name="stringBuilder"/>.</returns>
+        </member>
         <member name="T:Namotion.Reflection.TypeExtensions">
             <summary>Provides extension methods for reflection.</summary>
         </member>
@@ -748,152 +787,304 @@
         <member name="T:Namotion.Reflection.XmlDocsExtensions">
             <summary>Provides extension methods for reading XML comments from reflected members.</summary>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsSummary(Namotion.Reflection.CachedType,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsSummary(Namotion.Reflection.CachedType,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of the "summary" XML documentation tag for the specified member.</summary>
             <param name="type">The type.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "summary" tag for the member.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsRemarks(Namotion.Reflection.CachedType,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsRemarks(Namotion.Reflection.CachedType,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of the "remarks" XML documentation tag for the specified member.</summary>
             <param name="type">The type.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "summary" tag for the member.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsTag(Namotion.Reflection.CachedType,System.String,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsTag(Namotion.Reflection.CachedType,System.String,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of an XML documentation tag for the specified member.</summary>
             <param name="type">The type.</param>
             <param name="tagName">Name of the tag.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "summary" tag for the member.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsSummary(Namotion.Reflection.ContextualMemberInfo,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsSummary(Namotion.Reflection.ContextualMemberInfo,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of the "summary" XML documentation tag for the specified member.</summary>
             <param name="member">The reflected member.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "summary" tag for the member.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsRemarks(Namotion.Reflection.ContextualMemberInfo,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsRemarks(Namotion.Reflection.ContextualMemberInfo,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of the "remarks" XML documentation tag for the specified member.</summary>
             <param name="member">The reflected member.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "summary" tag for the member.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsTag(Namotion.Reflection.ContextualMemberInfo,System.String,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsTag(Namotion.Reflection.ContextualMemberInfo,System.String,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of an XML documentation tag for the specified member.</summary>
             <param name="member">The reflected member.</param>
             <param name="tagName">Name of the tag.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "summary" tag for the member.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocs(Namotion.Reflection.ContextualParameterInfo,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocs(Namotion.Reflection.ContextualParameterInfo,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of the "returns" or "param" XML documentation tag for the specified parameter.</summary>
             <param name="parameter">The reflected parameter or return info.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "returns" or "param" tag.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsElement(Namotion.Reflection.ContextualMemberInfo,System.Boolean)">
-            <summary>Returns the contents of an XML documentation tag for the specified member.</summary>
-            <param name="member">The reflected member.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
-            <returns>The contents of the "summary" tag for the member.</returns>
-        </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsSummary(System.Type,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsSummary(System.Type,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of the "summary" XML documentation tag for the specified member.</summary>
             <param name="type">The type.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "summary" tag for the member.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsRemarks(System.Type,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsRemarks(System.Type,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of the "remarks" XML documentation tag for the specified member.</summary>
             <param name="type">The type.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "summary" tag for the member.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsTag(System.Type,System.String,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsTag(System.Type,System.String,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of an XML documentation tag for the specified member.</summary>
             <param name="type">The type.</param>
             <param name="tagName">Name of the tag.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "summary" tag for the member.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsSummary(System.Reflection.MemberInfo,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsSummary(System.Reflection.MemberInfo,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of the "summary" XML documentation tag for the specified member.</summary>
             <param name="member">The reflected member.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "summary" tag for the member.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsRemarks(System.Reflection.MemberInfo,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsRemarks(System.Reflection.MemberInfo,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of the "remarks" XML documentation tag for the specified member.</summary>
             <param name="member">The reflected member.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "summary" tag for the member.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsElement(System.Type,System.String,System.Boolean)">
-            <summary>Returns the contents of the "summary" XML documentation tag for the specified member.</summary>
-            <param name="type">The type.</param>
-            <param name="pathToXmlFile">The path to the XML documentation file.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
-            <returns>The contents of the "summary" tag for the member.</returns>
-        </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsElement(System.Reflection.MemberInfo,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsElement(System.Reflection.MemberInfo,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of an XML documentation tag for the specified member.</summary>
             <param name="member">The reflected member.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "summary" tag for the member.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsElement(System.Reflection.MemberInfo,System.String,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsElement(System.Reflection.MemberInfo,System.String,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of the "summary" XML documentation tag for the specified member.</summary>
             <param name="member">The reflected member.</param>
             <param name="pathToXmlFile">The path to the XML documentation file.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "summary" tag for the member.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsTag(System.Reflection.MemberInfo,System.String,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsTag(System.Reflection.MemberInfo,System.String,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of an XML documentation tag for the specified member.</summary>
             <param name="member">The reflected member.</param>
             <param name="tagName">Name of the tag.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "summary" tag for the member.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsRecordPropertySummary(System.Reflection.PropertyInfo,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsRecordPropertySummary(System.Reflection.PropertyInfo,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the property summary of a Record type which is read from the param tag on the type.</summary>
             <param name="member">The reflected member.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "param" tag of the Record property.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocs(System.Reflection.ParameterInfo,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocs(System.Reflection.ParameterInfo,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of the "returns" or "param" XML documentation tag for the specified parameter.</summary>
             <param name="parameter">The reflected parameter or return info.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "returns" or "param" tag.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsElement(System.Reflection.ParameterInfo,System.String,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsElement(System.Reflection.ParameterInfo,System.String,Namotion.Reflection.XmlDocsOptions)">
             <summary>Returns the contents of the "returns" or "param" XML documentation tag for the specified parameter.</summary>
             <param name="parameter">The reflected parameter or return info.</param>
             <param name="pathToXmlFile">The path to the XML documentation file.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The contents of the "returns" or "param" tag.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.ToXmlDocsContent(System.Xml.Linq.XElement)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.ToXmlDocsContent(System.Xml.Linq.XElement,Namotion.Reflection.XmlDocsOptions)">
             <summary>Converts the given XML documentation <see cref="T:System.Xml.Linq.XElement"/> to text.</summary>
             <param name="element">The XML element.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The text</returns>
         </member>
         <member name="M:Namotion.Reflection.XmlDocsExtensions.GetMemberElementName(System.Object)">
             <exception cref="T:System.ArgumentException">Unknown member type.</exception>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsPath(System.Reflection.Assembly,System.Boolean)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.GetXmlDocsPath(System.Reflection.Assembly,Namotion.Reflection.XmlDocsOptions)">
             <summary>
             Gets the file path to the XML docs for the given assembly.
             </summary>
             <param name="assembly">The assembly.</param>
-            <param name="resolveExternalXmlDocs">Specifies whether to resolve external XML docs.</param>
+            <param name="options">The XML docs reading and formatting options.</param>
             <returns>The file path or null if not found.</returns>
         </member>
-        <member name="M:Namotion.Reflection.XmlDocsExtensions.ProcessInheritDocTypeElements(System.Reflection.MemberInfo,System.Xml.Linq.XElement)">
+        <member name="M:Namotion.Reflection.XmlDocsExtensions.ProcessInheritDocTypeElements(System.Reflection.MemberInfo,System.Xml.Linq.XElement,Namotion.Reflection.XmlDocsOptions)">
             <summary>
             Get Type from a referencing string such as <c>!:MyType</c> or <c>!:MyType.MyProperty</c>
+            </summary>
+        </member>
+        <member name="T:Namotion.Reflection.XmlDocsFormatting">
+            <summary>
+            Contains the logic to maintain formatting of XML-doc elements.
+            </summary>
+        </member>
+        <member name="M:Namotion.Reflection.XmlDocsFormatting.AppendFormattedElement(System.Text.StringBuilder,System.Xml.Linq.XElement,Namotion.Reflection.XmlDocsFormattingMode)">
+            <summary>
+            Appends the value of <paramref name="element"/> to the <paramref name="stringBuilder"/> respecting
+            <paramref name="formattingMode"/> to generate additional formatting information.
+            </summary>
+            <param name="stringBuilder">The current <see cref="T:System.Text.StringBuilder"/>.</param>
+            <param name="element">The <see cref="T:System.Xml.Linq.XElement"/> to append.</param>
+            <param name="formattingMode">The <see cref="T:Namotion.Reflection.XmlDocsFormattingMode"/> for generating additional formatting tags.</param>
+            <returns>The passed in <paramref name="stringBuilder"/>.</returns>
+        </member>
+        <member name="M:Namotion.Reflection.XmlDocsFormatting.AppendUnformattedElement(System.Text.StringBuilder,System.Xml.Linq.XElement)">
+            <summary>
+            Appends the value of <paramref name="element"/> without any formatting information.
+            </summary>
+            <param name="stringBuilder">The current <see cref="T:System.Text.StringBuilder"/>.</param>
+            <param name="element">The <see cref="T:System.Xml.Linq.XElement"/> to append.</param>
+            <returns>The value of <paramref name="stringBuilder"/>.</returns>
+        </member>
+        <member name="M:Namotion.Reflection.XmlDocsFormatting.AppendHtmlFormattedElement(System.Text.StringBuilder,System.Xml.Linq.XElement)">
+            <summary>
+            Appends the value of <paramref name="element"/> surrounded by the neccessary HTML-tags to maintain its formatting information (if supported).
+            </summary>
+            <param name="stringBuilder">The current <see cref="T:System.Text.StringBuilder"/>.</param>
+            <param name="element">The <see cref="T:System.Xml.Linq.XElement"/> to append.</param>
+            <returns>The value of <paramref name="stringBuilder"/>.</returns>
+        </member>
+        <member name="M:Namotion.Reflection.XmlDocsFormatting.AppendMarkdownFormattedElement(System.Text.StringBuilder,System.Xml.Linq.XElement)">
+            <summary>
+            Appends the value of <paramref name="element"/> surrounded by the neccessary Markdown-tags to maintain its formatting information (if supported).
+            </summary>
+            <param name="stringBuilder">The current <see cref="T:System.Text.StringBuilder"/>.</param>
+            <param name="element">The <see cref="T:System.Xml.Linq.XElement"/> to append.</param>
+            <returns>The value of <paramref name="stringBuilder"/>.</returns>
+        </member>
+        <member name="M:Namotion.Reflection.XmlDocsFormatting.AppendMapFormattedElement(System.Text.StringBuilder,System.Xml.Linq.XElement,System.Collections.Generic.Dictionary{System.String,System.Func{System.Text.StringBuilder,System.Xml.Linq.XElement,System.Text.StringBuilder}})">
+            <summary>
+            Appends the value of <paramref name="element"/> surrounded by the tags specified in <paramref name="map"/> (if supported).
+            </summary>
+            <param name="stringBuilder">The current <see cref="T:System.Text.StringBuilder"/>.</param>
+            <param name="element">The <see cref="T:System.Xml.Linq.XElement"/> to append.</param>
+            <param name="map">Map of formatting tags.</param>
+            <returns>The value of <paramref name="stringBuilder"/>.</returns>
+        </member>
+        <member name="M:Namotion.Reflection.XmlDocsFormatting.AppendSimpleTaggedElement(System.Text.StringBuilder,System.Xml.Linq.XElement,System.String,System.String)">
+            <summary>
+            Appends the value of <paramref name="element"/> surrounded by <paramref name="startTag"/> and <paramref name="endTag"/>
+            to maintain its formatting information (if supported).
+            </summary>
+            <param name="stringBuilder">The current <see cref="T:System.Text.StringBuilder"/>.</param>
+            <param name="element">The <see cref="T:System.Xml.Linq.XElement"/> to append.</param>
+            <param name="startTag">The start-tag.</param>
+            <param name="endTag">The end-tag.</param>
+            <returns>The value of <paramref name="stringBuilder"/>.</returns>
+        </member>
+        <member name="T:Namotion.Reflection.XmlDocsFormattingMode">
+            <summary>
+            Contains the formatting modes supported.
+            </summary>
+        </member>
+        <member name="F:Namotion.Reflection.XmlDocsFormattingMode.None">
+            <summary>
+            Doesn't use any formatting.
+            </summary>
+        </member>
+        <member name="F:Namotion.Reflection.XmlDocsFormattingMode.Html">
+            <summary>
+            Maintains formatting through HTML-tags.
+            </summary>
+        </member>
+        <member name="F:Namotion.Reflection.XmlDocsFormattingMode.Markdown">
+            <summary>
+            Maintains formatting through Markdown-tags.
+            </summary>
+        </member>
+        <member name="T:Namotion.Reflection.XmlDocsKeys">
+            <summary>
+            Contains constants for element and attribute names use in XML-docs.
+            </summary>
+        </member>
+        <member name="F:Namotion.Reflection.XmlDocsKeys.SummaryElement">
+            <summary>
+            Name of the summary element.
+            </summary>
+        </member>
+        <member name="F:Namotion.Reflection.XmlDocsKeys.RemarksElement">
+            <summary>
+            Name of the remarks element.
+            </summary>
+        </member>
+        <member name="F:Namotion.Reflection.XmlDocsKeys.ParamElement">
+            <summary>
+            Name of the param element.
+            </summary>
+        </member>
+        <member name="F:Namotion.Reflection.XmlDocsKeys.ParamNameAttribute">
+            <summary>
+            Name of the name attribute used in conjunction with the <see cref="F:Namotion.Reflection.XmlDocsKeys.ParamElement"/>.
+            </summary>
+        </member>
+        <member name="F:Namotion.Reflection.XmlDocsKeys.ParamRefElement">
+            <summary>
+            Name of the paramref element.
+            </summary>
+        </member>
+        <member name="F:Namotion.Reflection.XmlDocsKeys.ParamRefNameAttribute">
+            <summary>
+            Name of the name attribute used in conjunction with the <see cref="F:Namotion.Reflection.XmlDocsKeys.ParamRefElement"/>.
+            </summary>
+        </member>
+        <member name="F:Namotion.Reflection.XmlDocsKeys.SeeElement">
+            <summary>
+            Name of the see element.
+            </summary>
+        </member>
+        <member name="F:Namotion.Reflection.XmlDocsKeys.SeeLangwordAttribute">
+            <summary>
+            Name of the langword attribute used in conjunction with the <see cref="F:Namotion.Reflection.XmlDocsKeys.SeeElement"/>.
+            </summary>
+        </member>
+        <member name="F:Namotion.Reflection.XmlDocsKeys.SeeCrefAttribute">
+            <summary>
+            Name of the cref attribute used in conjunction with the <see cref="F:Namotion.Reflection.XmlDocsKeys.SeeElement"/>.
+            </summary>
+        </member>
+        <member name="F:Namotion.Reflection.XmlDocsKeys.SeeHrefAttribute">
+            <summary>
+            Name of the href attribute used in conjunction with the <see cref="F:Namotion.Reflection.XmlDocsKeys.SeeElement"/>.
+            </summary>
+        </member>
+        <member name="F:Namotion.Reflection.XmlDocsKeys.ReturnsElement">
+            <summary>
+            Name of the returns element.
+            </summary>
+        </member>
+        <member name="F:Namotion.Reflection.XmlDocsKeys.InheritDocElement">
+            <summary>
+            Name of the inheritdoc element.
+            </summary>
+        </member>
+        <member name="T:Namotion.Reflection.XmlDocsOptions">
+            <summary>
+            Contains all options to control generation of XML-docs.
+            </summary>
+        </member>
+        <member name="P:Namotion.Reflection.XmlDocsOptions.Default">
+            <summary>
+            The default options.
+            </summary>
+        </member>
+        <member name="P:Namotion.Reflection.XmlDocsOptions.ResolveExternalXmlDocs">
+            <summary>
+            Specifies whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory.
+            </summary>
+        </member>
+        <member name="P:Namotion.Reflection.XmlDocsOptions.FormattingMode">
+            <summary>
+            Specifies how formatting tags should be processed.
             </summary>
         </member>
     </members>

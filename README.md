@@ -1,4 +1,4 @@
-# xlRcode (v. 0.1.5)
+# xlRcode (v. 0.1.6)
 
 Call R from Excel. Create new Excel functions that make use of R packages. Integrate both tools seamlessly.
 
@@ -76,6 +76,16 @@ That should do the trick!
 That should do the trick!
 
 ## History
+
+### v. 0.1.6
+Minor improvement.
+- Improvement: xlRcode is still not passing through some anti-virus detectors due to a false alert raised for ExcelDna XLL files. ExcelDna was updated to version 1.6.1-alpha2. Problem persists, but for a lower amount of anti-virus programs.
+- Improvement: XLRCODE functions now accept the argument suffix "(asis)", which parses a string as literal code. For example, this allows parsing a funcion code as a function object.
+- Improvement: visible output of R commands invoked from the console were being suppressed as the internal function XLRCODE_Routine was running in a different thread.
+- Improvement: code console execution is stopped if user presses ESC.
+- Bug fix: an error was raised when an already visible form was asked to be showed again.
+- Bug fix: xlRcode functions which have an environment parameter raised an unhandled error when environment name was invalid.
+- Bug fix: code console intellisense raised untreated error if R engine was not working.
 
 ### v. 0.1.5
 Minor improvement.

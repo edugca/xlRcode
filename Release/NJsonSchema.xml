@@ -568,6 +568,9 @@
         <member name="P:NJsonSchema.Generation.IXmlDocsSettings.ResolveExternalXmlDocumentation">
             <summary>Gets or sets a value indicating whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory (default: true).</summary>
         </member>
+        <member name="P:NJsonSchema.Generation.IXmlDocsSettings.XmlDocumentationFormatting">
+            <summary>Gets or sets the XML Docs formatting (default: None).</summary>
+        </member>
         <member name="T:NJsonSchema.Generation.JsonSchemaGenerator">
             <summary>Generates a <see cref="T:NJsonSchema.JsonSchema"/> object for a given type. </summary>
         </member>
@@ -784,6 +787,9 @@
         </member>
         <member name="P:NJsonSchema.Generation.JsonSchemaGeneratorSettings.ResolveExternalXmlDocumentation">
             <summary>Gets or sets a value indicating whether tho resolve the XML Docs from the NuGet cache or .NET SDK directory (default: true).</summary>
+        </member>
+        <member name="P:NJsonSchema.Generation.JsonSchemaGeneratorSettings.XmlDocumentationFormatting">
+            <summary>Gets or sets the XML Docs formatting (default: None).</summary>
         </member>
         <member name="P:NJsonSchema.Generation.JsonSchemaGeneratorSettings.TypeNameGenerator">
             <summary>Gets or sets the type name generator.</summary>

@@ -2388,6 +2388,16 @@
             Gets or sets parameters for the request.
             </summary>
         </member>
+        <member name="P:Microsoft.Xrm.Sdk.DataProcessingModuleExecuteRequest.CallbackUri">
+            <summary>
+            The callback URL to call at the end of the module execution.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Sdk.DataProcessingModuleExecuteRequest.UpstreamResults">
+            <summary>
+            The versions of inputs to the module
+            </summary>
+        </member>
         <member name="P:Microsoft.Xrm.Sdk.DataProcessingModuleExecutionResponse.RunId">
             <summary>
             Module Run Id
@@ -3325,6 +3335,21 @@
             Gets id of the authenticated user
             </summary>
         </member>
+        <member name="T:Microsoft.Xrm.Sdk.IPluginExecutionContext4">
+            <summary>
+            Extension of IPluginExecutionContext3 adding support for PreEntityImagesCollection and PostEntityImagesCollection
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Sdk.IPluginExecutionContext4.PreEntityImagesCollection">
+            <summary>
+            Contains a collection of PreEntityImages
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Sdk.IPluginExecutionContext4.PostEntityImagesCollection">
+            <summary>
+            Contains a collection of PostEntityImages
+            </summary>
+        </member>
         <member name="T:Microsoft.Xrm.Sdk.IProxyPlugin">
             <summary>
             Plugins that proxy calls to other types internally such as Sandbox plugins and InternalOperationPlugin
@@ -3671,6 +3696,66 @@
         <member name="P:Microsoft.Xrm.Sdk.ManagedProperty`1.ManagedPropertyLogicalName">
             <summary>
             The logical name of the managed property definition.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Sdk.Messages.CreateMultipleRequest">
+            <summary>
+            Organization request for CreateMultiple SDK message.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Sdk.Messages.CreateMultipleRequest.Targets">
+            <summary>
+            Gets or Sets the EntityCollection that is used to create new entity records.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Sdk.Messages.CreateMultipleRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Xrm.Sdk.Messages.CreateMultipleRequest"/> class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Sdk.Messages.CreateMultipleResponse">
+            <summary>
+            Organization response for CreateMultiple SDK message.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Sdk.Messages.CreateMultipleResponse.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Xrm.Sdk.Messages.CreateMultipleResponse"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Sdk.Messages.CreateMultipleResponse.Ids">
+            <summary>
+            Gets the IDs of the newly created records.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Sdk.Messages.UpdateMultipleRequest">
+            <summary>
+            Organization request for UpdateMultiple SDK message.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Sdk.Messages.UpdateMultipleRequest.Targets">
+            <summary>
+            Gets or Sets the EntityCollection that is used to create new entity records.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Sdk.Messages.UpdateMultipleRequest.ConcurrencyBehavior">
+            <summary>
+            Specifies the type of optimistic concurrency behavior that should be performed when processing this request.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Sdk.Messages.UpdateMultipleRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Xrm.Sdk.Messages.UpdateMultipleRequest"/> class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Sdk.Messages.UpdateMultipleResponse">
+            <summary>
+            Organization response for UpdateMultiple SDK message.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Xrm.Sdk.Messages.UpdateMultipleResponse.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Xrm.Sdk.Messages.UpdateMultipleResponse"/> class.
             </summary>
         </member>
         <member name="P:Microsoft.Xrm.Sdk.Messages.RetrieveEntityChangesRequest.GetGlobalMetadataVersion">
@@ -4377,6 +4462,22 @@
         <member name="T:Microsoft.Xrm.Sdk.SqlNameMappingOptions">
             <summary>
             Indicates whether the table names and column names in the sql command text are expressed in logical name or display name.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Xrm.Sdk.TdsPowerBISqlRequest">
+            <summary>
+            TdsPowerBIRequest Class.
+            Used by the TDS endpoint to send REST request over to the web role. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Sdk.TdsPowerBISqlRequest.QueryText">
+            <summary>
+            Query Text
+            </summary>
+        </member>
+        <member name="P:Microsoft.Xrm.Sdk.TdsPowerBISqlRequest.QueryParameters">
+            <summary>
+            Gets or sets parameters for the request.
             </summary>
         </member>
         <member name="T:Microsoft.Xrm.Sdk.Query.ColumnSet">
