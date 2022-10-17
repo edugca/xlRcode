@@ -78,7 +78,7 @@ That should do the trick!
 ## History
 
 ### v. 0.1.6
-Minor improvement.
+Minor improvement and bug handling.
 - Improvement: xlRcode is still not passing through some anti-virus detectors due to a false alert raised for ExcelDna XLL files. ExcelDna was updated to version 1.6.1-alpha2. Problem persists, but for a lower amount of anti-virus programs.
 - Improvement: XLRCODE functions now accept the argument suffix "(asis)", which parses a string as literal code. For example, this allows parsing a funcion code as a function object.
 - Improvement: visible output of R commands invoked from the console were being suppressed as the internal function XLRCODE_Routine was running in a different thread.
