@@ -1,0 +1,2042 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Data.Analysis</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Data.Analysis.ArrowStringDataFrameColumn">
+            <summary>
+            An immutable column to hold Arrow style strings
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.#ctor(System.String)">
+            <summary>
+            Constructs an empty <see cref="T:Microsoft.Data.Analysis.ArrowStringDataFrameColumn"/> with the given <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column.</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.#ctor(System.String,System.ReadOnlyMemory{System.Byte},System.ReadOnlyMemory{System.Byte},System.ReadOnlyMemory{System.Byte},System.Int32,System.Int32)">
+            <summary>
+            Constructs an <see cref="T:Microsoft.Data.Analysis.ArrowStringDataFrameColumn"/> with the given <paramref name="name"/>, <paramref name="length"/> and <paramref name="nullCount"/>. The <paramref name="values"/>, <paramref name="offsets"/> and <paramref name="nullBits"/> are the contents of the column in the Arrow format.
+            </summary>
+            <param name="name">The name of the column.</param>
+            <param name="values">The Arrow formatted string values in this column.</param>
+            <param name="offsets">The Arrow formatted offsets in this column.</param>
+            <param name="nullBits">The Arrow formatted null bits in this column.</param>
+            <param name="length">The length of the column.</param>
+            <param name="nullCount">The number of <see langword="null" /> values in this column.</param>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.NullCount">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.IsValid(System.Int64)">
+            <summary>
+            Indicates if the value at this <paramref name="index"/> is <see langword="null" />.
+            </summary>
+            <param name="index">The index to look up.</param>
+            <returns>A boolean value indicating the validity at this <paramref name="index"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.GetReadOnlyDataBuffers">
+            <summary>
+            Returns an enumeration of immutable buffers representing the underlying values in the Apache Arrow format
+            </summary>
+            <remarks><see langword="null" /> values are encoded in the buffers returned by GetReadOnlyNullBitmapBuffers in the Apache Arrow format</remarks>
+            <remarks>The offsets buffers returned by GetReadOnlyOffsetBuffers can be used to delineate each value</remarks>
+            <returns>An enumeration of <see cref="T:System.ReadOnlyMemory`1"/> whose elements are the raw data buffers for the UTF8 string values.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.GetReadOnlyNullBitMapBuffers">
+            <summary>
+            Returns an enumeration of immutable <see cref="T:System.ReadOnlyMemory`1"/> buffers representing <see langword="null" /> values in the Apache Arrow format
+            </summary>
+            <remarks>Each <see cref="T:System.ReadOnlyMemory`1"/> encodes the indices of <see langword="null" /> values in its corresponding Data buffer</remarks>
+            <returns>An enumeration of <see cref="T:System.ReadOnlyMemory`1"/> objects whose elements encode the null bit maps for the column's values</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.GetReadOnlyOffsetsBuffers">
+            <summary>
+            Returns an enumeration of immutable <see cref="T:System.ReadOnlyMemory`1"/> representing offsets into its corresponding Data buffer.
+            The Apache Arrow format specifies how the offset buffer encodes the length of each value in the Data buffer
+            </summary>
+            <returns>An enumeration of <see cref="T:System.ReadOnlyMemory`1"/> objects.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.GetValue(System.Int64)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.GetValues(System.Int64,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.SetValue(System.Int64,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.Item(System.Int64)">
+            <summary>
+            Indexer to get values. This is an immutable column
+            </summary>
+            <param name="rowIndex">Zero based row index</param>
+            <returns>The value stored at this <paramref name="rowIndex"/></returns>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.Item(System.Int64,System.Int32)">
+            <summary>
+            Returns <paramref name="length"/> number of values starting from <paramref name="startIndex"/>.
+            </summary>
+            <param name="startIndex">The index of the first value to return.</param>
+            <param name="length">The number of values to return starting from <paramref name="startIndex"/></param>
+            <returns>A new list of string values</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the string values in this column.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.GetEnumeratorCore">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.GetArrowField">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.GetMaxRecordBatchLength(System.Int64)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.ToArrowArray(System.Int64,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.Sort(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.Clone(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean,System.Int64)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.ValueCounts">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.GroupBy(System.Int32,Microsoft.Data.Analysis.DataFrame)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.GroupColumnValues``1(System.Collections.Generic.HashSet{System.Int64}@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.FillNulls(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.AddDataViewColumn(Microsoft.ML.DataViewSchema.Builder)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.GetDataViewGetter(Microsoft.ML.DataViewRowCursor)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.ElementwiseEquals(System.String)">
+            <summary>
+            Returns a boolean column that is the result of an elementwise equality comparison of each value in the column with <paramref name="value"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.ElementwiseEquals``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.ElementwiseEquals(Microsoft.Data.Analysis.DataFrameColumn)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.ElementwiseNotEquals(System.String)">
+            <summary>
+            Returns a boolean column that is the result of an elementwise not-equal comparison of each value in the column with <paramref name="value"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.ElementwiseNotEquals``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.ElementwiseNotEquals(Microsoft.Data.Analysis.DataFrameColumn)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.ArrowStringDataFrameColumn.Apply(System.Func{System.String,System.String})">
+            <summary>
+            Applies a function to all the values
+            </summary>
+            <param name="func">The function to apply</param>
+            <returns>A <see cref="T:Microsoft.Data.Analysis.ArrowStringDataFrameColumn"/> containing the new string values</returns>
+            <remarks>This function converts from UTF-8 to UTF-16 strings</remarks>
+        </member>
+        <member name="T:Microsoft.Data.Analysis.DataFrame">
+            <summary>
+            A DataFrame to support indexing, binary operations, sorting, selection and other APIs. This will eventually also expose an IDataView for ML.NET
+            </summary>
+            <summary>
+            A DataFrame to support indexing, binary operations, sorting, selection and other APIs. This will eventually also expose an IDataView for ML.NET
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.FromArrowRecordBatch(Apache.Arrow.RecordBatch)">
+            <summary>
+            Wraps a <see cref="T:Microsoft.Data.Analysis.DataFrame"/> around an Arrow <see cref="T:Apache.Arrow.RecordBatch"/> without copying data
+            </summary>
+            <param name="recordBatch"></param>
+            <returns><see cref="T:Microsoft.Data.Analysis.DataFrame"/></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ToArrowRecordBatches">
+            <summary>
+            Returns an <see cref="T:System.Collections.Generic.IEnumerable`1"/> without copying data
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Add``1(``0,System.Boolean)">
+            <summary>
+            Performs an element-wise addition on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Subtract``1(``0,System.Boolean)">
+            <summary>
+            Performs an element-wise subtraction on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Multiply``1(``0,System.Boolean)">
+            <summary>
+            Performs an element-wise multiplication on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Divide``1(``0,System.Boolean)">
+            <summary>
+            Performs an element-wise division on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Modulo``1(``0,System.Boolean)">
+            <summary>
+            Performs an element-wise modulus operation on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.And(System.Boolean,System.Boolean)">
+            <summary>
+            Performs an element-wise boolean And on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Or(System.Boolean,System.Boolean)">
+            <summary>
+            Performs an element-wise boolean Or on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Xor(System.Boolean,System.Boolean)">
+            <summary>
+            Performs an element-wise boolean Xor on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.LeftShift(System.Int32,System.Boolean)">
+            <summary>
+            Performs an element-wise left shift on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.RightShift(System.Int32,System.Boolean)">
+            <summary>
+            Performs an element-wise right shift on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ElementwiseEquals``1(``0)">
+            <summary>
+            Performs an element-wise equals on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ElementwiseNotEquals``1(``0)">
+            <summary>
+            Performs an element-wise not-equals on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ElementwiseGreaterThanOrEqual``1(``0)">
+            <summary>
+            Performs an element-wise greater than or equal on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ElementwiseLessThanOrEqual``1(``0)">
+            <summary>
+            Performs an element-wise less than or equal on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ElementwiseGreaterThan``1(``0)">
+            <summary>
+            Performs an element-wise greater than on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ElementwiseLessThan``1(``0)">
+            <summary>
+            Performs an element-wise less than on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ReverseAdd``1(``0,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise addition on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ReverseSubtract``1(``0,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise subtraction on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ReverseMultiply``1(``0,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise multiplication on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ReverseDivide``1(``0,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise division on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ReverseModulo``1(``0,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise modulus operation on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ReverseAnd(System.Boolean,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise boolean And on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ReverseOr(System.Boolean,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise boolean Or on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ReverseXor(System.Boolean,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise boolean Xor on each column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.#ctor(System.Collections.Generic.IEnumerable{Microsoft.Data.Analysis.DataFrameColumn})">
+            <summary>
+            Constructs a <see cref="T:Microsoft.Data.Analysis.DataFrame"/> with <paramref name="columns"/>.
+            </summary>
+            <param name="columns">The columns of this <see cref="T:Microsoft.Data.Analysis.DataFrame"/>.</param>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrame.Columns">
+            <summary>
+            Returns the columns contained in the <see cref="T:Microsoft.Data.Analysis.DataFrame"/> as a <see cref="T:Microsoft.Data.Analysis.DataFrameColumnCollection"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrame.Rows">
+            <summary>
+            Returns a <see cref="T:Microsoft.Data.Analysis.DataFrameRowCollection"/> that contains a view of the rows in this <see cref="T:Microsoft.Data.Analysis.DataFrame"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrame.Item(System.Int64,System.Int32)">
+            <summary>
+            An Indexer to get or set values.
+            </summary>
+            <param name="rowIndex">Zero based row index</param>
+            <param name="columnIndex">Zero based column index</param>
+            <returns>The value stored at the intersection of <paramref name="rowIndex"/> and <paramref name="columnIndex"/></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Filter(Microsoft.Data.Analysis.PrimitiveDataFrameColumn{System.Boolean})">
+            <summary>
+            Returns a new DataFrame using the boolean values in <paramref name="filter"/>
+            </summary>
+            <param name="filter">A column of booleans</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Filter(Microsoft.Data.Analysis.PrimitiveDataFrameColumn{System.Int32})">
+            <summary>
+            Returns a new DataFrame using the row indices in <paramref name="rowIndices"/>
+            </summary>
+            <param name="rowIndices">A column of row indices</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Filter(Microsoft.Data.Analysis.PrimitiveDataFrameColumn{System.Int64})">
+            <summary>
+            Returns a new DataFrame using the row indices in <paramref name="rowIndices"/>
+            </summary>
+            <param name="rowIndices">A column of row indices</param>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrame.Item(Microsoft.Data.Analysis.PrimitiveDataFrameColumn{System.Boolean})">
+            <summary>
+            Returns a new DataFrame using the boolean values in filter
+            </summary>
+            <param name="rowFilter">A column of booleans</param>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrame.Item(Microsoft.Data.Analysis.PrimitiveDataFrameColumn{System.Int32})">
+            <summary>
+            Returns a new DataFrame using the row indices in <paramref name="rowIndices"/>
+            </summary>
+            <param name="rowIndices">A column of row indices</param>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrame.Item(Microsoft.Data.Analysis.PrimitiveDataFrameColumn{System.Int64})">
+            <summary>
+            Returns a new DataFrame using the row indices in <paramref name="rowIndices"/>
+            </summary>
+            <param name="rowIndices">A column of row indices</param>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrame.Item(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Returns a new DataFrame using the row indices in <paramref name="rowIndices"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrame.Item(System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>
+            Returns a new DataFrame using the row indices in <paramref name="rowIndices"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrame.Item(System.Collections.Generic.IEnumerable{System.Boolean})">
+            <summary>
+            Returns a new DataFrame using the boolean values in <paramref name="rowFilter"/>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrame.Item(System.String)">
+            <summary>
+            An indexer based on <see cref="P:Microsoft.Data.Analysis.DataFrameColumn.Name"/>
+            </summary>
+            <param name="columnName">The name of a <see cref="T:Microsoft.Data.Analysis.DataFrameColumn"/></param>
+            <returns>A <see cref="T:Microsoft.Data.Analysis.DataFrameColumn"/> if it exists.</returns>
+            <exception cref="T:System.ArgumentException">Throws if <paramref name="columnName"/> is not present in this <see cref="T:Microsoft.Data.Analysis.DataFrame"/></exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Head(System.Int32)">
+            <summary>
+            Returns the first <paramref name="numberOfRows"/> rows
+            </summary>
+            <param name="numberOfRows"></param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Tail(System.Int32)">
+            <summary>
+            Returns the last <paramref name="numberOfRows"/> rows
+            </summary>
+            <param name="numberOfRows"></param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Clone">
+            <summary>
+            Returns a full copy
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Info">
+            <summary>
+            Generates a concise summary of each column in the DataFrame
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Description">
+            <summary>
+            Generates descriptive statistics that summarize each numeric column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.OrderBy(System.String)">
+            <summary>
+            Orders the data frame by a specified column.
+            </summary>
+            <param name="columnName">The column name to order by</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.OrderByDescending(System.String)">
+            <summary>
+            Orders the data frame by a specified column in descending order.
+            </summary>
+            <param name="columnName">The column name to order by</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Clamp``1(``0,``0,System.Boolean)">
+            <summary>
+            Clamps values beyond the specified thresholds on numeric columns
+            </summary>
+            <typeparam name="U"></typeparam>
+            <param name="min">Minimum value. All values below this threshold will be set to it</param>
+            <param name="max">Maximum value. All values above this threshold will be set to it</param>
+            <param name="inPlace">Indicates if the operation should be performed in place</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.AddPrefix(System.String,System.Boolean)">
+            <summary>
+            Adds a prefix to the column names
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.AddSuffix(System.String,System.Boolean)">
+            <summary>
+            Adds a suffix to the column names
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Sample(System.Int32)">
+            <summary>
+            Returns a random sample of rows
+            </summary>
+            <param name="numberOfRows">Number of rows in the returned DataFrame</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.GroupBy(System.String)">
+            <summary>
+            Groups the rows of the <see cref="T:Microsoft.Data.Analysis.DataFrame"/> by unique values in the <paramref name="columnName"/> column.
+            </summary>
+            <param name="columnName">The column used to group unique values</param>
+            <returns>A GroupBy object that stores the group information.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.GroupBy``1(System.String)">
+            <summary>
+            Groups the rows of the <see cref="T:Microsoft.Data.Analysis.DataFrame"/> by unique values in the <paramref name="columnName"/> column.
+            </summary>
+            <typeparam name="TKey">Type of column used for grouping</typeparam>
+            <param name="columnName">The column used to group unique values</param>
+            <returns>A GroupBy object that stores the group information.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.DropNulls(Microsoft.Data.Analysis.DropNullOptions)">
+            <summary>
+            Returns a DataFrame with no missing values
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.FillNulls(System.Object,System.Boolean)">
+            <summary>
+            Fills <see langword="null" /> values with <paramref name="value"/>.
+            </summary>
+            <param name="value">The value to replace <see langword="null" /> with.</param>
+            <param name="inPlace">A boolean flag to indicate if the operation should be in place</param>
+            <returns>A new <see cref="T:Microsoft.Data.Analysis.DataFrame"/> if <paramref name="inPlace"/> is not set. Returns this <see cref="T:Microsoft.Data.Analysis.DataFrame"/> otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.FillNulls(System.Collections.Generic.IList{System.Object},System.Boolean)">
+            <summary>
+            Fills <see langword="null" /> values in each column with values from <paramref name="values"/>.
+            </summary>
+            <param name="values">The values to replace <see langword="null" /> with, one value per column. Should be equal to the number of columns in this <see cref="T:Microsoft.Data.Analysis.DataFrame"/>. </param>
+            <param name="inPlace">A boolean flag to indicate if the operation should be in place</param>
+            <returns>A new <see cref="T:Microsoft.Data.Analysis.DataFrame"/> if <paramref name="inPlace"/> is not set. Returns this <see cref="T:Microsoft.Data.Analysis.DataFrame"/> otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Append(System.Collections.Generic.IEnumerable{Microsoft.Data.Analysis.DataFrameRow},System.Boolean)">
+            <summary> 
+            Appends rows to the DataFrame 
+            </summary> 
+            <remarks>If an input column's value doesn't match a DataFrameColumn's data type, a conversion will be attempted</remarks> 
+            <remarks>If a <seealso cref="T:Microsoft.Data.Analysis.DataFrameRow"/> in <paramref name="rows"/> is null, a null value is appended to each column</remarks>
+            <param name="rows">The rows to be appended to this DataFrame </param> 
+            <param name="inPlace">If set, appends <paramref name="rows"/> in place. Otherwise, a new DataFrame is returned with the <paramref name="rows"/> appended</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Append(System.Collections.Generic.IEnumerable{System.Object},System.Boolean)">
+            <summary> 
+            Appends a row to the DataFrame 
+            </summary> 
+            <remarks>If a column's value doesn't match its column's data type, a conversion will be attempted</remarks> 
+            <remarks>If <paramref name="row"/> is null, a null value is appended to each column</remarks>
+            <param name="row"></param> 
+            <param name="inPlace">If set, appends a <paramref name="row"/> in place. Otherwise, a new DataFrame is returned with an appended <paramref name="row"/> </param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Append(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Object}},System.Boolean)">
+            <summary> 
+            Appends a row by enumerating column names and values from <paramref name="row"/> 
+            </summary> 
+            <remarks>If a column's value doesn't match its column's data type, a conversion will be attempted</remarks> 
+            <param name="row">An enumeration of column name and value to be appended</param> 
+            <param name="inPlace">If set, appends <paramref name="row"/> in place. Otherwise, a new DataFrame is returned with an appended <paramref name="row"/> </param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.OnColumnsChanged">
+            <summary>
+            Invalidates any cached data after a column has changed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.ToString">
+            <summary>
+            A preview of the contents of this <see cref="T:Microsoft.Data.Analysis.DataFrame"/> as a string.
+            </summary>
+            <returns>A preview of the contents of this <see cref="T:Microsoft.Data.Analysis.DataFrame"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.LoadCsv(System.String,System.Char,System.Boolean,System.String[],System.Type[],System.Int32,System.Int32,System.Boolean,System.Text.Encoding)">
+            <summary>
+            Reads a text file as a DataFrame.
+            </summary>
+            <param name="filename">filename</param>
+            <param name="separator">column separator</param>
+            <param name="header">has a header or not</param>
+            <param name="columnNames">column names (can be empty)</param>
+            <param name="dataTypes">column types (can be empty)</param>
+            <param name="numRows">number of rows to read</param>
+            <param name="guessRows">number of rows used to guess types</param>
+            <param name="addIndexColumn">add one column with the row index</param>
+            <param name="encoding">The character encoding. Defaults to UTF8 if not specified</param>
+            <returns>DataFrame</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.GetColumnName(System.String[],System.Int32)">
+            <summary>
+            return <paramref name="columnIndex"/> of <paramref name="columnNames"/> if not null or empty, otherwise return "Column{i}" where i is <paramref name="columnIndex"/>.
+            </summary>
+            <param name="columnNames">column names.</param>
+            <param name="columnIndex">column index.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.LoadCsvFromString(System.String,System.Char,System.Boolean,System.String[],System.Type[],System.Int64,System.Int32,System.Boolean)">
+            <summary>
+            Reads CSV data passed in as a string into a DataFrame.
+            </summary>
+            <param name="csvString">csv data passed in as a string</param>
+            <param name="separator">column separator</param>
+            <param name="header">has a header or not</param>
+            <param name="columnNames">column names (can be empty)</param>
+            <param name="dataTypes">column types (can be empty)</param>
+            <param name="numberOfRowsToRead">number of rows to read not including the header(if present)</param>
+            <param name="guessRows">number of rows used to guess types</param>
+            <param name="addIndexColumn">add one column with the row index</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.DataFrame"/></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.LoadCsv(System.IO.Stream,System.Char,System.Boolean,System.String[],System.Type[],System.Int64,System.Int32,System.Boolean,System.Text.Encoding)">
+            <summary>
+            Reads a seekable stream of CSV data into a DataFrame.
+            </summary>
+            <param name="csvStream">stream of CSV data to be read in</param>
+            <param name="separator">column separator</param>
+            <param name="header">has a header or not</param>
+            <param name="columnNames">column names (can be empty)</param>
+            <param name="dataTypes">column types (can be empty)</param>
+            <param name="numberOfRowsToRead">number of rows to read not including the header(if present)</param>
+            <param name="guessRows">number of rows used to guess types</param>
+            <param name="addIndexColumn">add one column with the row index</param>
+            <param name="encoding">The character encoding. Defaults to UTF8 if not specified</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.DataFrame"/></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.WriteCsv(Microsoft.Data.Analysis.DataFrame,System.String,System.Char,System.Boolean,System.Text.Encoding,System.Globalization.CultureInfo)">
+            <summary>
+            Writes a DataFrame into a CSV.
+            </summary>
+            <param name="dataFrame"><see cref="T:Microsoft.Data.Analysis.DataFrame"/></param>
+            <param name="path">CSV file path</param>
+            <param name="separator">column separator</param>
+            <param name="header">has a header or not</param>
+            <param name="encoding">The character encoding. Defaults to UTF8 if not specified</param>
+            <param name="cultureInfo">culture info for formatting values</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.SaveCsv(Microsoft.Data.Analysis.DataFrame,System.String,System.Char,System.Boolean,System.Text.Encoding,System.Globalization.CultureInfo)">
+            <summary>
+            Saves a DataFrame into a CSV.
+            </summary>
+            <param name="dataFrame"><see cref="T:Microsoft.Data.Analysis.DataFrame"/></param>
+            <param name="path">CSV file path</param>
+            <param name="separator">column separator</param>
+            <param name="header">has a header or not</param>
+            <param name="encoding">The character encoding. Defaults to UTF8 if not specified</param>
+            <param name="cultureInfo">culture info for formatting values</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.WriteCsv(Microsoft.Data.Analysis.DataFrame,System.IO.Stream,System.Char,System.Boolean,System.Text.Encoding,System.Globalization.CultureInfo)">
+            <summary>
+            Writes a DataFrame into a CSV.
+            </summary>
+            <param name="dataFrame"><see cref="T:Microsoft.Data.Analysis.DataFrame"/></param>
+            <param name="csvStream">stream of CSV data to be write out</param>
+            <param name="separator">column separator</param>
+            <param name="header">has a header or not</param>
+            <param name="encoding">the character encoding. Defaults to UTF8 if not specified</param>
+            <param name="cultureInfo">culture info for formatting values</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.SaveCsv(Microsoft.Data.Analysis.DataFrame,System.IO.Stream,System.Char,System.Boolean,System.Text.Encoding,System.Globalization.CultureInfo)">
+            <summary>
+            Saves a DataFrame into a CSV.
+            </summary>
+            <param name="dataFrame"><see cref="T:Microsoft.Data.Analysis.DataFrame"/></param>
+            <param name="csvStream">stream of CSV data to be write out</param>
+            <param name="separator">column separator</param>
+            <param name="header">has a header or not</param>
+            <param name="encoding">the character encoding. Defaults to UTF8 if not specified</param>
+            <param name="cultureInfo">culture info for formatting values</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Join(Microsoft.Data.Analysis.DataFrame,System.String,System.String,Microsoft.Data.Analysis.JoinAlgorithm)">
+            <summary>
+            Joins columns of another <see cref="T:Microsoft.Data.Analysis.DataFrame"/>
+            </summary>
+            <param name="other">The other <see cref="T:Microsoft.Data.Analysis.DataFrame"/> to join.</param>
+            <param name="leftSuffix">The suffix to add to this <see cref="T:Microsoft.Data.Analysis.DataFrame"/>'s column if there are common column names</param>
+            <param name="rightSuffix">The suffix to add to the <paramref name="other"/>'s column if there are common column names</param>
+            <param name="joinAlgorithm">The <see cref="T:Microsoft.Data.Analysis.JoinAlgorithm"/> to use.</param>
+            <returns>A new <see cref="T:Microsoft.Data.Analysis.DataFrame"/></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrame.Merge``1(Microsoft.Data.Analysis.DataFrame,System.String,System.String,System.String,System.String,Microsoft.Data.Analysis.JoinAlgorithm)">
+            <summary> 
+            Merge DataFrames with a database style join (for backward compatibility)
+            </summary> 
+            <param name="other"></param> 
+            <param name="leftJoinColumn"></param> 
+            <param name="rightJoinColumn"></param> 
+            <param name="leftSuffix"></param> 
+            <param name="rightSuffix"></param> 
+            <param name="joinAlgorithm"></param> 
+            <returns></returns> 
+        </member>
+        <member name="T:Microsoft.Data.Analysis.DropNullOptions">
+            <summary>
+            Options for DropNull(). 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Analysis.DropNullOptions.Any">
+            <summary>
+            "Any" drops a row if any of the row values are null. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Analysis.DropNullOptions.All">
+            <summary>
+            "All" drops a row when all of the row values are null.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Analysis.DataFrameBuffer`1">
+            <summary>
+            A basic mutable store to hold values in a DataFrame column. Supports wrapping with an ArrowBuffer
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Microsoft.Data.Analysis.DataFrameColumn">
+            <summary>
+            The base column type. All APIs should be defined here first
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Add(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <summary>
+            Performs element-wise addition
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Add``1(``0,System.Boolean)">
+            <summary>
+            Performs an element-wise addition on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ReverseAdd``1(``0,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise addition on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Subtract(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <summary>
+            Performs element-wise subtraction
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Subtract``1(``0,System.Boolean)">
+            <summary>
+            Performs an element-wise subtraction on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ReverseSubtract``1(``0,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise subtraction on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Multiply(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <summary>
+            Performs element-wise multiplication
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Multiply``1(``0,System.Boolean)">
+            <summary>
+            Performs an element-wise multiplication on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ReverseMultiply``1(``0,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise multiplication on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Divide(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <summary>
+            Performs element-wise division
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Divide``1(``0,System.Boolean)">
+            <summary>
+            Performs an element-wise division on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ReverseDivide``1(``0,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise division on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Modulo(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <summary>
+            Performs element-wise modulus
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Modulo``1(``0,System.Boolean)">
+            <summary>
+            Performs an element-wise modulus operation on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ReverseModulo``1(``0,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise modulus operation on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.And(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <summary>
+            Performs element-wise boolean And
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.And(System.Boolean,System.Boolean)">
+            <summary>
+            Performs an element-wise boolean And on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ReverseAnd(System.Boolean,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise boolean And on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Or(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <summary>
+            Performs element-wise boolean Or
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Or(System.Boolean,System.Boolean)">
+            <summary>
+            Performs an element-wise boolean Or on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ReverseOr(System.Boolean,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise boolean Or on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Xor(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <summary>
+            Performs element-wise boolean Xor
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Xor(System.Boolean,System.Boolean)">
+            <summary>
+            Performs an element-wise boolean Xor on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ReverseXor(System.Boolean,System.Boolean)">
+            <summary>
+            Performs a reversed element-wise boolean Xor on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.LeftShift(System.Int32,System.Boolean)">
+            <summary>
+            Performs an element-wise left shift on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.RightShift(System.Int32,System.Boolean)">
+            <summary>
+            Performs an element-wise right shift on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ElementwiseEquals(Microsoft.Data.Analysis.DataFrameColumn)">
+            <summary>
+            Performs element-wise equals
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ElementwiseEquals``1(``0)">
+            <summary>
+            Performs an element-wise equals on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ElementwiseNotEquals(Microsoft.Data.Analysis.DataFrameColumn)">
+            <summary>
+            Performs element-wise not-equals
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ElementwiseNotEquals``1(``0)">
+            <summary>
+            Performs an element-wise not-equals on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ElementwiseGreaterThanOrEqual(Microsoft.Data.Analysis.DataFrameColumn)">
+            <summary>
+            Performs element-wise greater than or equal
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ElementwiseGreaterThanOrEqual``1(``0)">
+            <summary>
+            Performs an element-wise greater than or equal on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ElementwiseLessThanOrEqual(Microsoft.Data.Analysis.DataFrameColumn)">
+            <summary>
+            Performs element-wise less than or equal
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ElementwiseLessThanOrEqual``1(``0)">
+            <summary>
+            Performs an element-wise less than or equal on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ElementwiseGreaterThan(Microsoft.Data.Analysis.DataFrameColumn)">
+            <summary>
+            Performs element-wise greater than
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ElementwiseGreaterThan``1(``0)">
+            <summary>
+            Performs an element-wise greater than on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ElementwiseLessThan(Microsoft.Data.Analysis.DataFrameColumn)">
+            <summary>
+            Performs element-wise less than
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ElementwiseLessThan``1(``0)">
+            <summary>
+            Performs an element-wise less than on each value in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Abs(System.Boolean)">
+            <summary>
+            Updates each numeric element with its absolute numeric value
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.All">
+            <summary>
+            Returns whether all the elements are True
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Any">
+            <summary>
+            Returns whether any element is True
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.CumulativeMax(System.Boolean)">
+            <summary>
+            Updates each element with its cumulative maximum
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.CumulativeMax(System.Collections.Generic.IEnumerable{System.Int64},System.Boolean)">
+            <summary>
+            Updates column values at rowIndices with its cumulative rowIndices maximum
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.CumulativeMin(System.Boolean)">
+            <summary>
+            Updates each element with its cumulative minimum
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.CumulativeMin(System.Collections.Generic.IEnumerable{System.Int64},System.Boolean)">
+            <summary>
+            Updates column values at rowIndices with its cumulative rowIndices minimum
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.CumulativeProduct(System.Boolean)">
+            <summary>
+            Updates each element with its cumulative product
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.CumulativeProduct(System.Collections.Generic.IEnumerable{System.Int64},System.Boolean)">
+            <summary>
+            Updates column values at rowIndices with its cumulative rowIndices product
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.CumulativeSum(System.Boolean)">
+            <summary>
+            Updates each element with its cumulative sum
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.CumulativeSum(System.Collections.Generic.IEnumerable{System.Int64},System.Boolean)">
+            <summary>
+            Updates column values at rowIndices with its cumulative rowIndices sum
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Max">
+            <summary>
+            Returns the maximum of the values in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Max(System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>
+            Returns the maximum of the values at rowIndices
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Min">
+            <summary>
+            Returns the minimum of the values in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Min(System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>
+            Returns the minimum of the values at the rowIndices
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Product">
+            <summary>
+            Returns the product of the values in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Product(System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>
+            Returns the product of the values at the rowIndices
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Sum">
+            <summary>
+            Returns the sum of the values in the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Sum(System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>
+            Returns the sum of the values at the rowIndices
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Round(System.Boolean)">
+            <summary>
+            Calls Math.Round on each value in a column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.#ctor(System.String,System.Int64,System.Type)">
+            <summary>
+            The base <see cref="T:Microsoft.Data.Analysis.DataFrameColumn"/> constructor.
+            </summary>
+            <param name="name">The name of this column.</param>
+            <param name="length">The length of this column.</param>
+            <param name="type">The type of data this column holds.</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Create``1(System.String,System.Collections.Generic.IEnumerable{System.Nullable{``0}})">
+            <summary>
+            A static factory method to create a <see cref="T:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1"/>. 
+            It allows you to take advantage of type inference based on the type of the values supplied.
+            </summary>
+            <typeparam name="T">The type of the column to create.</typeparam>
+            <param name="name">The name of the column.</param>
+            <param name="values">The initial values to populate in the column.</param>
+            <returns>A <see cref="T:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1"/> populated with the provided data.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Create``1(System.String,System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            A static factory method to create a <see cref="T:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1"/>. 
+            It allows you to take advantage of type inference based on the type of the values supplied.
+            </summary>
+            <typeparam name="T">The type of the column to create.</typeparam>
+            <param name="name">The name of the column.</param>
+            <param name="values">The initial values to populate in the column.</param>
+            <returns>A <see cref="T:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1"/> populated with the provided data.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Create(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            A static factory method to create a <see cref="T:Microsoft.Data.Analysis.StringDataFrameColumn"/>. 
+            It allows you to take advantage of type inference based on the type of the values supplied.
+            </summary>
+            <param name="name">The name of the column.</param>
+            <param name="values">The initial values to populate in the column.</param>
+            <returns>A <see cref="T:Microsoft.Data.Analysis.StringDataFrameColumn"/> populated with the provided data.</returns>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrameColumn.Length">
+            <summary>
+            The length of this column
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrameColumn.NullCount">
+            <summary>
+            The number of <see langword="null" /> values in this column.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrameColumn.Name">
+            <summary>
+            The name of this column.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.SetName(System.String,Microsoft.Data.Analysis.DataFrame)">
+            <summary>
+            Updates the name of this column.
+            </summary>
+            <param name="newName">The new name.</param>
+            <param name="dataFrame">If passed in, update the column name in <see cref="P:Microsoft.Data.Analysis.DataFrame.Columns"/></param>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrameColumn.DataType">
+            <summary>
+            The type of data this column holds.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrameColumn.Item(System.Int64)">
+            <summary>
+            Indexer to get/set values at <paramref name="rowIndex"/>
+            </summary>
+            <param name="rowIndex">The index to look up</param>
+            <returns>The value at <paramref name="rowIndex"/></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.GetValue(System.Int64)">
+            <summary>
+            Returns the value at <paramref name="rowIndex"/>.
+            </summary>
+            <param name="rowIndex"></param>
+            <returns>The value at <paramref name="rowIndex"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.GetValues(System.Int64,System.Int32)">
+            <summary>
+            Returns <paramref name="length"/> number of values starting from <paramref name="startIndex"/>.
+            </summary>
+            <param name="startIndex">The first index to return values from.</param>
+            <param name="length">The number of values to return.</param>
+            <returns>A read only list of values</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.SetValue(System.Int64,System.Object)">
+            <summary>
+            Sets the value at <paramref name="rowIndex"/> with <paramref name="value"/>
+            </summary>
+            <param name="rowIndex">The row index</param>
+            <param name="value">The new value.</param>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrameColumn.Item(System.Int64,System.Int32)">
+            <summary>
+            Returns <paramref name="length"/> number of values starting from <paramref name="startIndex"/>.
+            </summary>
+            <param name="startIndex">The first index to return values from.</param>
+            <param name="length">The number of values to return.</param>
+            <returns>A read only list of values</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.GetEnumeratorCore">
+            <summary>
+            Returns an enumerator that iterates this column.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Resize(System.Int64)">
+            <summary>
+            Called internally from Append, Merge and GroupBy. Resizes the column to the specified length to allow setting values by indexing
+            </summary>
+            <param name="length">The new length of the column</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Clone(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean,System.Int64)">
+            <summary>
+            Clone column to produce a copy potentially changing the order of values by supplying mapIndices and an invert flag
+            </summary>
+            <param name="mapIndices"></param>
+            <param name="invertMapIndices"></param>
+            <param name="numberOfNullsToAppend"></param>
+            <returns>A new <see cref="T:Microsoft.Data.Analysis.DataFrameColumn"/></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.CloneImplementation(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean,System.Int64)">
+            <summary>
+            Clone column to produce a copy potentially changing the order of values by supplying mapIndices and an invert flag
+            </summary>
+            <param name="mapIndices"></param>
+            <param name="invertMapIndices"></param>
+            <param name="numberOfNullsToAppend"></param>
+            <returns>A new <see cref="T:Microsoft.Data.Analysis.DataFrameColumn"/></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Sort(System.Boolean)">
+            <summary>
+            Returns a copy of this column sorted by its values
+            </summary>
+            <param name="ascending"></param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.GroupColumnValues``1(System.Collections.Generic.HashSet{System.Int64}@)">
+            <summary>
+            Groups the rows of this column by their value.
+            </summary>
+            <typeparam name="TKey">The type of data held by this column</typeparam>
+            <returns>A mapping of value(<typeparamref name="TKey"/>) to the indices containing this value. Should be sorted collection.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.GetGroupedOccurrences(Microsoft.Data.Analysis.DataFrameColumn,System.Collections.Generic.HashSet{System.Int64}@)">
+            <summary>
+            Get occurences of each value from this column in other column, grouped by this value
+            </summary>
+            <param name="other"></param>
+            <param name="otherColumnNullIndices"></param>
+            <returns>A mapping of index from this column to the indices of same value in other column</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.GetGroupedOccurrences``1(Microsoft.Data.Analysis.DataFrameColumn,System.Collections.Generic.HashSet{System.Int64}@)">
+            <summary>
+            Get occurences of each value from this column in other column, grouped by this value
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <param name="other"></param>
+            <param name="otherColumnNullIndices"></param>
+            <returns>A mapping of index from this column to the indices of same value in other column</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ValueCounts">
+            <summary>
+            Returns a DataFrame containing counts of unique values
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.FillNulls(System.Object,System.Boolean)">
+            <summary>
+            Returns a new column with <see langword="null" /> elements replaced by <paramref name="value"/>.
+            </summary>
+            <remarks>Tries to convert value to the column's DataType</remarks>
+            <param name="value"></param>
+            <param name="inPlace">Indicates if the operation should be performed in place</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.GetMaxRecordBatchLength(System.Int64)">
+            <summary>
+            Returns the max number of values that are contiguous in memory
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.GetDataViewGetter(Microsoft.ML.DataViewRowCursor)">
+            <summary>
+            Creates a <see cref="T:Microsoft.ML.ValueGetter`1"/> that will return the value of the column for the row
+            the cursor is referencing.
+            </summary>
+            <param name="cursor">
+            The row cursor which has the current position.
+            </param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.AddDataViewColumn(Microsoft.ML.DataViewSchema.Builder)">
+            <summary>
+            Adds a new <see cref="T:Microsoft.ML.DataViewSchema.Column"/> to the specified builder for the current column.
+            </summary>
+            <param name="builder">
+            The builder to which to add the schema column.
+            </param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.AddValueUsingCursor(Microsoft.ML.DataViewRowCursor,System.Delegate)">
+            <summary>
+            Appends a value to this <see cref="T:Microsoft.Data.Analysis.DataFrameColumn"/> using <paramref name="cursor"/>
+            </summary>
+            <param name="cursor">The row cursor which has the current position</param>
+            <param name="ValueGetter">The cached ValueGetter for this column.</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.GetValueGetterUsingCursor(Microsoft.ML.DataViewRowCursor,Microsoft.ML.DataViewSchema.Column)">
+            <summary>
+            Returns the ValueGetter for each active column in <paramref name="cursor"/> as a delegate to be cached.
+            </summary>
+            <param name="cursor">The row cursor which has the current position</param>
+            <param name="schemaColumn">The <see cref="T:Microsoft.ML.DataViewSchema.Column"/> to return the ValueGetter for.</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Clamp``1(``0,``0,System.Boolean)">
+            <summary>
+            Clamps values beyond the specified thresholds
+            </summary>
+            <typeparam name="U"></typeparam>
+            <param name="min">Minimum value. All values below this threshold will be set to it</param>
+            <param name="max">Maximum value. All values above this threshold will be set to it</param>
+            <param name="inPlace">Indicates if the operation should be performed in place</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.ClampImplementation``1(``0,``0,System.Boolean)">
+            <summary>
+            Clamps values beyond the specified thresholds
+            </summary>
+            <typeparam name="U"></typeparam>
+            <param name="min">Minimum value. All values below this threshold will be set to it</param>
+            <param name="max">Maximum value. All values above this threshold will be set to it</param>
+            <param name="inPlace">Indicates if the operation should be performed in place</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Filter``1(``0,``0)">
+            <summary>
+            Returns a new column filtered by the lower and upper bounds
+            </summary>
+            <typeparam name="U"></typeparam>
+            <param name="min">The minimum value in the resulting column</param>
+            <param name="max">The maximum value in the resulting column</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.FilterImplementation``1(``0,``0)">
+            <summary>
+            Returns a new column filtered by the lower and upper bounds
+            </summary>
+            <typeparam name="U"></typeparam>
+            <param name="min"></param>
+            <param name="max"></param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.IsNumericColumn">
+            <summary>
+            Determines if the column is of a numeric type
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Mean">
+            <summary>
+            Returns the mean of the values in the column. Throws if this is not a numeric column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Median">
+            <summary>
+            Returns the median of the values in the column. Throws if this is not a numeric column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.HasDescription">
+            <summary>
+            Used to exclude columns from the Description method
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Info">
+            <summary>
+            Returns a <see cref="T:Microsoft.Data.Analysis.StringDataFrameColumn"/> containing the DataType and Length of this column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.Description">
+            <summary>
+            Returns a <see cref= "T:Microsoft.Data.Analysis.DataFrameColumn"/> with statistics that describe the column
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumn.GetAscendingSortIndices(Microsoft.Data.Analysis.Int64DataFrameColumn@)">
+            <summary>
+            Returns the indices of non-null values that, when applied, result in this column being sorted in ascending order. Also returns the indices of null values in <paramref name="nullIndices"/>.
+            </summary>
+            <param name="nullIndices">Indices of values that are <see langword="null"/>.</param>
+        </member>
+        <member name="T:Microsoft.Data.Analysis.DataFrameColumnCollection">
+            <summary>
+            A DataFrameColumnCollection is just a container that holds a number of DataFrameColumn instances. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.IndexOf(System.String)">
+            <summary>
+            Searches for a <see cref="T:Microsoft.Data.Analysis.DataFrameColumn"/> with the specified <paramref name="columnName"/> and returns the zero-based index of the first occurrence if found. Returns -1 otherwise
+            </summary>
+            <param name="columnName"></param>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrameColumnCollection.Item(System.String)">
+            <summary>
+            An indexer based on <see cref="P:Microsoft.Data.Analysis.DataFrameColumn.Name"/>
+            </summary>
+            <param name="columnName">The name of a <see cref="T:Microsoft.Data.Analysis.DataFrameColumn"/></param>
+            <returns>A <see cref="T:Microsoft.Data.Analysis.DataFrameColumn"/> if it exists.</returns>
+            <exception cref="T:System.ArgumentException">Throws if <paramref name="columnName"/> is not present in this <see cref="T:Microsoft.Data.Analysis.DataFrame"/></exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetPrimitiveColumn``1(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1"/> with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetArrowStringColumn(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.ArrowStringDataFrameColumn"/> with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.ArrowStringDataFrameColumn"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetStringColumn(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.StringDataFrameColumn"/> with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.StringDataFrameColumn"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetBooleanColumn(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.BooleanDataFrameColumn"/> with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.BooleanDataFrameColumn"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetByteColumn(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.ByteDataFrameColumn"/> with the specified <paramref name="name"/> and attempts to return it as an <see cref="T:Microsoft.Data.Analysis.ByteDataFrameColumn"/>. If <see cref="P:Microsoft.Data.Analysis.DataFrameColumn.DataType"/> is not of type <see cref="T:System.Byte"/>, an exception is thrown.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.ByteDataFrameColumn"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetCharColumn(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.CharDataFrameColumn"/> with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.CharDataFrameColumn"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetDoubleColumn(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.DoubleDataFrameColumn"/> with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.DoubleDataFrameColumn"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetDecimalColumn(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.DecimalDataFrameColumn"/> with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.DecimalDataFrameColumn"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetSingleColumn(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.SingleDataFrameColumn"/> with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.SingleDataFrameColumn"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetInt32Column(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.Int32DataFrameColumn"/> with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.Int32DataFrameColumn"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetInt64Column(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.Int64DataFrameColumn"/> with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.Int64DataFrameColumn"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetSByteColumn(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.SByteDataFrameColumn"/> with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.SByteDataFrameColumn"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetInt16Column(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.Int16DataFrameColumn"/> with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.Int16DataFrameColumn"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetUInt32Column(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.UInt32DataFrameColumn"/> with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.UInt32DataFrameColumn"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetUInt64Column(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.UInt64DataFrameColumn"/> with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.UInt64DataFrameColumn"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameColumnCollection.GetUInt16Column(System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Data.Analysis.UInt16DataFrameColumn"/> with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the column</param>
+            <returns><see cref="T:Microsoft.Data.Analysis.UInt16DataFrameColumn"/>.</returns>
+            <exception cref="T:System.ArgumentException">A column named <paramref name="name"/> cannot be found, or if the column's type doesn't match.</exception>
+        </member>
+        <member name="T:Microsoft.Data.Analysis.DataFrameRow">
+            <summary>
+            A DataFrameRow is a collection of values that represent a row in a <see cref="T:Microsoft.Data.Analysis.DataFrame"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameRow.GetEnumerator">
+            <summary>
+            Returns an enumerator of the values in this row.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrameRow.Item(System.Int32)">
+            <summary>
+            An indexer to return the value at <paramref name="index"/>.
+            </summary>
+            <param name="index">The index of the value to return</param>
+            <returns>The value at this <paramref name="index"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameRow.ToString">
+            <summary>
+            A simple string representation of the values in this row
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Analysis.DataFrameRowCollection">
+            <summary>
+            Represents the rows of a <see cref="T:Microsoft.Data.Analysis.DataFrame"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameRowCollection.#ctor(Microsoft.Data.Analysis.DataFrame)">
+            <summary>
+            Initializes a <see cref="T:Microsoft.Data.Analysis.DataFrameRowCollection"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrameRowCollection.Item(System.Int64)">
+            <summary>
+            An indexer to return the <see cref="T:Microsoft.Data.Analysis.DataFrameRow"/> at <paramref name="index"/>
+            </summary>
+            <param name="index">The row index</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.DataFrameRowCollection.GetEnumerator">
+            <summary>
+            Returns an enumerator of <see cref="T:Microsoft.Data.Analysis.DataFrameRow"/> objects
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.DataFrameRowCollection.Count">
+            <summary>
+            The number of rows in this <see cref="T:Microsoft.Data.Analysis.DataFrame"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Analysis.GroupBy">
+            <summary>
+            A GroupBy class that is typically the result of a DataFrame.GroupBy call.
+            It holds information to perform typical aggregation ops on it.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.GroupBy.Count(System.String[])">
+            <summary>
+            Compute the number of non-null values in each group 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.GroupBy.First(System.String[])">
+            <summary>
+            Return the first value in each group
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.GroupBy.Head(System.Int32)">
+            <summary>
+            Returns the first <paramref name="numberOfRows"/> rows of each group
+            </summary>
+            <param name="numberOfRows"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.GroupBy.Tail(System.Int32)">
+            <summary>
+            Returns the last <paramref name="numberOfRows"/> rows of each group
+            </summary>
+            <param name="numberOfRows"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.GroupBy.Max(System.String[])">
+            <summary>
+            Compute the max of group values
+            </summary>
+            <param name="columnNames">The columns to find the max of. A default value finds the max of all columns</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.GroupBy.Min(System.String[])">
+            <summary>
+            Compute the min of group values
+            </summary>
+            <param name="columnNames">The columns to find the min of. A default value finds the min of all columns</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.GroupBy.Product(System.String[])">
+            <summary>
+            Compute the product of group values
+            </summary>
+            <param name="columnNames">The columns to find the product of. A default value finds the product of all columns</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.GroupBy.Sum(System.String[])">
+            <summary>
+            Compute the sum of group values
+            </summary>
+            <param name="columnNames">The columns to sum. A Default value sums up all columns</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.GroupBy.Mean(System.String[])">
+            <summary>
+            Compute the mean of group values
+            </summary>
+            <param name="columnNames">The columns to find the mean of. A Default value finds the mean of all columns</param>
+        </member>
+        <member name="P:Microsoft.Data.Analysis.GroupBy`1.Groupings">
+            <summary>
+            Returns a collection of Grouping objects, where each object represent a set of DataFrameRows having the same Key
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Analysis.PrimitiveColumnContainer`1">
+            <summary>
+            PrimitiveDataFrameColumnContainer is just a store for the column data. APIs that want to change the data must be defined in PrimitiveDataFrameColumn
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveColumnContainer`1.SetValidityBit(System.Int64,System.Boolean)">
+            <summary>
+            A null value has an unset bit
+            A NON-null value has a set bit
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+        </member>
+        <member name="T:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1">
+            <summary>
+            A column to hold primitive types such as int, float etc.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Add(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Add``1(``0,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Subtract(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Subtract``1(``0,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Multiply(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Multiply``1(``0,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Divide(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Divide``1(``0,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Modulo(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Modulo``1(``0,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.And(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.And(System.Boolean,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Or(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Or(System.Boolean,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Xor(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Xor(System.Boolean,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.LeftShift(System.Int32,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.RightShift(System.Int32,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ElementwiseEquals(Microsoft.Data.Analysis.DataFrameColumn)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ElementwiseEquals``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ElementwiseNotEquals(Microsoft.Data.Analysis.DataFrameColumn)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ElementwiseNotEquals``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ElementwiseGreaterThanOrEqual(Microsoft.Data.Analysis.DataFrameColumn)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ElementwiseGreaterThanOrEqual``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ElementwiseLessThanOrEqual(Microsoft.Data.Analysis.DataFrameColumn)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ElementwiseLessThanOrEqual``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ElementwiseGreaterThan(Microsoft.Data.Analysis.DataFrameColumn)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ElementwiseGreaterThan``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ElementwiseLessThan(Microsoft.Data.Analysis.DataFrameColumn)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ElementwiseLessThan``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Abs(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.All">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Any">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.CumulativeMax(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.CumulativeMax(System.Collections.Generic.IEnumerable{System.Int64},System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.CumulativeMin(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.CumulativeMin(System.Collections.Generic.IEnumerable{System.Int64},System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.CumulativeProduct(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.CumulativeProduct(System.Collections.Generic.IEnumerable{System.Int64},System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.CumulativeSum(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.CumulativeSum(System.Collections.Generic.IEnumerable{System.Int64},System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Max">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Max(System.Collections.Generic.IEnumerable{System.Int64})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Min">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Min(System.Collections.Generic.IEnumerable{System.Int64})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Product">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Product(System.Collections.Generic.IEnumerable{System.Int64})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Sum">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Sum(System.Collections.Generic.IEnumerable{System.Int64})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Round(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.GetReadOnlyDataBuffers">
+            <summary>
+            Returns an enumerable of immutable memory buffers representing the underlying values
+            </summary>
+            <remarks><see langword="null" /> values are encoded in the buffers returned by GetReadOnlyNullBitmapBuffers in the Apache Arrow format</remarks>
+            <returns>IEnumerable<see cref="T:System.ReadOnlyMemory`1"/></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.GetReadOnlyNullBitMapBuffers">
+            <summary>
+            Returns an enumerable of immutable <see cref="T:System.ReadOnlyMemory`1"/> buffers representing <see langword="null" /> values in the Apache Arrow format
+            </summary>
+            <remarks>Each <see cref="T:System.ReadOnlyMemory`1"/> encodes the <see langword="null" /> values for its corresponding Data buffer</remarks>
+            <returns>IEnumerable<see cref="T:System.ReadOnlyMemory`1"/></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.FillNulls(`0,System.Boolean)">
+            <summary>
+            Returns a new column with nulls replaced by value
+            </summary>
+            <param name="value"></param>
+            <param name="inPlace">Indicates if the operation should be performed in place</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.HasDescription">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ToString">
+            <summary>
+            Returns a preview of the column contents as a formatted string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Clone(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean,System.Int64)">
+            <summary>
+            Returns a clone of this column
+            </summary>
+            <param name="mapIndices">A column who values are used as indices </param>
+            <param name="invertMapIndices"></param>
+            <param name="numberOfNullsToAppend"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.CloneImplementation(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean,System.Int64)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.GroupBy(System.Int32,Microsoft.Data.Analysis.DataFrame)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Apply``1(System.Func{System.Nullable{`0},System.Nullable{``0}})">
+            <summary>
+            Applies a function to all the values
+            </summary>
+            <typeparam name="TResult">The new column's type</typeparam>
+            <param name="func">The function to apply</param>
+            <returns>A new PrimitiveDataFrameColumn containing the new values</returns>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Clamp(`0,`0,System.Boolean)">
+            <summary>
+            Clamps values beyond the specified thresholds
+            </summary>
+            <param name="min">Minimum value. All values below this threshold will be set to it</param>
+            <param name="max">Maximum value. All values above this threshold will be set to it</param>
+            <param name="inPlace">Indicates if the operation should be performed in place</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.Filter(`0,`0)">
+            <summary>
+            Returns a new column filtered by the lower and upper bounds
+            </summary>
+            <param name="min">The minimum value in the resulting column</param>
+            <param name="max">The maximum value in the resulting column</param>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ReverseAdd``1(``0,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ReverseSubtract``1(``0,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ReverseMultiply``1(``0,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ReverseDivide``1(``0,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ReverseModulo``1(``0,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ReverseAnd(System.Boolean,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ReverseOr(System.Boolean,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.PrimitiveDataFrameColumn`1.ReverseXor(System.Boolean,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Data.Analysis.ReadOnlyDataFrameBuffer`1">
+            <summary>
+            A basic immutable store to hold values in a DataFrame column. Supports wrapping with an ArrowBuffer
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Microsoft.Data.Analysis.StringDataFrameColumn">
+            <summary>
+            A mutable column to hold strings
+            </summary>
+            <remarks> Is NOT Arrow compatible </remarks>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.StringDataFrameColumn.Add(Microsoft.Data.Analysis.DataFrameColumn,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.StringDataFrameColumn.Add``1(``0,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.StringDataFrameColumn.ElementwiseEquals(Microsoft.Data.Analysis.DataFrameColumn)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.StringDataFrameColumn.ElementwiseEquals``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.StringDataFrameColumn.ElementwiseNotEquals(Microsoft.Data.Analysis.DataFrameColumn)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.StringDataFrameColumn.ElementwiseNotEquals``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Data.Analysis.TextFieldParser.PeekChars(System.Int32)">
+            <summary>
+             Peek at <paramref name="numberOfChars"/> characters of the next data line without reading the line
+            </summary>
+            <param name="numberOfChars">The number of characters to look at in the next data line.</param>
+            <returns>A string consisting of the first <paramref name="numberOfChars"/> characters of the next line. >If numberOfChars is greater than the next line, only the next line is returned</returns>
+        </member>
+        <member name="T:Microsoft.Data.Strings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.BadColumnCast">
+            <summary>
+              Looks up a localized string similar to Cannot cast column holding {0} values to type {1}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.BadColumnCastDuringGrouping">
+            <summary>
+              Looks up a localized string similar to Cannot cast elements of column &apos;{0}&apos; type of {1} to type {2} used as TKey in grouping .
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.CannotParseWithDelimiters">
+            <summary>
+              Looks up a localized string similar to Line {0} cannot be parsed with the current Delimiters..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.CannotParseWithFieldWidths">
+            <summary>
+              Looks up a localized string similar to Line {0} cannot be parsed with the current FieldWidths..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.CannotResizeDown">
+            <summary>
+              Looks up a localized string similar to Cannot resize down.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.ColumnIndexOutOfRange">
+            <summary>
+              Looks up a localized string similar to Index cannot be greater than the Column&apos;s Length.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.CommentTokenCannotContainWhitespace">
+            <summary>
+              Looks up a localized string similar to Comment token cannot contain whitespace.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.DataType">
+            <summary>
+              Looks up a localized string similar to DataType.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.DelimiterCannotBeNewlineChar">
+            <summary>
+              Looks up a localized string similar to Delimiter cannot be new line characters.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.DescriptionMethodLength">
+            <summary>
+              Looks up a localized string similar to Length (excluding null values).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.DuplicateColumnName">
+            <summary>
+              Looks up a localized string similar to DataFrame already contains a column called {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.EmptyDelimiters">
+            <summary>
+              Looks up a localized string similar to Delimiters is empty..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.EmptyFieldWidths">
+            <summary>
+              Looks up a localized string similar to FieldWidths is empty..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.EmptyFile">
+            <summary>
+              Looks up a localized string similar to Empty file.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.ExceededMaxBufferSize">
+            <summary>
+              Looks up a localized string similar to Exceeded maximum buffer size..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.ExceedsNumberOfColumns">
+            <summary>
+              Looks up a localized string similar to Parameter.Count exceeds the number of columns({0}) in the DataFrame .
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.ExceedsNumberOfRows">
+            <summary>
+              Looks up a localized string similar to Parameter.Count exceeds the number of rows({0}) in the DataFrame .
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.ExpectedEitherGuessRowsOrDataTypes">
+            <summary>
+              Looks up a localized string similar to Expected either {0} or {1} to be provided.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.FileNotFound">
+            <summary>
+              Looks up a localized string similar to {0} not found..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.IllegalQuoteDelimiter">
+            <summary>
+              Looks up a localized string similar to A double quote is not a legal delimiter when HasFieldsEnclosedInQuotes is set to True..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.ImmutableColumn">
+            <summary>
+              Looks up a localized string similar to Column is immutable.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.InconsistentNullBitMapAndLength">
+            <summary>
+              Looks up a localized string similar to Inconsistent null bitmap and data buffer lengths.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.InconsistentNullBitMapAndNullCount">
+            <summary>
+              Looks up a localized string similar to Inconsistent null bitmaps and NullCounts.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.InvalidColumnName">
+            <summary>
+              Looks up a localized string similar to Column &apos;{0}&apos; does not exist.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.InvalidFieldWidths">
+            <summary>
+              Looks up a localized string similar to All field widths, except the last element, must be greater than zero. A field width less than or equal to zero in the last element indicates the last field is of variable length..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.LessColumnsThatExpected">
+            <summary>
+              Looks up a localized string similar to Line {0} has less columns than expected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.LineExceedsMaxLineSize">
+            <summary>
+              Looks up a localized string similar to Line {0} cannot be read because it exceeds the max line size..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.MapIndicesExceedsColumnLenth">
+            <summary>
+              Looks up a localized string similar to MapIndices exceeds column length.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.MismatchedArrayLengths">
+            <summary>
+              Looks up a localized string similar to Array lengths are mistmached.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.MismatchedColumnLengths">
+            <summary>
+              Looks up a localized string similar to Column lengths are mismatched.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.MismatchedColumnValueType">
+            <summary>
+              Looks up a localized string similar to Expected column to hold values of type {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.MismatchedRowCount">
+            <summary>
+              Looks up a localized string similar to rowCount differs from Column length for Column .
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.MismatchedValueType">
+            <summary>
+              Looks up a localized string similar to Expected value to be of type {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.MultipleMismatchedValueType">
+            <summary>
+              Looks up a localized string similar to Expected value to be of type {0}, {1} or {2}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.NonSeekableStream">
+            <summary>
+              Looks up a localized string similar to Expected a seekable stream.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.NotSupportedColumnType">
+            <summary>
+              Looks up a localized string similar to {0} is not a supported column type..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.NullDelimiters">
+            <summary>
+              Looks up a localized string similar to Delimiters is null..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.NullFieldWidths">
+            <summary>
+              Looks up a localized string similar to FieldWidths is null..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.NumericColumnType">
+            <summary>
+              Looks up a localized string similar to numeric column.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.PositiveNumberOfCharacters">
+            <summary>
+              Looks up a localized string similar to {0} must be greater than 0.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.SpansMultipleBuffers">
+            <summary>
+              Looks up a localized string similar to Cannot span multiple buffers.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Strings.StreamDoesntSupportReading">
+            <summary>
+              Looks up a localized string similar to Stream doesn&apos;t support reading.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.IDataViewExtensions.ToDataFrame(Microsoft.ML.IDataView,System.Int64)">
+            <summary>
+            Returns a <see cref="T:Microsoft.Data.Analysis.DataFrame"/> from this <paramref name="dataView"/>.
+            </summary>
+            <param name="dataView">The current <see cref="T:Microsoft.ML.IDataView"/>.</param>
+            <param name="maxRows">The max number or rows in the <see cref="T:Microsoft.Data.Analysis.DataFrame"/>. Defaults to 100. Use -1 to construct a DataFrame using all the rows in <paramref name="dataView"/>.</param>
+            <returns>A <see cref="T:Microsoft.Data.Analysis.DataFrame"/> with <paramref name="maxRows"/>.</returns>
+        </member>
+        <member name="M:Microsoft.ML.IDataViewExtensions.ToDataFrame(Microsoft.ML.IDataView,System.String[])">
+            <summary>
+            Returns a <see cref="T:Microsoft.Data.Analysis.DataFrame"/> with the first 100 rows of this <paramref name="dataView"/>.
+            </summary>
+            <param name="dataView">The current <see cref="T:Microsoft.ML.IDataView"/>.</param>
+            <param name="selectColumns">The columns selected for the resultant DataFrame</param>
+            <returns>A <see cref="T:Microsoft.Data.Analysis.DataFrame"/> with the selected columns and 100 rows.</returns>
+        </member>
+        <member name="M:Microsoft.ML.IDataViewExtensions.ToDataFrame(Microsoft.ML.IDataView,System.Int64,System.String[])">
+            <summary>
+            Returns a <see cref="T:Microsoft.Data.Analysis.DataFrame"/> with the first <paramref name="maxRows"/> of this <paramref name="dataView"/>.
+            </summary>
+            <param name="dataView">The current <see cref="T:Microsoft.ML.IDataView"/>.</param>
+            <param name="maxRows">The max number or rows in the <see cref="T:Microsoft.Data.Analysis.DataFrame"/>. Use -1 to construct a DataFrame using all the rows in <paramref name="dataView"/>.</param>
+            <param name="selectColumns">The columns selected for the resultant DataFrame</param>
+            <returns>A <see cref="T:Microsoft.Data.Analysis.DataFrame"/> with the selected columns and <paramref name="maxRows"/> rows.</returns>
+        </member>
+    </members>
+</doc>

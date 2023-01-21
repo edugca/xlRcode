@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>DynamicObj</name></assembly>
+<members>
+<member name="M:DynamicObj.ImmutableDynamicObjExtensions.RemoveItem``1(``0,System.String)">
+<summary>
+ Returns an instance:
+ 1. the same if there was no requested property
+ 2. without the requested property if there was
+ use this one only from C#
+</summary>
+</member>
+<member name="M:DynamicObj.ImmutableDynamicObjExtensions.AddItem``2(``0,System.String,``1)">
+<summary>
+ Returns an instance with:
+ 1. this property added if it wasn&apos;t present
+ 2. this property updated otherwise
+ use this one only from C#
+</summary>
+</member>
+<member name="M:DynamicObj.ImmutableDynamicObj.remove``1(System.String,``0)">
+<summary>
+ Returns an instance:
+ 1. the same if there was no requested property
+ 2. without the requested property if there was
+</summary>
+</member>
+<member name="P:DynamicObj.ImmutableDynamicObj.Item(System.String)">
+<summary>
+ Indexes ; if no key found, throws
+</summary>
+</member>
+<member name="M:DynamicObj.ImmutableDynamicObj.combineWith``2(``0,``1)">
+ <summary>Merges the second ImmutableDynamicObj into the first one (that is, keeps the first one's type).</summary>
+ <remarks>Warning: In case of duplicate property names the members of the second object override those of the first.</remarks>
+</member>
+<member name="M:DynamicObj.ImmutableDynamicObj.addOptBy``3(System.String,Microsoft.FSharp.Core.FSharpOption{``0},Microsoft.FSharp.Core.FSharpFunc{``0,``1},``2)">
+<summary>
+ Acts as addOpt but maps the valid value 
+ through the last argument
+</summary>
+</member>
+<member name="M:DynamicObj.ImmutableDynamicObj.addOpt``2(System.String,Microsoft.FSharp.Core.FSharpOption{``0},``1)">
+<summary>
+ Acts as add if the value is Some,
+ returns the same object otherwise
+</summary>
+</member>
+<member name="M:DynamicObj.ImmutableDynamicObj.add``1(System.String,System.Object,``0)">
+<summary>
+ Returns an instance with:
+ 1. this property added if it wasn&apos;t present
+ 2. this property updated otherwise
+</summary>
+</member>
+<member name="M:DynamicObj.ImmutableDynamicObj.ToDictionary">
+<summary>
+ Returns the copy of this object but as a dictionary
+</summary>
+</member>
+<member name="M:DynamicObj.ImmutableDynamicObj.#ctor">
+<summary>
+ Empty instance
+</summary>
+</member>
+<member name="T:DynamicObj.ImmutableDynamicObj">
+<summary>
+ Represents an DynamicObj&apos;s counterpart
+ with immutability enabled only.
+</summary>
+</member>
+<member name="M:DynamicObj.DynamicObj.op_DynamicAssignment``2(``0,System.String,``1)">
+<summary>
+ Operator to set a dynamic member
+</summary>
+</member>
+<member name="M:DynamicObj.DynamicObj.op_Dynamic``1(``0,System.String)">
+<summary>
+ Operator to access a dynamic member by name
+</summary>
+</member>
+<member name="M:DynamicObj.DynamicObj.TryGetValue(System.String)">
+<summary>
+ Gets property value
+</summary>
+</member>
+<member name="M:DynamicObj.DynamicObj.TryGetTypedValue``1(System.String)">
+<summary>
+ Gets property value
+</summary>
+</member>
+<member name="M:DynamicObj.DynamicObj.SetValue``1(System.String,``0)">
+<summary>
+ Sets property value, creating a new property if none exists
+</summary>
+</member>
+<member name="M:DynamicObj.DynamicObj.GetProperties(System.Boolean)">
+<summary>
+ Returns both instance and dynamic properties when passed true, only dynamic properties otherwise. 
+ Properties are returned as a key value pair of the member names and the boxed values
+</summary>
+</member>
+<member name="M:DynamicObj.DynamicObj.GetDynamicMemberNames">
+<summary>
+ Returns both instance and dynamic member names.
+ Important to return both so JSON serialization with Json.NET works.
+</summary>
+</member>
+<member name="M:DynamicObj.DynamicObj.CopyDynamicPropertiesTo(DynamicObj.DynamicObj)">
+<summary>
+ Copies all dynamic members of the DynamicObj to the target DynamicObj.
+</summary>
+</member>
+<member name="M:DynamicObj.DynamicObj.CopyDynamicProperties">
+<summary>
+ Returns a new DynamicObj with only the dynamic properties of the original DynamicObj (sans instance properties).
+</summary>
+</member>
+<member name="M:DynamicObj.ReflectionUtils.removeProperty(System.Object,System.String)">
+<summary>
+ Removes property 
+</summary>
+</member>
+<member name="M:DynamicObj.ReflectionUtils.tryUpdatePropertyValue``1(System.Object,Microsoft.FSharp.Quotations.FSharpExpr,Microsoft.FSharp.Core.FSharpFunc{``0,``0})">
+<summary>
+ Updates property value by given function
+</summary>
+</member>
+<member name="M:DynamicObj.ReflectionUtils.tryUpdatePropertyValueFromName``1(System.Object,System.String,Microsoft.FSharp.Core.FSharpFunc{``0,``0})">
+<summary>
+ Updates property value by given function
+</summary>
+</member>
+<member name="M:DynamicObj.ReflectionUtils.tryGetPropertyValueAs``1(System.Object,System.String)">
+<summary>
+ Gets property value as &apos;a option using reflection. Cast to &apos;a
+</summary>
+</member>
+<member name="M:DynamicObj.ReflectionUtils.tryGetPropertyValue(System.Object,System.String)">
+<summary>
+ Gets property value as option using reflection
+</summary>
+</member>
+<member name="M:DynamicObj.ReflectionUtils.trySetPropertyValue(System.Object,System.String,System.Object)">
+<summary>
+ Sets property value using reflection
+</summary>
+</member>
+<member name="M:DynamicObj.ReflectionUtils.tryGetPropertyInfo(System.Object,System.String)">
+<summary>
+ Try to get the PropertyInfo by name using reflection
+</summary>
+</member>
+<member name="M:DynamicObj.ReflectionUtils.tryGetPropertyName(Microsoft.FSharp.Quotations.FSharpExpr)">
+<summary>
+ Returns the proptery name from quotation expression
+</summary>
+</member>
+<member name="M:DynamicObj.ReflectionUtils.optApply``1(Microsoft.FSharp.Core.FSharpOption{Microsoft.FSharp.Core.FSharpFunc{``0,``0}},``0)">
+<summary>
+ Applies Some &apos;applyStyle&apos; to item. If None it returns &apos;item&apos; unchanged.
+</summary>
+</member>
+<member name="M:DynamicObj.ReflectionUtils.optBuildApply``1(Microsoft.FSharp.Core.FSharpFunc{``0,``0},Microsoft.FSharp.Core.FSharpOption{``0})">
+<summary>
+ Applies &apos;applyStyle&apos; to item option. If None it creates a new instance.
+</summary>
+</member>
+<member name="M:DynamicObj.ReflectionUtils.buildApply``1(Microsoft.FSharp.Core.FSharpFunc{``0,``0})">
+<summary>
+ Creates an instance of the Object according to applyStyle and applies the function..
+</summary>
+</member>
+<member name="M:DynamicObj.DynObj.combine(DynamicObj.DynamicObj,DynamicObj.DynamicObj)">
+<summary>
+ Merges two DynamicObj (Warning: In case of duplicate property names the members of the second object override those of the first)
+</summary>
+</member>
+<member name="M:DynamicObj.DynObj.ofArray``1(System.Tuple{System.String,``0}[])">
+<summary>
+ New DynamicObj of an array of key value
+</summary>
+</member>
+<member name="M:DynamicObj.DynObj.ofList``1(Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.String,``0}})">
+<summary>
+ New DynamicObj of a list of key value
+</summary>
+</member>
+<member name="M:DynamicObj.DynObj.ofSeq``1(System.Collections.Generic.IEnumerable{System.Tuple{System.String,``0}})">
+<summary>
+ New DynamicObj of a sequence of key value
+</summary>
+</member>
+<member name="M:DynamicObj.DynObj.ofDict(System.Collections.Generic.Dictionary{System.String,System.Object})">
+<summary>
+ New DynamicObj of Dictionary
+</summary>
+</member>
+<member name="M:DynamicObj.Operators.op_PlusPlusQmarkQmark``3(``0,System.String,Microsoft.FSharp.Core.FSharpOption{``1},Microsoft.FSharp.Core.FSharpFunc{``1,``2})">
+<summary>
+ Acts as (++?) but maps the valid value 
+ through the last argument
+</summary>
+</member>
+<member name="M:DynamicObj.Operators.op_PlusPlusQmark``2(``0,System.String,Microsoft.FSharp.Core.FSharpOption{``1})">
+<summary>
+ Acts as (++) if the value is Some,
+ returns the same object otherwise
+</summary>
+</member>
+<member name="M:DynamicObj.Operators.op_MinusMinus``1(``0,System.String)">
+<summary>
+ Returns an instance:
+ 1. the same if there was no requested property
+ 2. without the requested property if there was
+</summary>
+</member>
+<member name="M:DynamicObj.Operators.op_PlusPlus``2(``0,System.String,``1)">
+<summary>
+ Returns an instance with:
+ 1. this property added if it wasn&apos;t present
+ 2. this property updated otherwise
+</summary>
+</member>
+</members>
+</doc>
