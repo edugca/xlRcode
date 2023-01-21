@@ -1,4 +1,4 @@
-# xlRcode (v. 0.1.7)
+# xlRcode (v. 0.1.8)
 
 Call R from Excel. Create new Excel functions that make use of R packages. Integrate both tools seamlessly.
 
@@ -76,6 +76,14 @@ That should do the trick!
 That should do the trick!
 
 ## History
+
+### v. 0.1.8
+Minor improvement and bug handling.
+- Improvement: xlRcode is still not passing through some anti-virus detectors due to a false alert raised for ExcelDna XLL files. ExcelDna was updated to version 1.6.1-beta1. Problem persists, though.
+- Improvement: Matrix arguments with mixed datatypes can now be parsed by xlRcode functions. Each element is converted to the string datatype as in R.
+- Bug fix: String arguments were being parsed from UNICODE to UTF-8 (R's default encoding) without due conversion.
+- Bug fix: Function XLRCODE_RTD still under development was visible.
+- Bug fix: Logical matrix arguments were not being parsed by xlRcode functions.
 
 ### v. 0.1.7
 Minor improvement and bug handling.
