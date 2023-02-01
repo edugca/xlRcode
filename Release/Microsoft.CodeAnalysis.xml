@@ -1056,6 +1056,30 @@
             may be replaced by an interesting local in a later stage.
             </remarks>
         </member>
+        <member name="T:Microsoft.CodeAnalysis.CodeGen.StateMachineStatesDebugInfo">
+            <summary>
+            Debug information maintained for each state machine.
+            Facilitates mapping of state machine states from a compilation to the previous one (or to a metadata baseline) during EnC.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CodeAnalysis.CodeGen.StateMachineStatesDebugInfo.FirstUnusedIncreasingStateMachineState">
+            <summary>
+            The number of the first state that has not been used in any of the previous versions of the state machine,
+            or null if we are not generating EnC delta.
+            
+            For 1st generation EnC delta, this is calculated by examining the <see cref="F:Microsoft.CodeAnalysis.Emit.EditAndContinueMethodDebugInformation.StateMachineStates"/> stored in the baseline metadata.
+            For subsequent generations, the number is updated to account for newly generated states in that generation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CodeAnalysis.CodeGen.StateMachineStatesDebugInfo.FirstUnusedDecreasingStateMachineState">
+            <summary>
+            The number of the first state that has not been used in any of the previous versions of the state machine,
+            or null if we are not generating EnC delta, or the state machine has no decreasing states.
+            
+            For 1st generation EnC delta, this is calculated by examining the <see cref="F:Microsoft.CodeAnalysis.Emit.EditAndContinueMethodDebugInformation.StateMachineStates"/> stored in the baseline metadata.
+            For subsequent generations, the number is updated to account for newly generated states in that generation.
+            </summary>
+        </member>
         <member name="T:Microsoft.CodeAnalysis.CodeGen.SwitchIntegralJumpTableEmitter">
             <summary>
             Class for emitting the switch jump table for switch statements with integral governing type
@@ -1221,11 +1245,11 @@
         <member name="M:Microsoft.CodeAnalysis.CodeGen.VariableSlotAllocator.GetFirstUnusedStateMachineState(System.Boolean)">
             <summary>
             State number to be used for next state of the state machine,
-            or <see langword="null"/> if none of the previous versions of the method was a state machine with a increasing state
+            or <see langword="null"/> if none of the previous versions of the method was a state machine with an increasing state
             </summary>
-            <param name="increasing">True if the state number increases with progress, false if it decreases.</param>
+            <param name="increasing">True if the state number increases with progress, false if it decreases (e.g. states for iterator try-finally blocks, or iterator states of async iterators).</param>
         </member>
-        <member name="M:Microsoft.CodeAnalysis.CodeGen.VariableSlotAllocator.TryGetPreviousStateMachineState(Microsoft.CodeAnalysis.SyntaxNode,System.Int32@)">
+        <member name="M:Microsoft.CodeAnalysis.CodeGen.VariableSlotAllocator.TryGetPreviousStateMachineState(Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.StateMachineState@)">
             <summary>
             For a given node associated with entering a state of a state machine in the new compilation,
             returns the ordinal of the corresponding state in the previous version of the state machine.
@@ -1236,6 +1260,40 @@
             <remarks>
             <paramref name="syntax"/> is an await expression, yield return statement, or try block syntax node.
             </remarks>
+        </member>
+        <member name="F:Microsoft.CodeAnalysis.StateMachineState.FirstResumableAsyncIteratorState">
+            <summary>
+            First state of an async iterator state machine that is used to resume the machine after yield return.
+            Initial state is not used to resume state machine that yielded. State numbers decrease as the iterator makes progress.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CodeAnalysis.StateMachineState.InitialAsyncIteratorState">
+            <summary>
+            Initial iterator state of an async iterator.
+            Distinct from <see cref="F:Microsoft.CodeAnalysis.StateMachineState.NotStartedOrRunningState"/> so that DisposeAsync can throw in latter case.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CodeAnalysis.StateMachineState.FirstIteratorFinalizeState">
+            <summary>
+            First state of an iterator state machine. State numbers decrease for subsequent finalize states.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CodeAnalysis.StateMachineState.FirstResumableAsyncState">
+            <summary>
+            First state in async state machine that is used to resume the machine after await.
+            State numbers increase as the async computation makes progress.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CodeAnalysis.StateMachineState.InitialIteratorState">
+            <summary>
+            Initial iterator state of an iterator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CodeAnalysis.StateMachineState.FirstResumableIteratorState">
+            <summary>
+            First state in iterator state machine that is used to resume the machine after yield return.
+            Initial state is not used to resume state machine that yielded. State numbers increase as the iterator makes progress.
+            </summary>
         </member>
         <member name="M:Microsoft.CodeAnalysis.ArrayBuilderExtensions.SelectAsArray``2(Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder{``0},System.Func{``0,``1})">
             <summary>
@@ -4233,12 +4291,12 @@
             <param name="input">The compilation before any source generation has occurred.</param>
             <param name="parseOptions">The <see cref="T:Microsoft.CodeAnalysis.ParseOptions"/> to use when parsing any generated sources.</param>
             <param name="generators">The generators to run</param>
-            <param name="analyzerConfigOptionsProvider">A provider that returns analyzer config options</param>
+            <param name="analyzerConfigOptionsProvider">A provider that returns analyzer config options.</param>
             <param name="additionalTexts">Any additional texts that should be passed to the generators when run.</param>
-            <param name="generatorDiagnostics">Any diagnostics that were produced during generation</param>
+            <param name="generatorDiagnostics">Any diagnostics that were produced during generation.</param>
             <returns>A compilation that represents the original compilation with any additional, generated texts added to it.</returns>
         </member>
-        <member name="M:Microsoft.CodeAnalysis.CommonCompiler.CompileAndEmit(Microsoft.CodeAnalysis.TouchedFileLogger,Microsoft.CodeAnalysis.Compilation@,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer},System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.ISourceGenerator},System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.AdditionalText},Microsoft.CodeAnalysis.AnalyzerConfigSet,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.AnalyzerConfigOptionsResult},System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.EmbeddedText},Microsoft.CodeAnalysis.DiagnosticBag,System.Threading.CancellationToken,System.Threading.CancellationTokenSource@,System.Boolean@,Microsoft.CodeAnalysis.Diagnostics.AnalyzerDriver@)">
+        <member name="M:Microsoft.CodeAnalysis.CommonCompiler.CompileAndEmit(Microsoft.CodeAnalysis.TouchedFileLogger,Microsoft.CodeAnalysis.Compilation@,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer},System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.ISourceGenerator},System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.AdditionalText},Microsoft.CodeAnalysis.AnalyzerConfigSet,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.AnalyzerConfigOptionsResult},System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.EmbeddedText},Microsoft.CodeAnalysis.DiagnosticBag,System.Threading.CancellationToken,System.Threading.CancellationTokenSource@,Microsoft.CodeAnalysis.Diagnostics.AnalyzerDriver@,System.Nullable{Microsoft.CodeAnalysis.GeneratorDriverTimingInfo}@)">
             <summary>
             Perform all the work associated with actual compilation
             (parsing, binding, compile, emit), resulting in diagnostics
@@ -5200,6 +5258,29 @@
             appropriate locations in <paramref name="memberIsReadOnly"/>.
             </summary>
             <remarks>This overload is for backwards compatibility. Do not remove.</remarks>
+        </member>
+        <member name="M:Microsoft.CodeAnalysis.Compilation.CreateBuiltinOperator(System.String,Microsoft.CodeAnalysis.ITypeSymbol,Microsoft.CodeAnalysis.ITypeSymbol,Microsoft.CodeAnalysis.ITypeSymbol)">
+            <summary>
+            Creates an <see cref="T:Microsoft.CodeAnalysis.IMethodSymbol"/> whose <see cref="P:Microsoft.CodeAnalysis.IMethodSymbol.MethodKind"/> is <see
+            cref="F:Microsoft.CodeAnalysis.MethodKind.BuiltinOperator"/> for a binary operator. Built-in operators are commonly created for
+            symbols like <c>bool int.operator ==(int v1, int v2)</c> which the language implicitly supports, even if such
+            a symbol is not explicitly defined for that type in either source or metadata.
+            </summary>
+            <param name="name">The binary operator name.  Should be one of the names from <see cref="T:Microsoft.CodeAnalysis.WellKnownMemberNames"/>.</param>
+            <param name="returnType">The return type of the binary operator.</param>
+            <param name="leftType">The type of the left operand of the binary operator.</param>
+            <param name="rightType">The type of the right operand of the binary operator.</param>
+        </member>
+        <member name="M:Microsoft.CodeAnalysis.Compilation.CreateBuiltinOperator(System.String,Microsoft.CodeAnalysis.ITypeSymbol,Microsoft.CodeAnalysis.ITypeSymbol)">
+            <summary>
+            Creates an <see cref="T:Microsoft.CodeAnalysis.IMethodSymbol"/> whose <see cref="P:Microsoft.CodeAnalysis.IMethodSymbol.MethodKind"/> is <see
+            cref="F:Microsoft.CodeAnalysis.MethodKind.BuiltinOperator"/> for a unary operator. Built-in operators are commonly created for
+            symbols like <c>bool int.operator -(int value)</c> which the language implicitly supports, even if such a
+            symbol is not explicitly defined for that type in either source or metadata.
+            </summary>
+            <param name="name">The unary operator name.  Should be one of the names from <see cref="T:Microsoft.CodeAnalysis.WellKnownMemberNames"/>.</param>
+            <param name="returnType">The return type of the unary operator.</param>
+            <param name="operandType">The type the operator applies to.</param>
         </member>
         <member name="M:Microsoft.CodeAnalysis.Compilation.ClassifyCommonConversion(Microsoft.CodeAnalysis.ITypeSymbol,Microsoft.CodeAnalysis.ITypeSymbol)">
             <summary>
@@ -6419,9 +6500,20 @@
         <member name="M:Microsoft.CodeAnalysis.Emit.EditAndContinueMethodDebugInformation.UncompressStateMachineStates(System.Collections.Immutable.ImmutableArray{System.Byte})">
             <exception cref="T:System.IO.InvalidDataException">Invalid data.</exception>
         </member>
+        <member name="M:Microsoft.CodeAnalysis.Emit.EditAndContinue.DeletedDefinition`1.#ctor(`0,System.Collections.Generic.Dictionary{Microsoft.Cci.ITypeDefinition,Microsoft.CodeAnalysis.Emit.EditAndContinue.DeletedTypeDefinition})">
+            <summary>
+            Constructs a deleted definition
+            </summary>
+            <param name="oldDefinition">The old definition of the member</param>
+            <param name="typesUsedByDeletedMembers">
+            Cache of type definitions used in signatures of deleted members. Used so that if a method 'C M(C c)' is deleted
+            we use the same <see cref="T:Microsoft.CodeAnalysis.Emit.EditAndContinue.DeletedTypeDefinition"/> instance for the method return type, and the parameter type.
+            </param>
+        </member>
         <member name="T:Microsoft.CodeAnalysis.Emit.EditAndContinue.DeletedTypeDefinition">
             <summary>
-            Represents a type referenced from a deleted member (as distinct from a type that has been deleted)
+            Represents a type referenced from a deleted member (as distinct from a type that has been deleted). This is also
+            why it doesn't inherit from <see cref="T:Microsoft.CodeAnalysis.Emit.EditAndContinue.DeletedDefinition`1"/>
             </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.Emit.DeltaMetadataWriter._changedTypeDefs">
@@ -6696,10 +6788,10 @@
             symbol is simply Symbol.ContainingSymbol.
             </summary>
         </member>
-        <member name="M:Microsoft.CodeAnalysis.Emit.SymbolMatcher.MapSynthesizedMembers(System.Collections.Immutable.ImmutableDictionary{Microsoft.CodeAnalysis.Symbols.ISymbolInternal,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.Symbols.ISymbolInternal}},System.Collections.Immutable.ImmutableDictionary{Microsoft.CodeAnalysis.Symbols.ISymbolInternal,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.Symbols.ISymbolInternal}})">
+        <member name="M:Microsoft.CodeAnalysis.Emit.SymbolMatcher.MapSynthesizedOrDeletedMembers(System.Collections.Immutable.ImmutableDictionary{Microsoft.CodeAnalysis.Symbols.ISymbolInternal,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.Symbols.ISymbolInternal}},System.Collections.Immutable.ImmutableDictionary{Microsoft.CodeAnalysis.Symbols.ISymbolInternal,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.Symbols.ISymbolInternal}},System.Boolean)">
             <summary>
-            Merges synthesized members generated during lowering of the current compilation with aggregate synthesized members 
-            from all previous source generations (gen >= 1).
+            Merges synthesized or deleted members generated during lowering, or emit, of the current compilation with aggregate
+            synthesized or deleted members from all previous source generations (gen >= 1).
             </summary>
             <remarks>
             Suppose {S -> {A, B, D}, T -> {E, F}} are all synthesized members in previous generations,
@@ -11498,8 +11590,9 @@
         </member>
         <member name="P:Microsoft.CodeAnalysis.ImportedNamespaceOrType.DeclaringSyntaxReference">
             <summary>
-            Location in source where the <c>using</c> directive or <c>Imports</c> clause was declared. Will never be
-            null for C#, may be null for Visual Basic for a project-level import directive.
+            Location in source where the <c>using</c> directive or <c>Imports</c> clause was declared. May be null for
+            Visual Basic for a project-level import directive, or for a C# global using provided directly through <see
+            cref="P:Microsoft.CodeAnalysis.CSharp.CSharpCompilationOptions.Usings"/>.
             </summary>
         </member>
         <member name="T:Microsoft.CodeAnalysis.ImportedXmlNamespace">
@@ -11550,35 +11643,35 @@
         <member name="F:Microsoft.CodeAnalysis.NullableContext.WarningsContextInherited">
             <summary>
             The nullable warning state is inherited from the project default.
-            </summary>
-            <remarks>
+            <para>
             The project default can change depending on the file type. Generated
             files have nullable off by default, regardless of the project-level
             default setting.
-            </remarks>
+            </para>
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.NullableContext.AnnotationsContextInherited">
             <summary>
             The nullable annotation state is inherited from the project default.
-            </summary>
-            <remarks>
+            <para>
             The project default can change depending on the file type. Generated
             files have nullable off by default, regardless of the project-level
             default setting.
-            </remarks>
+            </para>
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.NullableContext.ContextInherited">
              <summary>
              The current state of both warnings and annotations are inherited from
              the project default.
-             </summary>
-             <remarks>
+             <para>
              This flag is set by default at the start of all files.
             
              The project default can change depending on the file type. Generated
              files have nullable off by default, regardless of the project-level
              default setting.
-             </remarks>
+             </para>
+             </summary>        
         </member>
         <member name="M:Microsoft.CodeAnalysis.NullableContextExtensions.WarningsEnabled(Microsoft.CodeAnalysis.NullableContext)">
             <summary>
@@ -11644,9 +11737,9 @@
         <member name="F:Microsoft.CodeAnalysis.OptimizationLevel.Debug">
             <summary>
             Disables all optimizations and instruments the generated code to improve debugging experience.
-            </summary>
-            <remarks>
+            <para>
             The compiler prefers debuggability over performance. Do not use for code running in a production environment.
+            </para>
             <list type="bullet">
             <item><description>JIT optimizations are disabled via assembly level attribute (<see cref="T:System.Diagnostics.DebuggableAttribute"/>).</description></item>
             <item><description>Edit and Continue is enabled.</description></item>
@@ -11655,14 +11748,14 @@
             <para>
             Corresponds to command line argument /optimize-.
             </para>
-            </remarks>
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.OptimizationLevel.Release">
             <summary>
             Enables all optimizations, debugging experience might be degraded.
-            </summary>
-            <remarks>
+            <para>
             The compiler prefers performance over debuggability. Use for code running in a production environment.
+            </para>
             <list type="bullet">
             <item><description>JIT optimizations are enabled via assembly level attribute (<see cref="T:System.Diagnostics.DebuggableAttribute"/>).</description></item>
             <item><description>Edit and Continue is disabled.</description></item>
@@ -11672,7 +11765,7 @@
             <para>
             Corresponds to command line argument /optimize+.
             </para>
-            </remarks>
+            </summary>
         </member>
         <member name="T:Microsoft.CodeAnalysis.ParseOptions">
             <summary>
@@ -12739,28 +12832,35 @@
             include all namespace, type and member
             </summary>
         </member>
+        <member name="F:Microsoft.CodeAnalysis.SymbolInfo._candidateSymbols">
+            <summary>
+            Array of potential candidate symbols if <see cref="P:Microsoft.CodeAnalysis.SymbolInfo.Symbol"/> did not bind successfully.  Note: all code in
+            this type should prefer referencing <see cref="P:Microsoft.CodeAnalysis.SymbolInfo.CandidateSymbols"/> instead of this so that they uniformly
+            only see an non-<see langword="default"/> array.
+            </summary>
+        </member>
         <member name="P:Microsoft.CodeAnalysis.SymbolInfo.Symbol">
             <summary>
-            The symbol that was referred to by the syntax node, if any. Returns null if the given
-            expression did not bind successfully to a single symbol. If null is returned, it may
-            still be that case that we have one or more "best guesses" as to what symbol was
-            intended. These best guesses are available via the CandidateSymbols property.
+            The symbol that was referred to by the syntax node, if any. Returns null if the given expression did not
+            bind successfully to a single symbol. If null is returned, it may still be that case that we have one or
+            more "best guesses" as to what symbol was intended. These best guesses are available via the <see
+            cref="P:Microsoft.CodeAnalysis.SymbolInfo.CandidateSymbols"/> property.
             </summary>
         </member>
         <member name="P:Microsoft.CodeAnalysis.SymbolInfo.CandidateSymbols">
             <summary>
-            If the expression did not successfully resolve to a symbol, but there were one or more
-            symbols that may have been considered but discarded, this property returns those
-            symbols. The reason that the symbols did not successfully resolve to a symbol are
-            available in the CandidateReason property. For example, if the symbol was inaccessible,
-            ambiguous, or used in the wrong context.
+            If the expression did not successfully resolve to a symbol, but there were one or more symbols that may have
+            been considered but discarded, this property returns those symbols. The reason that the symbols did not
+            successfully resolve to a symbol are available in the <see cref="P:Microsoft.CodeAnalysis.SymbolInfo.CandidateReason"/> property. For example,
+            if the symbol was inaccessible, ambiguous, or used in the wrong context.
             </summary>
+            <remarks>Will never return a <see langword="default"/> array.</remarks>
         </member>
         <member name="P:Microsoft.CodeAnalysis.SymbolInfo.CandidateReason">
             <summary>
-             If the expression did not successfully resolve to a symbol, but there were one or more
-             symbols that may have been considered but discarded, this property describes why those
-             symbol or symbols were not considered suitable.
+             If the expression did not successfully resolve to a symbol, but there were one or more symbols that may have
+             been considered but discarded, this property describes why those symbol or symbols were not considered
+             suitable.
              </summary>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SyntaxTreeOptionsProvider.IsGenerated(Microsoft.CodeAnalysis.SyntaxTree,System.Threading.CancellationToken)">
@@ -13600,6 +13700,19 @@
         <member name="P:Microsoft.CodeAnalysis.Diagnostics.AnalysisState.DeclarationAnalyzerStateData.OperationBlockAnalysisState">
             <summary>
             Partial analysis state for operation block actions executed on the declaration.
+            
+            NOTE: This state tracks operations actions registered inside operation block start context.
+            Operation actions registered outside operation block start context are tracked
+            with <see cref="P:Microsoft.CodeAnalysis.Diagnostics.AnalysisState.DeclarationAnalyzerStateData.OperationAnalysisState"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.Diagnostics.AnalysisState.DeclarationAnalyzerStateData.OperationAnalysisState">
+            <summary>
+            Partial analysis state for operation actions executed on the declaration.
+            
+            NOTE: This state tracks operations actions registered outside of operation block start context.
+            Operation actions registered inside operation block start context are tracked
+            with <see cref="T:Microsoft.CodeAnalysis.Diagnostics.AnalysisState.OperationBlockAnalyzerStateData"/>.
             </summary>
         </member>
         <member name="T:Microsoft.CodeAnalysis.Diagnostics.AnalysisState.SyntaxNodeAnalyzerStateData">
@@ -13880,6 +13993,14 @@
             <summary>
             Driver to execute diagnostic analyzers for a given compilation.
             It uses a <see cref="T:Microsoft.CodeAnalysis.Diagnostics.AsyncQueue`1"/> of <see cref="T:Microsoft.CodeAnalysis.Diagnostics.CompilationEvent"/>s to drive its analysis.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CodeAnalysis.Diagnostics.AnalyzerDriver.CompilationData">
+            <summary>
+            Stores <see cref="T:Microsoft.CodeAnalysis.Diagnostics.AnalyzerDriver.DeclarationAnalysisData"/> for symbols declared in the compilation.
+            This allows us to avoid recomputing this data across analyzer execution for different analyzers
+            on the same symbols. This cached compilation data is strongly held by the associated
+            <see cref="T:Microsoft.CodeAnalysis.Diagnostics.CompilationWithAnalyzers"/> object.
             </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.Diagnostics.AnalyzerDriver._programmaticSuppressions">
@@ -14312,12 +14433,15 @@
             <param name="actions"><see cref="T:Microsoft.CodeAnalysis.Diagnostics.AnalyzerActions"/> whose compilation start actions are to be executed.</param>
             <param name="compilationScope">Compilation scope to store the analyzer actions.</param>
         </member>
-        <member name="M:Microsoft.CodeAnalysis.Diagnostics.AnalyzerExecutor.ExecuteSymbolStartActions(Microsoft.CodeAnalysis.ISymbol,Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.Diagnostics.SymbolStartAnalyzerAction},Microsoft.CodeAnalysis.Diagnostics.HostSymbolStartAnalysisScope)">
+        <member name="M:Microsoft.CodeAnalysis.Diagnostics.AnalyzerExecutor.ExecuteSymbolStartActions(Microsoft.CodeAnalysis.ISymbol,Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.Diagnostics.SymbolStartAnalyzerAction},Microsoft.CodeAnalysis.Diagnostics.HostSymbolStartAnalysisScope,System.Boolean)">
             <summary>
             Executes the symbol start actions.
             </summary>
+            <param name="symbol">Symbol whose symbol start actions are to be executed.</param>
+            <param name="analyzer">Analyzer whose symbol start actions are to be executed.</param>
             <param name="actions"><see cref="T:Microsoft.CodeAnalysis.Diagnostics.AnalyzerActions"/> whose symbol start actions are to be executed.</param>
             <param name="symbolScope">Symbol scope to store the analyzer actions.</param>
+            <param name="isGeneratedCodeSymbol">Flag indicating if the symbol being analyzed is generated code.</param>
         </member>
         <member name="M:Microsoft.CodeAnalysis.Diagnostics.AnalyzerExecutor.ExecuteSuppressionAction(Microsoft.CodeAnalysis.Diagnostics.DiagnosticSuppressor,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.Diagnostic})">
             <summary>
@@ -14356,7 +14480,7 @@
             False, if there are some pending actions that are currently being executed on another thread.
             </returns>
         </member>
-        <member name="M:Microsoft.CodeAnalysis.Diagnostics.AnalyzerExecutor.TryExecuteSymbolEndActionsForContainer(Microsoft.CodeAnalysis.INamespaceOrTypeSymbol,Microsoft.CodeAnalysis.ISymbol,Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer,System.Func{Microsoft.CodeAnalysis.ISymbol,Microsoft.CodeAnalysis.SyntaxReference,Microsoft.CodeAnalysis.Compilation,System.Threading.CancellationToken,Microsoft.CodeAnalysis.SyntaxNode},Microsoft.CodeAnalysis.Diagnostics.AnalysisState,Microsoft.CodeAnalysis.Diagnostics.SymbolDeclaredCompilationEvent@)">
+        <member name="M:Microsoft.CodeAnalysis.Diagnostics.AnalyzerExecutor.TryExecuteSymbolEndActionsForContainer(Microsoft.CodeAnalysis.INamespaceOrTypeSymbol,Microsoft.CodeAnalysis.ISymbol,Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer,System.Func{Microsoft.CodeAnalysis.ISymbol,Microsoft.CodeAnalysis.SyntaxReference,Microsoft.CodeAnalysis.Compilation,System.Threading.CancellationToken,Microsoft.CodeAnalysis.SyntaxNode},Microsoft.CodeAnalysis.Diagnostics.AnalysisState,System.Boolean,Microsoft.CodeAnalysis.Diagnostics.SymbolDeclaredCompilationEvent@)">
             <summary>
             Tries to execute the symbol end actions on the given namespace or type containing symbol for the process member symbol for the given analyzer.
             </summary>
@@ -14364,13 +14488,14 @@
             <param name="processedMemberSymbol">Completed member symbol.</param>
             <param name="analyzer">Analyzer whose actions are to be executed.</param>
             <param name="getTopMostNodeForAnalysis">Delegate to get topmost declaration node for a symbol declaration reference.</param>
+            <param name="isGeneratedCode">Flag indicating if the containing symbol being analyzed is generated code.</param>
             <param name="analysisState">An optional object to track analysis state.</param>
             <returns>
             True, if successfully executed the actions for the given analysis scope OR all the actions have already been executed for the given analysis scope.
             False, if there are some pending actions.
             </returns>
         </member>
-        <member name="M:Microsoft.CodeAnalysis.Diagnostics.AnalyzerExecutor.TryExecuteSymbolEndActions(System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.Diagnostics.SymbolEndAnalyzerAction},Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer,Microsoft.CodeAnalysis.Diagnostics.SymbolDeclaredCompilationEvent,System.Func{Microsoft.CodeAnalysis.ISymbol,Microsoft.CodeAnalysis.SyntaxReference,Microsoft.CodeAnalysis.Compilation,System.Threading.CancellationToken,Microsoft.CodeAnalysis.SyntaxNode},Microsoft.CodeAnalysis.Diagnostics.AnalysisState)">
+        <member name="M:Microsoft.CodeAnalysis.Diagnostics.AnalyzerExecutor.TryExecuteSymbolEndActions(System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.Diagnostics.SymbolEndAnalyzerAction},Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer,Microsoft.CodeAnalysis.Diagnostics.SymbolDeclaredCompilationEvent,System.Func{Microsoft.CodeAnalysis.ISymbol,Microsoft.CodeAnalysis.SyntaxReference,Microsoft.CodeAnalysis.Compilation,System.Threading.CancellationToken,Microsoft.CodeAnalysis.SyntaxNode},System.Boolean,Microsoft.CodeAnalysis.Diagnostics.AnalysisState)">
             <summary>
             Tries to execute the symbol end actions on the given symbol for the given analyzer.
             </summary>
@@ -14378,6 +14503,7 @@
             <param name="analyzer">Analyzer whose actions are to be executed.</param>
             <param name="symbolDeclaredEvent">Symbol event to be analyzed.</param>
             <param name="getTopMostNodeForAnalysis">Delegate to get topmost declaration node for a symbol declaration reference.</param>
+            <param name="isGeneratedCode">Flag indicating if the symbol being analyzed is generated code.</param>
             <param name="analysisState">An optional object to track analysis state.</param>
             <returns>
             True, if successfully executed the actions for the given analysis scope OR all the actions have already been executed for the given analysis scope.
@@ -14589,7 +14715,7 @@
             the actions registered during <see cref="T:Microsoft.CodeAnalysis.Diagnostics.CompilationStartAnalyzerAction"/> for the given compilation.
             </summary>
         </member>
-        <member name="M:Microsoft.CodeAnalysis.Diagnostics.AnalyzerManager.GetPerSymbolAnalyzerActionsAsync(Microsoft.CodeAnalysis.ISymbol,Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer,Microsoft.CodeAnalysis.Diagnostics.AnalyzerExecutor)">
+        <member name="M:Microsoft.CodeAnalysis.Diagnostics.AnalyzerManager.GetPerSymbolAnalyzerActionsAsync(Microsoft.CodeAnalysis.ISymbol,System.Boolean,Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer,Microsoft.CodeAnalysis.Diagnostics.AnalyzerExecutor)">
             <summary>
             Get the per-symbol analyzer actions to be executed by the given analyzer.
             These are the actions registered during the various RegisterSymbolStartAction method invocations for the given symbol on different analysis contexts.
@@ -15135,13 +15261,13 @@
         <member name="M:Microsoft.CodeAnalysis.Diagnostics.CompilationWithAnalyzers.IsDiagnosticAnalyzerSuppressed(Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer,Microsoft.CodeAnalysis.CompilationOptions,System.Action{System.Exception,Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer,Microsoft.CodeAnalysis.Diagnostic})">
             <summary>
             Returns true if all the diagnostics that can be produced by this analyzer are suppressed through options.
+            </summary>
             <param name="analyzer">Analyzer to be checked for suppression.</param>
             <param name="options">Compilation options.</param>
             <param name="onAnalyzerException">
             Optional delegate which is invoked when an analyzer throws an exception.
             Delegate can do custom tasks such as report the given analyzer exception diagnostic, report a non-fatal watson for the exception, etc.
-            </param>
-            </summary>
+            </param>        
         </member>
         <member name="M:Microsoft.CodeAnalysis.Diagnostics.CompilationWithAnalyzers.ClearAnalyzerState(System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer})">
             <summary>
@@ -15722,6 +15848,11 @@
             Optional filter span for which to compute diagnostics.
             </summary>
         </member>
+        <member name="P:Microsoft.CodeAnalysis.Diagnostics.SemanticModelAnalysisContext.IsGeneratedCode">
+            <summary>
+            Indicates if the underlying <see cref="P:Microsoft.CodeAnalysis.SemanticModel.SyntaxTree"/> is generated code.
+            </summary>
+        </member>
         <member name="M:Microsoft.CodeAnalysis.Diagnostics.SemanticModelAnalysisContext.ReportDiagnostic(Microsoft.CodeAnalysis.Diagnostic)">
             <summary>
             Report a <see cref="T:Microsoft.CodeAnalysis.Diagnostic"/> about a <see cref="T:Microsoft.CodeAnalysis.SemanticModel"/>.
@@ -15754,6 +15885,11 @@
             Token to check for requested cancellation of the analysis.
             </summary>
         </member>
+        <member name="P:Microsoft.CodeAnalysis.Diagnostics.SymbolAnalysisContext.IsGeneratedCode">
+            <summary>
+            Indicates if the <see cref="P:Microsoft.CodeAnalysis.Diagnostics.SymbolAnalysisContext.Symbol"/> is generated code.
+            </summary>
+        </member>
         <member name="M:Microsoft.CodeAnalysis.Diagnostics.SymbolAnalysisContext.ReportDiagnostic(Microsoft.CodeAnalysis.Diagnostic)">
             <summary>
             Report a <see cref="T:Microsoft.CodeAnalysis.Diagnostic"/> about an <see cref="T:Microsoft.CodeAnalysis.ISymbol"/>.
@@ -15779,6 +15915,11 @@
         <member name="P:Microsoft.CodeAnalysis.Diagnostics.SymbolStartAnalysisContext.Options">
             <summary>
             Options specified for the analysis.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.Diagnostics.SymbolStartAnalysisContext.IsGeneratedCode">
+            <summary>
+            Indicates if the <see cref="P:Microsoft.CodeAnalysis.Diagnostics.SymbolStartAnalysisContext.Symbol"/> is generated code.
             </summary>
         </member>
         <member name="P:Microsoft.CodeAnalysis.Diagnostics.SymbolStartAnalysisContext.CancellationToken">
@@ -15897,6 +16038,11 @@
             Options specified for the analysis.
             </summary>
         </member>
+        <member name="P:Microsoft.CodeAnalysis.Diagnostics.CodeBlockStartAnalysisContext`1.IsGeneratedCode">
+            <summary>
+            Indicates if the <see cref="P:Microsoft.CodeAnalysis.Diagnostics.CodeBlockStartAnalysisContext`1.CodeBlock"/> is generated code.
+            </summary>
+        </member>
         <member name="P:Microsoft.CodeAnalysis.Diagnostics.CodeBlockStartAnalysisContext`1.CancellationToken">
             <summary>
             Token to check for requested cancellation of the analysis.
@@ -15953,6 +16099,11 @@
             Options specified for the analysis.
             </summary>
         </member>
+        <member name="P:Microsoft.CodeAnalysis.Diagnostics.CodeBlockAnalysisContext.IsGeneratedCode">
+            <summary>
+            Indicates if the <see cref="P:Microsoft.CodeAnalysis.Diagnostics.CodeBlockAnalysisContext.CodeBlock"/> is generated code.
+            </summary>
+        </member>
         <member name="P:Microsoft.CodeAnalysis.Diagnostics.CodeBlockAnalysisContext.CancellationToken">
             <summary>
             Token to check for requested cancellation of the analysis.
@@ -16000,6 +16151,11 @@
         <member name="P:Microsoft.CodeAnalysis.Diagnostics.OperationBlockStartAnalysisContext.Options">
             <summary>
             Options specified for the analysis.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.Diagnostics.OperationBlockStartAnalysisContext.IsGeneratedCode">
+            <summary>
+            Indicates if the <see cref="P:Microsoft.CodeAnalysis.Diagnostics.OperationBlockStartAnalysisContext.OperationBlocks"/> is generated code.
             </summary>
         </member>
         <member name="P:Microsoft.CodeAnalysis.Diagnostics.OperationBlockStartAnalysisContext.CancellationToken">
@@ -16067,6 +16223,11 @@
             Options specified for the analysis.
             </summary>
         </member>
+        <member name="P:Microsoft.CodeAnalysis.Diagnostics.OperationBlockAnalysisContext.IsGeneratedCode">
+            <summary>
+            Indicates if the <see cref="P:Microsoft.CodeAnalysis.Diagnostics.OperationBlockAnalysisContext.OperationBlocks"/> is generated code.
+            </summary>
+        </member>
         <member name="P:Microsoft.CodeAnalysis.Diagnostics.OperationBlockAnalysisContext.CancellationToken">
             <summary>
             Token to check for requested cancellation of the analysis.
@@ -16098,6 +16259,11 @@
         <member name="P:Microsoft.CodeAnalysis.Diagnostics.SyntaxTreeAnalysisContext.Options">
             <summary>
             Options specified for the analysis.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.Diagnostics.SyntaxTreeAnalysisContext.IsGeneratedCode">
+            <summary>
+            Indicates if the <see cref="P:Microsoft.CodeAnalysis.Diagnostics.SyntaxTreeAnalysisContext.Tree"/> is generated code.
             </summary>
         </member>
         <member name="P:Microsoft.CodeAnalysis.Diagnostics.SyntaxTreeAnalysisContext.CancellationToken">
@@ -16175,6 +16341,11 @@
             Options specified for the analysis.
             </summary>
         </member>
+        <member name="P:Microsoft.CodeAnalysis.Diagnostics.SyntaxNodeAnalysisContext.IsGeneratedCode">
+            <summary>
+            Indicates if the <see cref="P:Microsoft.CodeAnalysis.Diagnostics.SyntaxNodeAnalysisContext.Node"/> is generated code.
+            </summary>
+        </member>
         <member name="P:Microsoft.CodeAnalysis.Diagnostics.SyntaxNodeAnalysisContext.CancellationToken">
             <summary>
             Token to check for requested cancellation of the analysis.
@@ -16210,6 +16381,11 @@
         <member name="P:Microsoft.CodeAnalysis.Diagnostics.OperationAnalysisContext.Options">
             <summary>
             Options specified for the analysis.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.Diagnostics.OperationAnalysisContext.IsGeneratedCode">
+            <summary>
+            Indicates if the <see cref="P:Microsoft.CodeAnalysis.Diagnostics.OperationAnalysisContext.Operation"/> is generated code.
             </summary>
         </member>
         <member name="P:Microsoft.CodeAnalysis.Diagnostics.OperationAnalysisContext.CancellationToken">
@@ -17443,6 +17619,11 @@
             Path may be <see cref="F:System.String.Empty"/> if not available.
             </remarks>
         </member>
+        <member name="P:Microsoft.CodeAnalysis.FileLinePositionSpan.Span">
+            <summary>
+            Gets the span.
+            </summary>
+        </member>
         <member name="P:Microsoft.CodeAnalysis.FileLinePositionSpan.HasMappedPath">
             <summary>
             True if the <see cref="P:Microsoft.CodeAnalysis.FileLinePositionSpan.Path"/> is a mapped path.
@@ -17450,11 +17631,6 @@
             <remarks>
             A mapped path is a path specified in source via <c>#line</c> (C#) or <c>#ExternalSource</c> (VB) directives.
             </remarks>
-        </member>
-        <member name="P:Microsoft.CodeAnalysis.FileLinePositionSpan.Span">
-            <summary>
-            Gets the span.
-            </summary>
         </member>
         <member name="M:Microsoft.CodeAnalysis.FileLinePositionSpan.#ctor(System.String,Microsoft.CodeAnalysis.Text.LinePosition,Microsoft.CodeAnalysis.Text.LinePosition)">
             <summary>
@@ -18584,13 +18760,13 @@
         <member name="M:Microsoft.CodeAnalysis.Text.SourceText.WithChanges(Microsoft.CodeAnalysis.Text.TextChange[])">
             <summary>
             Constructs a new SourceText from this text with the specified changes.
-            <exception cref="T:System.ArgumentException">If any changes are not in bounds of this <see cref="T:Microsoft.CodeAnalysis.Text.SourceText"/>.</exception>
-            <exception cref="T:System.ArgumentException">If any changes overlap other changes.</exception>
-            </summary>
+            </summary>        
             <remarks>
             Changes do not have to be in sorted order.  However, <see cref="M:Microsoft.CodeAnalysis.Text.SourceText.WithChanges(System.Collections.Generic.IEnumerable{Microsoft.CodeAnalysis.Text.TextChange})"/> will
             perform better if they are.
             </remarks>
+            <exception cref="T:System.ArgumentException">If any changes are not in bounds of this <see cref="T:Microsoft.CodeAnalysis.Text.SourceText"/>.</exception>
+            <exception cref="T:System.ArgumentException">If any changes overlap other changes.</exception>        
         </member>
         <member name="M:Microsoft.CodeAnalysis.Text.SourceText.Replace(Microsoft.CodeAnalysis.Text.TextSpan,System.String)">
             <summary>
@@ -22071,7 +22247,7 @@
         </member>
         <member name="P:Microsoft.CodeAnalysis.AssemblyMetadata.Kind">
             <summary>
-            Returns the metadata kind. <seealso cref="T:Microsoft.CodeAnalysis.MetadataImageKind"/>
+            Returns the metadata kind. <see cref="T:Microsoft.CodeAnalysis.MetadataImageKind"/>
             </summary>
         </member>
         <member name="M:Microsoft.CodeAnalysis.AssemblyMetadata.GetReference(Microsoft.CodeAnalysis.DocumentationProvider,System.Collections.Immutable.ImmutableArray{System.String},System.Boolean,System.String,System.String)">
@@ -22472,18 +22648,9 @@
             </summary>
             <remarks>This object may allocate significant resources or lock files depending upon how it is constructed.</remarks>
         </member>
-        <member name="F:Microsoft.CodeAnalysis.ModuleMetadata._owner">
+        <member name="F:Microsoft.CodeAnalysis.ModuleMetadata._onDispose">
             <summary>
-            Optional data that should be kept alive as long as this <see cref="T:Microsoft.CodeAnalysis.ModuleMetadata"/> is alive.  This can be
-            useful, for example, if there is backing memory that the metadata depends on that should be kept rooted so it
-            doesn't get garbage collected.
-            </summary>
-        </member>
-        <member name="F:Microsoft.CodeAnalysis.ModuleMetadata._disposeOwner">
-            <summary>
-            Whether or not <see cref="F:Microsoft.CodeAnalysis.ModuleMetadata._owner"/> should be <see cref="M:System.IDisposable.Dispose"/>'d when this object is
-            Disposed.  Is controlled by the <c>leaveOpen</c> flag in <see cref="M:Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(System.IO.Stream,System.Boolean)"/>, or
-            the <see cref="F:System.Reflection.PortableExecutable.PEStreamOptions.LeaveOpen"/> flag in <see cref="M:Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(System.IO.Stream,System.Reflection.PortableExecutable.PEStreamOptions)"/>.
+            Optional action to invoke when this metadata is disposed.
             </summary>
         </member>
         <member name="M:Microsoft.CodeAnalysis.ModuleMetadata.CreateFromMetadata(System.IntPtr,System.Int32)">
@@ -22496,19 +22663,17 @@
             <exception cref="T:System.ArgumentNullException"><paramref name="metadata"/> is null.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="size"/> is not positive.</exception>
         </member>
-        <member name="M:Microsoft.CodeAnalysis.ModuleMetadata.CreateFromMetadata(System.IntPtr,System.Int32,System.IDisposable,System.Boolean)">
+        <member name="M:Microsoft.CodeAnalysis.ModuleMetadata.CreateFromMetadata(System.IntPtr,System.Int32,System.Action)">
             <summary>
             Create metadata module from a raw memory pointer to metadata directory of a PE image or .cormeta section of an object file.
             Only manifest modules are currently supported.
             </summary>
             <param name="metadata">Pointer to the start of metadata block.</param>
             <param name="size">The size of the metadata block.</param>
-            <param name="owner">Data that should be kept alive as long as this <see cref="T:Microsoft.CodeAnalysis.ModuleMetadata"/> is alive.  This can be
-            useful, for example, if there is backing memory that the metadata depends on that should be kept rooted so it
-            doesn't get garbage collected.</param>
-            <param name="disposeOwner">Whether or not <paramref name="owner"/> should be <see cref="M:System.IDisposable.Dispose"/>'d when this object is
-            Disposed.</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="owner"/> is null.</exception>
+            <param name="onDispose">Action to run when the metadata module is disposed.  This will only be called then
+            this actual metadata instance is disposed.  Any instances created from this using <see
+            cref="M:Microsoft.CodeAnalysis.Metadata.Copy"/> will not call this when they are disposed.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="onDispose"/> is null.</exception>
         </member>
         <member name="M:Microsoft.CodeAnalysis.ModuleMetadata.CreateFromImage(System.IntPtr,System.Int32)">
             <summary>
@@ -23009,12 +23174,12 @@
         <member name="F:Microsoft.CodeAnalysis.OutputKind.WindowsRuntimeApplication">
             <summary>
             An .exe that can run in an app container.
-            </summary>
-            <remarks>
+            <para>
             Equivalent to a WindowsApplication, but with an extra bit set in the Portable Executable file
             so that the application can only be run in an app container.
             Also known as a "Windows Store app".
-            </remarks>
+            </para>
+            </summary>
         </member>
         <member name="T:Microsoft.CodeAnalysis.RealParser">
             <summary>
@@ -23966,7 +24131,7 @@
             <summary>
             Load the ruleset from the specified file. This ruleset will contain
             all the rules resolved from the includes specified in the ruleset file
-            as well. See also: <seealso cref="M:Microsoft.CodeAnalysis.RuleSet.GetEffectiveIncludesFromFile(System.String)" />.
+            as well. See also: <see cref="M:Microsoft.CodeAnalysis.RuleSet.GetEffectiveIncludesFromFile(System.String)" />.
             </summary>
             <returns>
             A ruleset that contains resolved rules or null if there were errors.
@@ -23975,7 +24140,7 @@
         <member name="M:Microsoft.CodeAnalysis.RuleSet.GetEffectiveIncludesFromFile(System.String)">
             <summary>
             Get the paths to all files contributing rules to the ruleset from the specified file.
-            See also: <seealso cref="M:Microsoft.CodeAnalysis.RuleSet.LoadEffectiveRuleSetFromFile(System.String)" />.
+            See also: <see cref="M:Microsoft.CodeAnalysis.RuleSet.LoadEffectiveRuleSetFromFile(System.String)" />.
             </summary>
             <returns>
             The full paths to included files, or an empty array if there were errors.
@@ -24395,6 +24560,11 @@
             A bit field containing the output kinds that should not be produced by this generator driver.
             </summary>
         </member>
+        <member name="F:Microsoft.CodeAnalysis.GeneratorDriverState.ParseOptionsChanged">
+            <summary>
+            Tracks if the <see cref="F:Microsoft.CodeAnalysis.GeneratorDriverState.ParseOptions"/> have been changed meaning post init trees will need to be re-parsed.
+            </summary>
+        </member>
         <member name="M:Microsoft.CodeAnalysis.GeneratorExtensions.GetGeneratorType(Microsoft.CodeAnalysis.ISourceGenerator)">
             <summary>
             Returns the underlying type of a given generator
@@ -24428,11 +24598,6 @@
             <summary>
             Simple wrapper class around an immutable array so we can have the value-semantics needed for the incremental
             generator to know when a change actually happened and it should run later transform stages.
-            </summary>
-        </member>
-        <member name="M:Microsoft.CodeAnalysis.SourceGeneration.ISyntaxHelper.AddAliases(Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder{System.ValueTuple{System.String,System.String}},System.Boolean)">
-            <summary>
-            <paramref name="node"/> must be a compilation unit or namespace block.
             </summary>
         </member>
         <member name="T:Microsoft.CodeAnalysis.IIncrementalGenerator">
@@ -24610,6 +24775,11 @@
             provide. 
             </remarks>
         </member>
+        <member name="M:Microsoft.CodeAnalysis.ISyntaxHelper.AddAliases(Microsoft.CodeAnalysis.GreenNode,Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder{System.ValueTuple{System.String,System.String}},System.Boolean)">
+            <summary>
+            <paramref name="node"/> must be a compilation unit or namespace block.
+            </summary>
+        </member>
         <member name="T:Microsoft.CodeAnalysis.ISyntaxReceiver">
             <summary>
             Receives notifications of each <see cref="T:Microsoft.CodeAnalysis.SyntaxNode"/> in the compilation before generation runs
@@ -24739,8 +24909,8 @@
         </member>
         <member name="F:Microsoft.CodeAnalysis.NodeStateTable`1.TableEntry._states">
             <summary>
-            Represents the corresponding state of each item in <see cref="F:Microsoft.CodeAnalysis.NodeStateTable`1.TableEntry._items"/>,
-            or contains a single state when <see cref="F:Microsoft.CodeAnalysis.NodeStateTable`1.TableEntry._item"/> is populated or when every state of <see cref="F:Microsoft.CodeAnalysis.NodeStateTable`1.TableEntry._items"/> has the same value.
+            Represents the corresponding state of each item in <see cref="F:Microsoft.CodeAnalysis.NodeStateTable`1.TableEntry._items"/>, or contains a single state when
+            <see cref="F:Microsoft.CodeAnalysis.NodeStateTable`1.TableEntry._items"/> is populated or when every state of <see cref="F:Microsoft.CodeAnalysis.NodeStateTable`1.TableEntry._items"/> has the same value.
             </summary>
         </member>
         <member name="T:Microsoft.CodeAnalysis.SharedInputNodes">
@@ -24751,16 +24921,6 @@
         <member name="T:Microsoft.CodeAnalysis.SyntaxValueProvider">
             <summary>
             Allows a user to create Syntax based input nodes for incremental generation
-            </summary>
-        </member>
-        <member name="T:Microsoft.CodeAnalysis.SyntaxValueProvider.SyntaxNodeGrouping`1">
-            <summary>
-            Wraps a grouping of nodes within a syntax tree so we can have value-semantics around them usable by the
-            incremental driver.  Note: we do something very sneaky here.  Specifically, as long as we have the same <see
-            cref="F:Microsoft.CodeAnalysis.SyntaxValueProvider.SyntaxNodeGrouping`1.SyntaxTree"/> from before, then we know we must have the same nodes as before (since the nodes are
-            entirely determined from the text+options which is exactly what the syntax tree represents).  Similarly, if the
-            syntax tree changes, we will always get different nodes (since they point back at the syntax tree).  So we can
-            just use the syntax tree itself to determine value semantics here.
             </summary>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SyntaxValueProvider.CreateSyntaxProvider``1(System.Func{Microsoft.CodeAnalysis.SyntaxNode,System.Threading.CancellationToken,System.Boolean},System.Func{Microsoft.CodeAnalysis.GeneratorSyntaxContext,System.Threading.CancellationToken,``0})">
@@ -24812,6 +24972,10 @@
             <c>context.SyntaxProvider.CreateSyntaxProviderForAttribute(nameof(CLSCompliantAttribute), (node, c) => node is ClassDeclarationSyntax)</c>
             will find the <c>C</c> class.
             </summary>
+            <remarks>
+            Note: a 'Values'-provider of arrays are returned.  Each array provides all the matching nodes from a single <see
+            cref="T:Microsoft.CodeAnalysis.SyntaxTree"/>.
+            </remarks>
         </member>
         <member name="P:Microsoft.CodeAnalysis.GeneratorAttributeSyntaxContext.TargetNode">
             <summary>
@@ -25568,6 +25732,11 @@
             Includes the <c>scoped</c> keyword.
             </summary>
         </member>
+        <member name="F:Microsoft.CodeAnalysis.SymbolDisplayCompilerInternalOptions.IncludeContainingFileForFileTypes">
+            <summary>
+            Display `MyType@File.cs` instead of `MyType`.
+            </summary>
+        </member>
         <member name="T:Microsoft.CodeAnalysis.SymbolDisplayDelegateStyle">
             <summary>
             Specifies how to display delegates (just the name or the name with the signature).
@@ -25581,18 +25750,18 @@
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayDelegateStyle.NameAndParameters">
             <summary>
             Shows the name and the parameters of the delegate (e.g. "SomeDelegate(int x)").  
-            </summary>
-            <remarks>
+            <para>
             The format of the parameters will be determined by the other flags passed.
-            </remarks>
+            </para>
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayDelegateStyle.NameAndSignature">
             <summary>
-            Shows the name and the signature of the delegate (e.g. "void SomeDelegate(int x)").  
-            </summary>
-            <remarks>
+            Shows the name and the signature of the delegate (e.g. "void SomeDelegate(int x)").
+            <para>
             The format of the signature will be determined by the other flags passed.
-            </remarks>
+            </para>
+            </summary>
         </member>
         <member name="T:Microsoft.CodeAnalysis.SymbolDisplayExtensionMethodStyle">
             <summary>
@@ -25867,203 +26036,203 @@
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.WithMiscellaneousOptions(Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with replaced set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions"/>.
+            Creates a copy of the SymbolDisplayFormat but with replaced set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions"/>.
             </summary>
             <param name="options">
             An object representing how miscellaneous symbols will be formatted.
             </param>
-            <returns>A duplicate of the SymbolDisplayFormat, with a replaced set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions"/>.</returns>
+            <returns>A duplicate of the SymbolDisplayFormat, with a replaced set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions"/>.</returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.AddMiscellaneousOptions(Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with an additional set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions"/>.
+            Creates a copy of the SymbolDisplayFormat but with an additional set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions"/>.
             </summary>
             <param name="options">
             An object specifying additional parameters for how miscellaneous symbols will be formatted.
             </param>
-            <returns>A duplicate of the SymbolDisplayFormat, with an additional set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions"/>.</returns>
+            <returns>A duplicate of the SymbolDisplayFormat, with an additional set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions"/>.</returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.RemoveMiscellaneousOptions(Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat without the specified <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions"/>.
+            Creates a copy of the SymbolDisplayFormat without the specified <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions"/>.
             </summary>
             <param name="options">
             An object specifying which parameters should not be applied to how miscellaneous symbols will be formatted.
             </param>
-            <returns>A duplicate of the SymbolDisplayFormat, without the specified <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions"/>.</returns>
+            <returns>A duplicate of the SymbolDisplayFormat, without the specified <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions"/>.</returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.WithGenericsOptions(Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with replaced set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions"/>.
+            Creates a copy of the SymbolDisplayFormat but with replaced set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions"/>.
             </summary>
             <param name="options">
             An object specifying how generic symbols will be formatted.
             </param>
-            <returns>A duplicate of the SymbolDisplayFormat, with a replaced set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions"/>.</returns>
+            <returns>A duplicate of the SymbolDisplayFormat, with a replaced set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions"/>.</returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.AddGenericsOptions(Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with an additional set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions"/>.
+            Creates a copy of the SymbolDisplayFormat but with an additional set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions"/>.
             </summary>
             <param name="options">
             An object specifying additional parameters for how generic symbols will be formatted.
             </param>
-            <returns>A duplicate of the SymbolDisplayFormat, with an additional set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions"/>.</returns>
+            <returns>A duplicate of the SymbolDisplayFormat, with an additional set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions"/>.</returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.RemoveGenericsOptions(Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with a set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions"/> stripped away from the original object.
+            Creates a copy of the SymbolDisplayFormat but with a set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions"/> stripped away from the original object.
             </summary>
             <param name="options">
             An object specifying which parameters should not be applied to how generic symbols will be formatted.
             </param>
             <returns>
-            A duplicate of the SymbolDisplayFormat, with a set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions"/> stripped away from the original object.
+            A duplicate of the SymbolDisplayFormat, with a set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions"/> stripped away from the original object.
             </returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.WithMemberOptions(Microsoft.CodeAnalysis.SymbolDisplayMemberOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with replaced set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions"/>.
+            Creates a copy of the SymbolDisplayFormat but with replaced set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions"/>.
             </summary>
             <param name="options">
             An object specifying how members will be formatted.
             </param>
-            <returns>A duplicate of the SymbolDisplayFormat, with a replaced set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions"/>.</returns>
+            <returns>A duplicate of the SymbolDisplayFormat, with a replaced set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions"/>.</returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.AddMemberOptions(Microsoft.CodeAnalysis.SymbolDisplayMemberOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with an additional set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions"/>.
+            Creates a copy of the SymbolDisplayFormat but with an additional set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions"/>.
             </summary>
             <param name="options">
             An object specifying additional parameters for how members will be formatted.
             </param>
             <returns>
-            A duplicate of the SymbolDisplayFormat, with an additional set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions"/>.
+            A duplicate of the SymbolDisplayFormat, with an additional set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions"/>.
             </returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.RemoveMemberOptions(Microsoft.CodeAnalysis.SymbolDisplayMemberOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with a set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions"/> stripped away from the original object.
+            Creates a copy of the SymbolDisplayFormat but with a set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions"/> stripped away from the original object.
             </summary>
             <param name="options">
             An object specifying which parameters should not be applied to how members will be formatted.
             </param>
             <returns>
-            A duplicate of the SymbolDisplayFormat, with a set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions"/> stripped away from the original object.
+            A duplicate of the SymbolDisplayFormat, with a set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions"/> stripped away from the original object.
             </returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.WithKindOptions(Microsoft.CodeAnalysis.SymbolDisplayKindOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with replaced set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayKindOptions"/>.
+            Creates a copy of the SymbolDisplayFormat but with replaced set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayKindOptions"/>.
             </summary>
             <param name="options">
             An object specifying parameters with which symbols belonging to kind keywords should be formatted.
             </param>
             <returns>
-            A duplicate of the SymbolDisplayFormat, with a replaced set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayKindOptions"/>.
+            A duplicate of the SymbolDisplayFormat, with a replaced set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayKindOptions"/>.
             </returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.AddKindOptions(Microsoft.CodeAnalysis.SymbolDisplayKindOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with an additional set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayKindOptions"/>.
+            Creates a copy of the SymbolDisplayFormat but with an additional set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayKindOptions"/>.
             </summary>
             <param name="options">
             An object specifying additional parameters with which symbols belonging to kind keywords should be formatted.
             </param>
             <returns>
-            A duplicate of the SymbolDisplayFormat, with an additional set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayKindOptions"/>.
+            A duplicate of the SymbolDisplayFormat, with an additional set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayKindOptions"/>.
             </returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.RemoveKindOptions(Microsoft.CodeAnalysis.SymbolDisplayKindOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with a set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayKindOptions"/> stripped away from the original object.
+            Creates a copy of the SymbolDisplayFormat but with a set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayKindOptions"/> stripped away from the original object.
             </summary>
             <param name="options">
             The settings that determine other characteristics of how symbols are displayed.
             </param>
             <returns>
-            A duplicate of the SymbolDisplayFormat, with a set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayKindOptions"/> stripped away from the original object.
+            A duplicate of the SymbolDisplayFormat, with a set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayKindOptions"/> stripped away from the original object.
             </returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.WithParameterOptions(Microsoft.CodeAnalysis.SymbolDisplayParameterOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with replaced set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions"/>.
+            Creates a copy of the SymbolDisplayFormat but with replaced set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions"/>.
             </summary>
             <param name="options">
             An object specifying how parameters should be formatted.
             </param>
-            <returns>A duplicate of the SymbolDisplayFormat, with a replaced set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions"/>.</returns>
+            <returns>A duplicate of the SymbolDisplayFormat, with a replaced set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions"/>.</returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.AddParameterOptions(Microsoft.CodeAnalysis.SymbolDisplayParameterOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with an additional set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions"/>.
+            Creates a copy of the SymbolDisplayFormat but with an additional set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions"/>.
             </summary>
             <param name="options">
             An object specifying additional parameters on how parameters should be formatted.
             </param>
             <returns>
-            A duplicate of the SymbolDisplayFormat, with an additional set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions"/>.
+            A duplicate of the SymbolDisplayFormat, with an additional set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions"/>.
             </returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.RemoveParameterOptions(Microsoft.CodeAnalysis.SymbolDisplayParameterOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with a set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions"/> stripped away from the original object.
+            Creates a copy of the SymbolDisplayFormat but with a set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions"/> stripped away from the original object.
             </summary>
             <param name="options">
             An object specifying parameters that should not be applied when formatting parameters.
             </param>
             <returns>
-            A duplicate of the SymbolDisplayFormat, with a set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions"/> stripped away from the original object.
+            A duplicate of the SymbolDisplayFormat, with a set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions"/> stripped away from the original object.
             </returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.WithGlobalNamespaceStyle(Microsoft.CodeAnalysis.SymbolDisplayGlobalNamespaceStyle)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with replaced <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayGlobalNamespaceStyle"/>.
+            Creates a copy of the SymbolDisplayFormat but with replaced <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayGlobalNamespaceStyle"/>.
             </summary>
             <param name="style">
             An object specifying parameters on how namespace symbols should be formatted.
             </param>
-            <returns>A duplicate of the SymbolDisplayFormat, with a replaced set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayGlobalNamespaceStyle"/>.</returns>
+            <returns>A duplicate of the SymbolDisplayFormat, with a replaced set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayGlobalNamespaceStyle"/>.</returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.WithLocalOptions(Microsoft.CodeAnalysis.SymbolDisplayLocalOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with replaced set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayLocalOptions"/>.
+            Creates a copy of the SymbolDisplayFormat but with replaced set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayLocalOptions"/>.
             </summary>
             <param name="options">
             An object specifying parameters on how symbols belonging to locals should be formatted.
             </param>
-            <returns>A duplicate of the SymbolDisplayFormat, with a replaced set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayLocalOptions"/>.</returns>
+            <returns>A duplicate of the SymbolDisplayFormat, with a replaced set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayLocalOptions"/>.</returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.AddLocalOptions(Microsoft.CodeAnalysis.SymbolDisplayLocalOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with an additional set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayLocalOptions"/>.
+            Creates a copy of the SymbolDisplayFormat but with an additional set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayLocalOptions"/>.
             </summary>
             <param name="options">
             An object specifying additional parameters on how symbols belonging to locals should be formatted.
             </param>
             <returns>
-            A duplicate of the SymbolDisplayFormat, with an additional set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayLocalOptions"/>.
+            A duplicate of the SymbolDisplayFormat, with an additional set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayLocalOptions"/>.
             </returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.RemoveLocalOptions(Microsoft.CodeAnalysis.SymbolDisplayLocalOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with a set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayLocalOptions"/> stripped away from the original object.
+            Creates a copy of the SymbolDisplayFormat but with a set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayLocalOptions"/> stripped away from the original object.
             </summary>
             <param name="options">
             An object specifying parameters that should not be applied when formatting symbols belonging to locals.
             </param>
             <returns>
-            A duplicate of the SymbolDisplayFormat, with a set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayLocalOptions"/> stripped away from the original object.
+            A duplicate of the SymbolDisplayFormat, with a set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayLocalOptions"/> stripped away from the original object.
             </returns>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.AddCompilerInternalOptions(Microsoft.CodeAnalysis.SymbolDisplayCompilerInternalOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with added set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayCompilerInternalOptions"/>.
+            Creates a copy of the SymbolDisplayFormat but with added set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayCompilerInternalOptions"/>.
             </summary>
         </member>
         <member name="M:Microsoft.CodeAnalysis.SymbolDisplayFormat.WithCompilerInternalOptions(Microsoft.CodeAnalysis.SymbolDisplayCompilerInternalOptions)">
             <summary>
-            Creates a copy of the SymbolDisplayFormat but with replaced set of <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayCompilerInternalOptions"/>.
+            Creates a copy of the SymbolDisplayFormat but with replaced set of <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayCompilerInternalOptions"/>.
             </summary>
         </member>
         <member name="T:Microsoft.CodeAnalysis.SymbolDisplayGenericsOptions">
@@ -26190,44 +26359,40 @@
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions.IncludeModifiers">
             <summary>
-            Includes the modifiers of the member.
-            For example, "static readonly" in C# or "Shared ReadOnly" in Visual Basic.
-            </summary>
-            <remarks>
+            Includes the modifiers of the member. For example, "static readonly" in C# or "Shared ReadOnly" in Visual Basic.
+            <para>
             Accessibility modifiers are controlled separately by <see cref="F:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions.IncludeAccessibility"/>.
-            </remarks>
+            </para>
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions.IncludeAccessibility">
             <summary>
-            Includes the accessibility modifiers of the member.
-            For example, "public" in C# or "Public" in Visual Basic.
+            Includes the accessibility modifiers of the member. For example, "public" in C# or "Public" in Visual Basic.
             </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions.IncludeExplicitInterface">
             <summary>
-            Includes the name of corresponding interface on members that explicitly implement
-            interface members.
-            For example, "IGoo.Bar { get; }".
-            </summary>
-            <remarks>
+            Includes the name of corresponding interface on members that explicitly implement interface members. For example, "IGoo.Bar { get; }".        
+            <para>
             This option has no effect in Visual Basic.
-            </remarks>
+            </para>
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions.IncludeParameters">
             <summary>
-            Includes the parameters of methods and properties/indexers.
-            </summary>
-            <remarks>
+            Includes the parameters of methods and properties/indexers.        
+            <para>
             See <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions"/> for finer-grained settings.
-            </remarks>
+            </para>
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions.IncludeContainingType">
             <summary>
-            Includes the name of the type containing the member.
-            </summary>
-            <remarks>
+            Includes the name of the type containing the member.        
+            <para>
             The format of the containing type is determined by <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayTypeQualificationStyle"/>.
-            </remarks>
+            </para>
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions.IncludeConstantValue">
             <summary>
@@ -26280,11 +26445,11 @@
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions.RemoveAttributeSuffix">
             <summary>
             Displays attributes names without the "Attribute" suffix, if possible.
-            </summary>
-            <remarks>
+            <para>
             Has no effect outside <see cref="M:Microsoft.CodeAnalysis.ISymbol.ToMinimalDisplayString(Microsoft.CodeAnalysis.SemanticModel,System.Int32,Microsoft.CodeAnalysis.SymbolDisplayFormat)"/> and only applies
             if the context location is one where an attribute ca be referenced without the suffix.
-            </remarks>
+            </para>
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayMiscellaneousOptions.ExpandNullable">
             <summary>
@@ -26320,20 +26485,20 @@
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions.None">
             <summary>
-            Omits parameters from symbol descriptions.
-            </summary>
-            <remarks>
+            Omits parameters from symbol descriptions.    
+            <para>
             If this option is combined with <see cref="F:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions.IncludeParameters"/>, then only
             the parentheses will be shown (e.g. M()).
-            </remarks>
+            </para>
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions.IncludeExtensionThis">
             <summary>
             Includes the <c>this</c> keyword before the first parameter of an extension method in C#. 
-            </summary>
-            <remarks>
+            <para>
             This option has no effect in Visual Basic.
-            </remarks>
+            </para>
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions.IncludeParamsRefOut">
             <summary>
@@ -26353,8 +26518,9 @@
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions.IncludeDefaultValue">
             <summary>
             Includes parameter default values in symbol descriptions.
+            <para>Ignored if <see cref="F:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions.IncludeName"/> is not set.
+            </para>
             </summary>
-            <remarks>Ignored if <see cref="F:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions.IncludeName"/> is not set.</remarks>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayParameterOptions.IncludeOptionalBrackets">
             <summary>
@@ -26438,12 +26604,16 @@
             <summary>A line-break (i.e. whitespace).</summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayPartKind.NumericLiteral">
-            <summary>A numeric literal.</summary>
-            <remarks>Typically for the default values of parameters and the constant values of fields.</remarks>
+            <summary>A numeric literal.
+            <para>Typically for the default values of parameters and the constant values of fields.
+            </para>
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayPartKind.StringLiteral">
-            <summary>A string literal.</summary>
-            <remarks>Typically for the default values of parameters and the constant values of fields.</remarks>
+            <summary>A string literal.
+            <para>Typically for the default values of parameters and the constant values of fields.
+            </para>
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayPartKind.LocalName">
             <summary>The name of a local.</summary>
@@ -26479,8 +26649,10 @@
             <summary>A keyword-like part for anonymous types (not actually a keyword).</summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayPartKind.Text">
-            <summary>An unclassified part.</summary>
-            <remarks>Never returned - only set in user-constructed parts.</remarks>
+            <summary>An unclassified part.
+            <para>Never returned - only set in user-constructed parts.
+            </para>
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayPartKind.TypeParameterName">
             <summary>The name of a type parameter.</summary>
@@ -26492,10 +26664,11 @@
             <summary>The name of an enum member.</summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayPartKind.ExtensionMethodName">
-            <summary>The name of a reduced extension method.</summary>
-            <remarks>
+            <summary>The name of a reduced extension method.
+            <para>
             When an extension method is in it's non-reduced form it will be will be marked as MethodName.
-            </remarks>
+            </para>
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayPartKind.ConstantName">
             <summary>The name of a field or local constant.</summary>
@@ -26514,7 +26687,7 @@
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayPropertyStyle.NameOnly">
             <summary>
             Shows only the names of properties.
-            <seealso cref="T:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions"/>
+            <see cref="T:Microsoft.CodeAnalysis.SymbolDisplayMemberOptions"/>
             </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.SymbolDisplayPropertyStyle.ShowReadWriteDescriptor">
@@ -27756,6 +27929,11 @@
             Whether the variable is a ref or ref readonly local.
             </summary>
         </member>
+        <member name="P:Microsoft.CodeAnalysis.ILocalSymbol.ScopedKind">
+            <summary>
+            Returns the scoped kind of the local.
+            </summary>
+        </member>
         <member name="P:Microsoft.CodeAnalysis.ILocalSymbol.HasConstantValue">
             <summary>
             Returns false if the local variable wasn't declared as "const", or constant value was omitted or erroneous.
@@ -27780,6 +27958,22 @@
             <summary>
             Returns true if the local variable is declared with fixed-pointer-initializer (in unsafe context).
             </summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.ILocalSymbol.IsForEach">
+            <summary>
+            Returns true if this local variable is declared as iteration variable
+            </summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.ILocalSymbol.IsUsing">
+            <summary>
+            Returns true if the local variable is declared in resource-acquisition of a 'using statement';
+            otherwise false
+            </summary>
+            <example>
+            <code>
+                using (var localVariable = new StreamReader(path)) { ... } 
+            </code>
+            </example>
         </member>
         <member name="T:Microsoft.CodeAnalysis.IMethodSymbol">
             <summary>
@@ -28155,6 +28349,11 @@
             <see cref="F:System.Reflection.TypeAttributes.Import"/> and <see cref="T:System.Runtime.InteropServices.ComImportAttribute"/>
             </summary>
         </member>
+        <member name="P:Microsoft.CodeAnalysis.INamedTypeSymbol.IsFileLocal">
+            <summary>
+            Indicates the type is declared in source and is only visible in the file it is declared in.
+            </summary>
+        </member>
         <member name="P:Microsoft.CodeAnalysis.INamedTypeSymbol.MemberNames">
             <summary>
             Returns collection of names of members declared within this type.
@@ -28410,6 +28609,11 @@
         <member name="P:Microsoft.CodeAnalysis.IParameterSymbol.RefKind">
             <summary>
             Whether the parameter passed by value or by reference.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.IParameterSymbol.ScopedKind">
+            <summary>
+            Returns the scoped kind of the parameter.
             </summary>
         </member>
         <member name="P:Microsoft.CodeAnalysis.IParameterSymbol.IsParams">
@@ -29387,18 +29591,13 @@
             <summary>
             The expression has not been analyzed, or the syntax is
             not an expression (such as a statement).
+            <para>There are a few different reasons the expression could have not been analyzed:
+            </para>
+            <list type="number">
+            <item><description>The symbol producing the expression comes from a method that has not been annotated, such as invoking a C# 7.3 or earlier method, or a method in this compilation that is in a disabled context.</description></item>
+            <item><description>Nullable is completely disabled in this compilation.</description></item>
+            </list>
             </summary>
-            <remarks>
-            There are a few different reasons the expression could
-            have not been analyzed:
-                1) The symbol producing the expression comes from
-                   a method that has not been annotated, such as
-                   invoking a C# 7.3 or earlier method, or a
-                   method in this compilation that is in a disabled
-                   context.
-                2) Nullable is completely disabled in this
-                   compilation.
-            </remarks>
         </member>
         <member name="F:Microsoft.CodeAnalysis.NullableAnnotation.NotAnnotated">
             <summary>
@@ -29514,6 +29713,26 @@
         <member name="F:Microsoft.CodeAnalysis.RefKind.RefReadOnly">
             <summary>
             Indicates a "ref readonly" return type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CodeAnalysis.ScopedKind">
+            <summary>
+            Enumeration for kinds of scoped modifiers.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CodeAnalysis.ScopedKind.None">
+            <summary>
+            Not scoped.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CodeAnalysis.ScopedKind.ScopedRef">
+            <summary>
+            A ref scoped to the enclosing block or method.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CodeAnalysis.ScopedKind.ScopedValue">
+            <summary>
+            A value scoped to the enclosing block or method.
             </summary>
         </member>
         <member name="T:Microsoft.CodeAnalysis.SymbolEqualityComparer">
@@ -33198,6 +33417,13 @@
             The text encoding of the source document.
             </summary>
         </member>
+        <member name="F:Microsoft.CodeAnalysis.SyntaxTree._sourceGeneratorInfo">
+            <summary>
+            Useful information about this tree that is stored for source-generator scenarios.  Allows the incremental
+            generation framework to compute and cache data once against a tree so it does not have to go back to source
+            for untouched trees when other trees in the compilation are modified.
+            </summary>
+        </member>
         <member name="M:Microsoft.CodeAnalysis.SyntaxTree.GetTextAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the text of the source document asynchronously.
@@ -35175,6 +35401,21 @@
         </member>
         <member name="P:Microsoft.CodeAnalysis.CodeAnalysisResources.EncCannotResumeSuspendedIteratorMethod">
             <summary>Edit and Continue can't resume suspended iterator since the corresponding yield return statement has been deleted</summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.CodeAnalysisResources.GeneratorNameColumnHeader">
+            <summary>Generator</summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.CodeAnalysisResources.GeneratorTotalExecutionTime">
+            <summary>Total generator execution time: {0} seconds.</summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.CodeAnalysisResources.BadBuiltInOps1">
+            <summary>Illegal built-in operator name '{0}'</summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.CodeAnalysisResources.BadBuiltInOps2">
+            <summary>Unsupported built-in operator: {0}</summary>
+        </member>
+        <member name="P:Microsoft.CodeAnalysis.CodeAnalysisResources.BadBuiltInOps3">
+            <summary>'{0}' was not a valid built-in operator name</summary>
         </member>
         <member name="M:Microsoft.DiaSymReader.IMetadataImport.ResolveTypeRef(System.Int32,System.Guid@,System.Object@,System.Int32@)">
             <summary>
@@ -37521,6 +37762,9 @@
             <summary>
             If true, the persisted type name is mangled by appending "`n" where n is the number of type parameters, if the number of type parameters is greater than 0.
             </summary>
+        </member>
+        <member name="P:Microsoft.Cci.INamedTypeReference.AssociatedFileIdentifier">
+            <summary>Indicates that the type is scoped to the file it is declared in. Used as a prefix for the metadata name.</summary>
         </member>
         <member name="T:Microsoft.Cci.INamedTypeDefinition">
             <summary>

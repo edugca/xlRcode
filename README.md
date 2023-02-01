@@ -1,4 +1,4 @@
-# xlRcode (v. 0.1.8)
+# xlRcode (v. 0.1.9)
 
 Call R from Excel. Create new Excel functions that make use of R packages. Integrate both tools seamlessly.
 
@@ -76,6 +76,16 @@ That should do the trick!
 That should do the trick!
 
 ## History
+
+### v. 0.1.9
+Minor improvement and bug handling.
+- Improvement: ExcelDna was updated to version 1.6.1-beta3.
+- Improvement: when user opens R terminal through ribbon, xlRcode now asks whether admin privileges should be requested.
+- Improvement: dataframe datatypes "dfh", "dfc", and "dfr" now check whether dataframe content is only numerical or not.
+- Improvement: R code error messages returned from XLRCODE functions are displayed as in R.
+- Improvement: "Graphic" button on the ribbon now brings to front current X11 graphic device in case there in one open.
+- Bug fix: String outputs were being parsed from UTF-8 (R's default encoding) to UNICODE without due conversion.
+- Bug fix: R console messages were duplicated in case of error.
 
 ### v. 0.1.8
 Minor improvement and bug handling.

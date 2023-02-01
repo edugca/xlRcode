@@ -1573,6 +1573,10 @@
       <param name="fixedArguments">Use first, to encode fixed arguments.</param>
       <param name="namedArguments">Use second, to encode named arguments.</param>
     </member>
+    <member name="M:System.Reflection.Metadata.Ecma335.BlobEncoder.Field">
+      <summary>Encodes Field Signature blob, with additional support for encoding ref fields, custom modifiers and typed references.</summary>
+      <returns>Encoder of the field type.</returns>
+    </member>
     <member name="M:System.Reflection.Metadata.Ecma335.BlobEncoder.FieldSignature">
       <summary>Encodes field signature blob.</summary>
       <returns>Encoder of the field type.</returns>
@@ -1715,7 +1719,9 @@
         <see cref="T:System.Reflection.Metadata.TypeDefinitionHandle" /> or <see cref="T:System.Reflection.Metadata.MethodDefinitionHandle" />.</param>
       <exception cref="T:System.ArgumentException">The handle type is unexpected.</exception>
     </member>
-    <member name="T:System.Reflection.Metadata.Ecma335.ControlFlowBuilder" />
+    <member name="T:System.Reflection.Metadata.Ecma335.ControlFlowBuilder">
+      <summary>Emits branches and exception blocks in a method body.</summary>
+    </member>
     <member name="M:System.Reflection.Metadata.Ecma335.ControlFlowBuilder.#ctor" />
     <member name="M:System.Reflection.Metadata.Ecma335.ControlFlowBuilder.AddCatchRegion(System.Reflection.Metadata.Ecma335.LabelHandle,System.Reflection.Metadata.Ecma335.LabelHandle,System.Reflection.Metadata.Ecma335.LabelHandle,System.Reflection.Metadata.Ecma335.LabelHandle,System.Reflection.Metadata.EntityHandle)">
       <summary>Adds catch region.</summary>
@@ -1758,6 +1764,9 @@
       <param name="handlerEnd">Label marking the instruction immediately following the handler.</param>
       <exception cref="T:System.ArgumentException">A label was not defined by an instruction encoder this builder is associated with.</exception>
       <exception cref="T:System.ArgumentNullException">A label has default value.</exception>
+    </member>
+    <member name="M:System.Reflection.Metadata.Ecma335.ControlFlowBuilder.Clear">
+      <summary>Clears the object's internal state, allowing the same instance to be reused.</summary>
     </member>
     <member name="T:System.Reflection.Metadata.Ecma335.CustomAttributeArrayTypeEncoder" />
     <member name="M:System.Reflection.Metadata.Ecma335.CustomAttributeArrayTypeEncoder.#ctor(System.Reflection.Metadata.BlobBuilder)">
@@ -1932,6 +1941,28 @@
  If the namespaces and names do not match, resolution falls back to a full search of the target TypeDef table. Ignored and should be zero if <see cref="P:System.Reflection.Metadata.ExportedType.IsForwarder" /> is <see langword="true" />.</summary>
       <param name="exportedType" />
     </member>
+    <member name="T:System.Reflection.Metadata.Ecma335.FieldTypeEncoder">
+      <summary>Provides encoder for field signature blob, with additional support for encoding ref fields, custom modifiers and typed references.</summary>
+    </member>
+    <member name="M:System.Reflection.Metadata.Ecma335.FieldTypeEncoder.#ctor(System.Reflection.Metadata.BlobBuilder)">
+      <summary>Initializes a new instance of the <see cref="T:System.Reflection.Metadata.Ecma335.FieldTypeEncoder" /> struct.</summary>
+      <param name="builder">Builder to write encoded field signature to.</param>
+    </member>
+    <member name="M:System.Reflection.Metadata.Ecma335.FieldTypeEncoder.CustomModifiers">
+      <summary>Gets the custom modifiers encoder to the field signature.</summary>
+      <returns>The encoder that specifies the custom modifiers to the field signature.</returns>
+    </member>
+    <member name="M:System.Reflection.Metadata.Ecma335.FieldTypeEncoder.Type(System.Boolean)">
+      <summary>Encodes the field type signature.</summary>
+      <param name="isByRef">Determines if the field is ByRef</param>
+      <returns>Encoder of the field type.</returns>
+    </member>
+    <member name="M:System.Reflection.Metadata.Ecma335.FieldTypeEncoder.TypedReference">
+      <summary>Write <see cref="F:System.Reflection.Metadata.SignatureTypeCode.TypedReference" />.</summary>
+    </member>
+    <member name="P:System.Reflection.Metadata.Ecma335.FieldTypeEncoder.Builder">
+      <summary>Underlying builder where encoded field signature is written to.</summary>
+    </member>
     <member name="T:System.Reflection.Metadata.Ecma335.FixedArgumentsEncoder" />
     <member name="M:System.Reflection.Metadata.Ecma335.FixedArgumentsEncoder.#ctor(System.Reflection.Metadata.BlobBuilder)">
       <param name="builder" />
@@ -1954,7 +1985,7 @@
     <member name="F:System.Reflection.Metadata.Ecma335.HeapIndex.String" />
     <member name="F:System.Reflection.Metadata.Ecma335.HeapIndex.UserString" />
     <member name="T:System.Reflection.Metadata.Ecma335.InstructionEncoder">
-      <summary>Encodes instructions.</summary>
+      <summary>Encodes Common Intermediate Language (CIL) instructions.</summary>
     </member>
     <member name="M:System.Reflection.Metadata.Ecma335.InstructionEncoder.#ctor(System.Reflection.Metadata.BlobBuilder,System.Reflection.Metadata.Ecma335.ControlFlowBuilder)">
       <summary>Creates an encoder backed by code and control-flow builders.</summary>
@@ -2328,7 +2359,7 @@
       <exception cref="T:System.ArgumentException">
         <paramref name="parent" /> doesn't have the expected handle kind.</exception>
       <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="index" /> is greater than <see cref="F:System.UInt16.MaxValue" />.</exception>
+        <paramref name="index" /> is greater than <see cref="F:System.UInt16.MaxValue">UInt16.MaxValue</see>.</exception>
       <returns>A handle to the added generic parameter.</returns>
     </member>
     <member name="M:System.Reflection.Metadata.Ecma335.MetadataBuilder.AddGenericParameterConstraint(System.Reflection.Metadata.GenericParameterHandle,System.Reflection.Metadata.EntityHandle)">
@@ -2375,7 +2406,7 @@
       <param name="index">The zero-base index of the local variable in the local signature.</param>
       <param name="name">The name of the variable.</param>
       <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="index" /> is greater than <see cref="F:System.UInt16.MaxValue" />.</exception>
+        <paramref name="index" /> is greater than <see cref="F:System.UInt16.MaxValue">UInt16.MaxValue</see>.</exception>
       <returns>A handle to the added local variable.</returns>
     </member>
     <member name="M:System.Reflection.Metadata.Ecma335.MetadataBuilder.AddManifestResource(System.Reflection.ManifestResourceAttributes,System.Reflection.Metadata.StringHandle,System.Reflection.Metadata.EntityHandle,System.UInt32)">
@@ -2475,7 +2506,7 @@
       <param name="name">Optional. The parameter name.</param>
       <param name="sequenceNumber">The sequence number of the parameter. A value of 0 refers to the owner method's return type; its parameters are then numbered from 1 onward.</param>
       <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="sequenceNumber" /> is greater than <see cref="F:System.UInt16.MaxValue" />.</exception>
+        <paramref name="sequenceNumber" /> is greater than <see cref="F:System.UInt16.MaxValue">UInt16.MaxValue</see>.</exception>
       <returns>A handle to the added parameter.</returns>
     </member>
     <member name="M:System.Reflection.Metadata.Ecma335.MetadataBuilder.AddProperty(System.Reflection.PropertyAttributes,System.Reflection.Metadata.StringHandle,System.Reflection.Metadata.BlobHandle)">
@@ -3072,7 +3103,7 @@
       <exception cref="T:System.ArgumentNullException">
         <paramref name="instructionEncoder" /> has default value.</exception>
       <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="maxStack" /> is out of range [0, <see cref="F:System.UInt16.MaxValue" />].</exception>
+        <paramref name="maxStack" /> is out of range [0, <see cref="F:System.UInt16.MaxValue">UInt16.MaxValue</see>].</exception>
       <exception cref="T:System.InvalidOperationException">A label targeted by a branch in the instruction stream has not been marked, or the distance between a branch instruction and the target label doesn't fit the size of the instruction operand.</exception>
       <returns>The offset of the encoded body within the method body stream.</returns>
     </member>
@@ -3087,7 +3118,7 @@
       <exception cref="T:System.ArgumentNullException">
         <paramref name="instructionEncoder" /> has default value.</exception>
       <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="maxStack" /> is out of range [0, <see cref="F:System.UInt16.MaxValue" />].</exception>
+        <paramref name="maxStack" /> is out of range [0, <see cref="F:System.UInt16.MaxValue">UInt16.MaxValue</see>].</exception>
       <exception cref="T:System.InvalidOperationException">A label targeted by a branch in the instruction stream has not been marked, or the distance between a branch instruction and the target label doesn't fit the size of the instruction operand.</exception>
       <returns>The offset of the encoded body within the method body stream.</returns>
     </member>
@@ -5125,6 +5156,19 @@
     <member name="M:System.Reflection.Metadata.MetadataReader.GetAssemblyFile(System.Reflection.Metadata.AssemblyFileHandle)">
       <param name="handle" />
     </member>
+    <member name="M:System.Reflection.Metadata.MetadataReader.GetAssemblyName(System.String)">
+      <summary>Gets the <see cref="T:System.Reflection.AssemblyName" /> for a given file.</summary>
+      <param name="assemblyFile">The path to the assembly for which <see cref="T:System.Reflection.AssemblyName" /> is to be returned.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="assemblyFile" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="assemblyFile" /> is invalid.</exception>
+      <exception cref="T:System.IO.FileNotFoundException">
+        <paramref name="assemblyFile" /> is not found.</exception>
+      <exception cref="T:System.BadImageFormatException">
+        <paramref name="assemblyFile" /> is not a valid assembly.</exception>
+      <returns>An <see cref="T:System.Reflection.AssemblyName" /> that represents the given <paramref name="assemblyFile" />.</returns>
+    </member>
     <member name="M:System.Reflection.Metadata.MetadataReader.GetAssemblyReference(System.Reflection.Metadata.AssemblyReferenceHandle)">
       <param name="handle" />
     </member>
@@ -5474,17 +5518,45 @@
       <summary>Gets the encoding used by this instance.</summary>
       <returns>The encoding used by this instance.</returns>
     </member>
-    <member name="T:System.Reflection.Metadata.MethodBodyBlock" />
-    <member name="M:System.Reflection.Metadata.MethodBodyBlock.Create(System.Reflection.Metadata.BlobReader)">
-      <param name="reader" />
+    <member name="T:System.Reflection.Metadata.MethodBodyBlock">
+      <summary>Represents the method body in ECMA 335 assembly.</summary>
     </member>
-    <member name="M:System.Reflection.Metadata.MethodBodyBlock.GetILBytes" />
-    <member name="M:System.Reflection.Metadata.MethodBodyBlock.GetILContent" />
-    <member name="M:System.Reflection.Metadata.MethodBodyBlock.GetILReader" />
-    <member name="P:System.Reflection.Metadata.MethodBodyBlock.ExceptionRegions" />
-    <member name="P:System.Reflection.Metadata.MethodBodyBlock.LocalSignature" />
-    <member name="P:System.Reflection.Metadata.MethodBodyBlock.LocalVariablesInitialized" />
-    <member name="P:System.Reflection.Metadata.MethodBodyBlock.MaxStack" />
+    <member name="M:System.Reflection.Metadata.MethodBodyBlock.Create(System.Reflection.Metadata.BlobReader)">
+      <summary>Creates a new instance of the <see cref="T:System.Reflection.Metadata.MethodBodyBlock" /> class using the specified blob reader.</summary>
+      <param name="reader">The blob reader to read the method body.</param>
+      <exception cref="T:System.BadImageFormatException">
+          The method body data in the specified blob reader is invalid.</exception>
+      <returns>A new instance of the <see cref="T:System.Reflection.Metadata.MethodBodyBlock" /> class.</returns>
+    </member>
+    <member name="M:System.Reflection.Metadata.MethodBodyBlock.GetILBytes">
+      <summary>Gets the IL bytecode of this method body as a byte array.</summary>
+      <returns>A byte array with the IL bytecode of this method body.</returns>
+    </member>
+    <member name="M:System.Reflection.Metadata.MethodBodyBlock.GetILContent">
+      <summary>Gets the IL bytecode of this method body as an immutable array.</summary>
+      <returns>An immutable byte array with the IL bytecode of this method body.</returns>
+    </member>
+    <member name="M:System.Reflection.Metadata.MethodBodyBlock.GetILReader">
+      <summary>Gets a blob reader that reads the IL bytecode of this method body.</summary>
+      <returns>A blob reader that reads the IL bytecode of this method body.</returns>
+    </member>
+    <member name="P:System.Reflection.Metadata.MethodBodyBlock.ExceptionRegions">
+      <summary>Gets the array of exception regions in this method body.</summary>
+      <returns>The array of exception regions.</returns>
+    </member>
+    <member name="P:System.Reflection.Metadata.MethodBodyBlock.LocalSignature">
+      <summary>Gets the handle to the local variables signature.</summary>
+      <returns>The handle to the local variables signature.</returns>
+    </member>
+    <member name="P:System.Reflection.Metadata.MethodBodyBlock.LocalVariablesInitialized">
+      <summary>Gets a value that indicates whether local variables in this method are initialized to default values of their types.</summary>
+      <returns>
+        <see langword="true" /> if local variables are initialized; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="P:System.Reflection.Metadata.MethodBodyBlock.MaxStack">
+      <summary>Gets the maximum number of items on the evaluation stack for this method.</summary>
+      <returns>The maximum number of items on the evaluation stack.</returns>
+    </member>
     <member name="P:System.Reflection.Metadata.MethodBodyBlock.Size">
       <summary>Gets the size of the method body, including the header, IL, and exception regions.</summary>
       <returns>The size of the method body.</returns>
@@ -6034,14 +6106,14 @@
       <returns>A metadata reader.</returns>
     </member>
     <member name="M:System.Reflection.Metadata.PEReaderExtensions.GetMetadataReader(System.Reflection.PortableExecutable.PEReader,System.Reflection.Metadata.MetadataReaderOptions)">
-      <summary>Gets a  metadata reader with the specified metadata reading configuration from a <see cref="T:System.Reflection.PortableExecutable.PEReader" />.</summary>
+      <summary>Gets a metadata reader with the specified metadata reading configuration from a <see cref="T:System.Reflection.PortableExecutable.PEReader" />.</summary>
       <param name="peReader">The current <see cref="T:System.Reflection.PortableExecutable.PEReader" /> instance.</param>
-      <param name="options">An  enumeration value indicating the metadata reading configuration.</param>
+      <param name="options">An enumeration value indicating the metadata reading configuration.</param>
       <exception cref="T:System.ArgumentNullException">
         <paramref name="peReader" /> is <see langword="null" />.</exception>
       <exception cref="T:System.PlatformNotSupportedException">The current platform is big-endian.</exception>
       <exception cref="T:System.IO.IOException">IO error while reading from the underlying stream.</exception>
-      <returns>A  metadata reader with the specified metadata reading configuration.</returns>
+      <returns>A metadata reader with the specified metadata reading configuration.</returns>
     </member>
     <member name="M:System.Reflection.Metadata.PEReaderExtensions.GetMetadataReader(System.Reflection.PortableExecutable.PEReader,System.Reflection.Metadata.MetadataReaderOptions,System.Reflection.Metadata.MetadataStringDecoder)">
       <summary>Gets a metadata reader with the specified metadata reading configuration and encoding configuration from a <see cref="T:System.Reflection.PortableExecutable.PEReader" />.</summary>
@@ -6261,10 +6333,17 @@
       <summary>Gets the reserved blob handle.</summary>
       <returns>The reserved bloc handle.</returns>
     </member>
-    <member name="T:System.Reflection.Metadata.SequencePoint" />
-    <member name="F:System.Reflection.Metadata.SequencePoint.HiddenLine" />
+    <member name="T:System.Reflection.Metadata.SequencePoint">
+      <summary>Represents a Portable PDB sequence point.</summary>
+    </member>
+    <member name="F:System.Reflection.Metadata.SequencePoint.HiddenLine">
+      <summary>Specifies a line number value for a hidden sequence point.</summary>
+    </member>
     <member name="M:System.Reflection.Metadata.SequencePoint.Equals(System.Object)">
-      <param name="obj" />
+      <summary>Indicates whether the current sequence point is equal to the specified object.</summary>
+      <param name="obj">The object to compare with the current object.</param>
+      <returns>
+        <see langword="true" /> if the current sequence point is equal to the <paramref name="obj" /> parameter; otherwise, <see langword="false" />.</returns>
     </member>
     <member name="M:System.Reflection.Metadata.SequencePoint.Equals(System.Reflection.Metadata.SequencePoint)">
       <summary>Indicates whether the current object is equal to another object of the same type.</summary>
@@ -6272,14 +6351,39 @@
       <returns>
         <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.</returns>
     </member>
-    <member name="M:System.Reflection.Metadata.SequencePoint.GetHashCode" />
-    <member name="P:System.Reflection.Metadata.SequencePoint.Document" />
-    <member name="P:System.Reflection.Metadata.SequencePoint.EndColumn" />
-    <member name="P:System.Reflection.Metadata.SequencePoint.EndLine" />
-    <member name="P:System.Reflection.Metadata.SequencePoint.IsHidden" />
-    <member name="P:System.Reflection.Metadata.SequencePoint.Offset" />
-    <member name="P:System.Reflection.Metadata.SequencePoint.StartColumn" />
-    <member name="P:System.Reflection.Metadata.SequencePoint.StartLine" />
+    <member name="M:System.Reflection.Metadata.SequencePoint.GetHashCode">
+      <summary>Gets the hash code of this sequence point.</summary>
+      <returns>The hash code of this sequence point.</returns>
+    </member>
+    <member name="P:System.Reflection.Metadata.SequencePoint.Document">
+      <summary>Gets the source document that contains this sequence point.</summary>
+      <returns>The source document that contains this sequence point.</returns>
+    </member>
+    <member name="P:System.Reflection.Metadata.SequencePoint.EndColumn">
+      <summary>Gets the column number of the last character in this sequence point.</summary>
+      <returns>The column number of the last character in this sequence point.</returns>
+    </member>
+    <member name="P:System.Reflection.Metadata.SequencePoint.EndLine">
+      <summary>Gets the line number of the last character in this sequence point.</summary>
+      <returns>The line number of the last character in this sequence point.</returns>
+    </member>
+    <member name="P:System.Reflection.Metadata.SequencePoint.IsHidden">
+      <summary>Gets a value that indicates whether this sequence point is hidden.</summary>
+      <returns>
+        <see langword="true" /> if this sequence point is hidden; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="P:System.Reflection.Metadata.SequencePoint.Offset">
+      <summary>Gets the IL offset of this sequence point from the start of the method body, in bytes.</summary>
+      <returns>The IL offset of this sequence point from the start of the method body, in bytes.</returns>
+    </member>
+    <member name="P:System.Reflection.Metadata.SequencePoint.StartColumn">
+      <summary>Gets the column number of the first character in this sequence point.</summary>
+      <returns>The column number of the first character in this sequence point.</returns>
+    </member>
+    <member name="P:System.Reflection.Metadata.SequencePoint.StartLine">
+      <summary>Gets the line number of the first character in this sequence point.</summary>
+      <returns>The line number of the first character in this sequence point.</returns>
+    </member>
     <member name="T:System.Reflection.Metadata.SequencePointCollection" />
     <member name="M:System.Reflection.Metadata.SequencePointCollection.GetEnumerator" />
     <member name="M:System.Reflection.Metadata.SequencePointCollection.System#Collections#Generic#IEnumerable{System#Reflection#Metadata#SequencePoint}#GetEnumerator">
@@ -7070,22 +7174,54 @@
         <para>CLS-compliant setters are named with the <see langword="set_" /> prefix.</para>
       </summary>
     </member>
-    <member name="T:System.Reflection.PortableExecutable.Characteristics" />
-    <member name="F:System.Reflection.PortableExecutable.Characteristics.AggressiveWSTrim" />
-    <member name="F:System.Reflection.PortableExecutable.Characteristics.Bit32Machine" />
-    <member name="F:System.Reflection.PortableExecutable.Characteristics.BytesReversedHi" />
-    <member name="F:System.Reflection.PortableExecutable.Characteristics.BytesReversedLo" />
-    <member name="F:System.Reflection.PortableExecutable.Characteristics.DebugStripped" />
-    <member name="F:System.Reflection.PortableExecutable.Characteristics.Dll" />
-    <member name="F:System.Reflection.PortableExecutable.Characteristics.ExecutableImage" />
-    <member name="F:System.Reflection.PortableExecutable.Characteristics.LargeAddressAware" />
-    <member name="F:System.Reflection.PortableExecutable.Characteristics.LineNumsStripped" />
-    <member name="F:System.Reflection.PortableExecutable.Characteristics.LocalSymsStripped" />
-    <member name="F:System.Reflection.PortableExecutable.Characteristics.NetRunFromSwap" />
-    <member name="F:System.Reflection.PortableExecutable.Characteristics.RelocsStripped" />
-    <member name="F:System.Reflection.PortableExecutable.Characteristics.RemovableRunFromSwap" />
-    <member name="F:System.Reflection.PortableExecutable.Characteristics.System" />
-    <member name="F:System.Reflection.PortableExecutable.Characteristics.UpSystemOnly" />
+    <member name="T:System.Reflection.PortableExecutable.Characteristics">
+      <summary>Represents the Common Object File Format (COFF) file characteristics.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Characteristics.AggressiveWSTrim">
+      <summary>Indicates that the operating system should aggressively trim the working set for this file. This flag is deprecated and should be zero.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Characteristics.Bit32Machine">
+      <summary>Indicates that this file is for a 32-bit machine.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Characteristics.BytesReversedHi">
+      <summary>Indicates that this file uses a big endian byte order. This flag is deprecated and should be zero.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Characteristics.BytesReversedLo">
+      <summary>Indicates that this file uses a little endian byte order. This flag is deprecated and should be zero.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Characteristics.DebugStripped">
+      <summary>Indicates that debugging information is removed from the image file.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Characteristics.Dll">
+      <summary>Indicates that the image file is a dynamic-link library (DLL).</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Characteristics.ExecutableImage">
+      <summary>Indicates that the image file is valid and can be run.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Characteristics.LargeAddressAware">
+      <summary>Indicates that this executable file can handle memory addresses greater than 2 GB.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Characteristics.LineNumsStripped">
+      <summary>Indicates that COFF line numbers have been removed from the file. This flag is deprecated and should be zero.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Characteristics.LocalSymsStripped">
+      <summary>Indicates that COFF symbol table entries for local symbols have been removed from the file. This flag is deprecated and should be zero.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Characteristics.NetRunFromSwap">
+      <summary>Indicates that the image should be fully loaded and copied into the swap file if it's located on a network media.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Characteristics.RelocsStripped">
+      <summary>Indicates that the image doesn't contain base relocations and must therefore be loaded at its preferred base address.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Characteristics.RemovableRunFromSwap">
+      <summary>Indicates that the image should be fully loaded and copied into the swap file if it's located on a removable media.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Characteristics.System">
+      <summary>Indicates that the image file is a system file, not a user program.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Characteristics.UpSystemOnly">
+      <summary>Indicates that the file should be run only on a uniprocessor machine.</summary>
+    </member>
     <member name="T:System.Reflection.PortableExecutable.CodeViewDebugDirectoryData">
       <summary>Provides information about a Program Debug Database (PDB) file.</summary>
     </member>
@@ -7129,15 +7265,29 @@
       <returns>The low 32 bits of the number of seconds since 00:00 January 1, 1970, which indicates when the file was created.</returns>
     </member>
     <member name="T:System.Reflection.PortableExecutable.CorFlags">
-      <summary>COR20Flags.</summary>
+      <summary>Represents the runtime flags for a .NET executable image.</summary>
     </member>
-    <member name="F:System.Reflection.PortableExecutable.CorFlags.ILLibrary" />
-    <member name="F:System.Reflection.PortableExecutable.CorFlags.ILOnly" />
-    <member name="F:System.Reflection.PortableExecutable.CorFlags.NativeEntryPoint" />
-    <member name="F:System.Reflection.PortableExecutable.CorFlags.Prefers32Bit" />
-    <member name="F:System.Reflection.PortableExecutable.CorFlags.Requires32Bit" />
-    <member name="F:System.Reflection.PortableExecutable.CorFlags.StrongNameSigned" />
-    <member name="F:System.Reflection.PortableExecutable.CorFlags.TrackDebugData" />
+    <member name="F:System.Reflection.PortableExecutable.CorFlags.ILLibrary">
+      <summary>Indicates that this image is a library that only contains IL code.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.CorFlags.ILOnly">
+      <summary>Indicates that this image only contains IL code.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.CorFlags.NativeEntryPoint">
+      <summary>Reserved, shall be 0.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.CorFlags.Prefers32Bit">
+      <summary>Indicates that this image should be run as a 32-bit process on a 64-bit operating system.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.CorFlags.Requires32Bit">
+      <summary>Indicates that this image can only be loaded into a 32-bit process.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.CorFlags.StrongNameSigned">
+      <summary>Indicates that this image has a strong name signature.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.CorFlags.TrackDebugData">
+      <summary>Reserved, shall be 0.</summary>
+    </member>
     <member name="T:System.Reflection.PortableExecutable.CorHeader" />
     <member name="P:System.Reflection.PortableExecutable.CorHeader.CodeManagerTableDirectory" />
     <member name="P:System.Reflection.PortableExecutable.CorHeader.EntryPointTokenOrRelativeVirtualAddress" />
@@ -7374,6 +7524,12 @@
     </member>
     <member name="F:System.Reflection.PortableExecutable.Machine.IA64">
       <summary>Intel 64.</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Machine.LoongArch32">
+      <summary>LOONGARCH32</summary>
+    </member>
+    <member name="F:System.Reflection.PortableExecutable.Machine.LoongArch64">
+      <summary>LOONGARCH64</summary>
     </member>
     <member name="F:System.Reflection.PortableExecutable.Machine.M32R">
       <summary>M32R little-endian.</summary>
@@ -7737,7 +7893,7 @@
     </member>
     <member name="P:System.Reflection.PortableExecutable.PEHeaderBuilder.MajorImageVersion">
       <summary>The major version number of the image.</summary>
-      <returns>A number the size of a <see cref="T:System.UInt16" /> representing the the major version number of the image.</returns>
+      <returns>A number the size of a <see cref="T:System.UInt16" /> representing the major version number of the image.</returns>
     </member>
     <member name="P:System.Reflection.PortableExecutable.PEHeaderBuilder.MajorLinkerVersion">
       <summary>The linker major version number.</summary>
