@@ -1,5 +1,7 @@
 # New Excel functions
 
+<table><tbody><tr><td><strong>XLRCODE</strong></td><td>Run R code in a local environment and transfer values from and to Excel. Function memory is cleared after calculation.</td></tr><tr><td><strong>XLRCODE_ENV</strong></td><td>Run R code in a pre-specified environment and transfer values from and to Excel</td></tr><tr><td><strong>XLRSCRIPT</strong></td><td>Run R script in a local environment and transfer values from and to Excel. Function memory is cleared after calculation.</td></tr><tr><td><strong>XLRSCRIPT_ENV</strong></td><td>Run R script in a pre-specified environment and transfer values from and to Excel</td></tr><tr><td><strong>XLRFUNC</strong></td><td>Call an R function in a local environment and transfer values from and to Excel</td></tr><tr><td><strong>XLRFUNC_ENV</strong></td><td>Call an R function in a pre-specified environment and transfer values from and to Excel</td></tr></tbody></table>
+
 ## XLRCODE
 
 Run R code in a local environment and transfer values from and to Excel. Function memory is cleared after calculation.
