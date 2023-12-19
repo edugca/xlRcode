@@ -1,4 +1,4 @@
-# xlRcode (v. 0.1.9)
+# xlRcode (v. 0.2.0)
 
 Call R from Excel. Create new Excel functions that make use of R packages. Integrate both tools seamlessly.
 
@@ -75,7 +75,47 @@ That should do the trick!
 
 That should do the trick!
 
+## Getting up to speed
+
+# TIPs
+
+- In general, tips for making R code faster also apply to xlRcode. You can find some tips in the following links:
+https://www.dartistics.com/fast-r-code.html
+https://bookdown.org/content/d1e53ac9-28ce-472f-bc2c-f499f18264a3/speedtips.html
+- Use array formulas whenever possible as they reduce the amount of individual calls from Excel to R and therefore each function overhead time toll.
+- Time-demanding commands/scripts should not be called from cells because Excel is unresponsive while R is running code.
+- You can split commands in different cells and provide the reference to their joint address as the code argument in XLRCODE or XLRCODE_ENV functions. Cells will be read in the same environment in order from left to right and then from top to bottom.
+- You can split script paths in different cells and provide the reference to their joint address as the code argument in XLRSCRIPT or XLRSCRIPT_ENV functions. Cells will be read in the same environment in order from left to right and then from top to bottom.
+
 ## History
+
+### v. 0.2.0
+Major improvement and bug handling.
+- Major improvement: all XLRCODE functions are now asynchronous!
+- Major improvement: all XLRCODE functions run in an exclusive thread with stack size of 4Mb. This solves stack overflow exceptions that were raised when loading some popular packages such as 'devtools'.
+- Improvement: functions now distinguish between NA and NAN, so that they return #N/A! and #NUM!, respectively.
+- Improvement: functions XLRCODE and XLRCODE_ENV now read commands in multiple cells in order.
+- Improvement: functions XLRCODE, XLRCODE_ENV, XLRFUNC, and XLRFUNC_ENV now read parameter names and values listed in multiple cells.
+- Improvement: functions XLRSCRIPT and XLRSCRIPT_ENV now read script paths in multiple cells in order.
+- Improvement: search mechanism in the form of installed packages is now case insensitive by default, but allows case sensitive searches as well.
+- Improvement: functions that return NULL to Excel are displayed as #NULL!.
+- Improvement: R commands with no return value, such as comments, now return an empty string when called from XLRCODE functions.
+- Improvement: Packages form now exhibits a description for each package installed.
+- Improvement: Packages form now a tab of "Old Packages" that shows for which packages there are updates available on the CRAN server.
+- Improvement: ExcelDNA logging is now redirected to an external file.
+- Improvement: Calculate range button on the ribbon now allows for recalculation of the entire active worksheet or the entire active workbook.
+- Improvement: a new group of buttons to refresh pictures was added.
+- Improvement: installing/uninstalling and loading packages now specify their library.
+- Bug fix: function XLRDATE was not successfully converting Excel dates to R ones because the latter were being reconverted to Excel format before returning to the spreadsheet.
+- Bug fix: when one tried to open R console as administrator but process failed, one would have to restart Excel to try it again.
+- Bug fix: when XLRDATE was applied to a two-dimensional matrix of Excel dates it was returning all values stacked up in a single vector.
+- Bug fix: error was raised when a XLRCODE function was called before the Console form was displayed and "Register Excel function calls" was enabled.
+- Bug fix: XLRCODE_ENV and XLRFUNC_ENV functions raised error when "Environment" argument contained invalid characters, such as " " and "=".
+- Bug fix: XLRCODE and XLRCODE_ENV functions raised error when the "commands" argument was a range of cells that included an empty cell. Now, it ignores empty cells.
+- Bug fix: when user passed an invalid environment argument to XLRCODE functions, Excel crashed.
+- Bug fix: some forms and error messages were being displayed for the first time in a different monitor than the one currently occupied by the Excel app.
+- Bug fix: R console only displayed lists whose elements had names.
+- Bug fix: code arguments in XLRCODE functions that included cells with comments were raising error.
 
 ### v. 0.1.9
 Minor improvement and bug handling.
@@ -83,7 +123,7 @@ Minor improvement and bug handling.
 - Improvement: when user opens R terminal through ribbon, xlRcode now asks whether admin privileges should be requested.
 - Improvement: dataframe datatypes "dfh", "dfc", and "dfr" now check whether dataframe content is only numerical or not.
 - Improvement: R code error messages returned from XLRCODE functions are displayed as in R.
-- Improvement: "Graphic" button on the ribbon now brings to front current X11 graphic device in case there in one open.
+- Improvement: "Graphic" button on the ribbon now brings to front current X11 graphic device in case there is one open.
 - Bug fix: String outputs were being parsed from UTF-8 (R's default encoding) to UNICODE without due conversion.
 - Bug fix: R console messages were duplicated in case of error.
 

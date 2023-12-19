@@ -1,0 +1,953 @@
+% Generated on 2023-12-19 17:52:29 by gEcon ver. 1.2.0 (2019-09-08)
+% http://gecon.r-forge.r-project.org/
+
+% Model name: SW_03
+
+\section{CONSUMER}
+
+\subsection{Optimisation problem}
+
+\begin{align}
+&\max_{C_{t}, K_{t}, I_{t}, B_{t}, z_{t}
+} U_{t} = {\beta} {\mathrm{E}_{t}\left[U_{t+1}\right]} + {\epsilon^{\mathrm{b}}_{t}} \left(\left(1 - \sigma^{\mathrm{c}}\right)^{-1} {\left(C_{t} - H_{t}\right)^{1 - \sigma^{\mathrm{c}}}} - {\omega} {\epsilon^{\mathrm{L}}_{t}} \left(1 + \sigma^{\mathrm{l}}\right)^{-1} {{L^{\mathrm{s}}_{t}}^{1 + \sigma^{\mathrm{l}}}}\right)\\
+&\mathrm{s.t.:}\nonumber\\
+& C_{t} + I_{t} + {B_{t}} {R_{t}}^{-1} = {D\!i\!v}_{t} - T_{t} + {B_{t-1}} {\pi_{t}}^{-1} + {L_{t}} {W_{t}} + {K_{t-1}} {r^{\mathrm{k}}_{t}} {z_{t}} - {\psi}^{-1} {r^{\mathrm{k}}_\mathrm{ss}} {K_{t-1}} \left(-1 + e^{{\psi} \left(-1 + z_{t}\right)}\right) \quad \left(\lambda_{t}\right)\\
+& K_{t} = {K_{t-1}} \left(1 - \tau\right) + {I_{t}} \left(1 - 0.5{\varphi} \left(-1 + {I_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I_{t}}\right)^{2}\right) \quad \left(q_{t}\right)
+\end{align}
+
+
+\subsection{Identities}
+
+\begin{equation}
+H_{t} = {h} {C_{t-1}}
+\end{equation}
+\begin{equation}
+Q_{t} = {\lambda_{t}}^{-1} {q_{t}}
+\end{equation}
+
+
+\subsection{First order conditions}
+
+\begin{equation}
+-\lambda_{t} + {\epsilon^{\mathrm{b}}_{t}} {\left(C_{t} - H_{t}\right)^{-\sigma^{\mathrm{c}}}} = 0
+ \quad \left(C_{t}\right)
+\end{equation}
+\begin{equation}
+-q_{t} + {\beta} \left(\left(1 - \tau\right) {\mathrm{E}_{t}\left[q_{t+1}\right]} + \mathrm{E}_{t}\left[{\lambda_{t+1}} \left({r^{\mathrm{k}}_{t+1}} {z_{t+1}} - {\psi}^{-1} {r^{\mathrm{k}}_\mathrm{ss}} \left(-1 + e^{{\psi} \left(-1 + z_{t+1}\right)}\right)\right)\right]\right) = 0
+ \quad \left(K_{t}\right)
+\end{equation}
+\begin{equation}
+-\lambda_{t} + {q_{t}} \left(1 - 0.5{\varphi} \left(-1 + {I_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I_{t}}\right)^{2} - {\varphi} {I_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I_{t}} \left(-1 + {I_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I_{t}}\right)\right) + {\beta} {\varphi} {I_{t}}^{-2} {\mathrm{E}_{t}\left[{\epsilon^{\mathrm{I}}_{t+1}} {q_{t+1}} {I_{t+1}}^{2} \left(-1 + {I_{t}}^{-1} {\epsilon^{\mathrm{I}}_{t+1}} {I_{t+1}}\right)\right]} = 0
+ \quad \left(I_{t}\right)
+\end{equation}
+\begin{equation}
+{\beta} {\mathrm{E}_{t}\left[{\lambda_{t+1}} {\pi_{t+1}}^{-1}\right]} - {\lambda_{t}} {R_{t}}^{-1} = 0
+ \quad \left(B_{t}\right)
+\end{equation}
+\begin{equation}
+{\lambda_{t}} \left({K_{t-1}} {r^{\mathrm{k}}_{t}} - {r^{\mathrm{k}}_\mathrm{ss}} {K_{t-1}} {e^{{\psi} \left(-1 + z_{t}\right)}}\right) = 0
+ \quad \left(z_{t}\right)
+\end{equation}
+
+
+
+
+\section{PREFERENCE SHOCKS}
+
+\subsection{Identities}
+
+\begin{equation}
+\log{\epsilon^{\mathrm{b}}_{t}} = \eta^{\mathrm{b}}_{t} + {\rho^{\mathrm{b}}} {\log{\epsilon^{\mathrm{b}}_{t-1}}}
+\end{equation}
+\begin{equation}
+\log{\epsilon^{\mathrm{L}}_{t}} = -\eta^{\mathrm{L}}_{t} + {\rho^{\mathrm{L}}} {\log{\epsilon^{\mathrm{L}}_{t-1}}}
+\end{equation}
+
+
+
+
+\section{INVESTMENT COST SHOCKS}
+
+\subsection{Identities}
+
+\begin{equation}
+\log{\epsilon^{\mathrm{I}}_{t}} = \eta^{\mathrm{I}}_{t} + {\rho^{\mathrm{I}}} {\log{\epsilon^{\mathrm{I}}_{t-1}}}
+\end{equation}
+
+
+
+
+\section{WAGE SETTING PROBLEM}
+
+\subsection{Identities}
+
+\begin{equation}
+f^{\mathrm{1}}_{t} = {\beta} {\xi^{\mathrm{w}}} {\mathrm{E}_{t}\left[{f^{\mathrm{1}}_{t+1}} {\left({w^{\star}_{t}}^{-1} {w^{\star}_{t+1}}\right)^{{\lambda^{\mathrm{w}}}^{-1}}} {\left({\pi_{t+1}}^{-1} {{\pi_{t}}^{\gamma^{\mathrm{w}}}}\right)^{-{\lambda^{\mathrm{w}}}^{-1}}}\right]} + {\lambda_{t}} {w^{\star}_{t}} {L_{t}} \left(1 + \lambda^{\mathrm{w}}\right)^{-1} {{\pi^{\star^{\mathrm{w}}}_{t}}^{-{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right)}}
+\end{equation}
+\begin{equation}
+f^{\mathrm{2}}_{t} = {\beta} {\xi^{\mathrm{w}}} {\mathrm{E}_{t}\left[{f^{\mathrm{2}}_{t+1}} {\left({w^{\star}_{t}}^{-1} {w^{\star}_{t+1}}\right)^{{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right) \left(1 + \sigma^{\mathrm{l}}\right)}} {\left({\pi_{t+1}}^{-1} {{\pi_{t}}^{\gamma^{\mathrm{w}}}}\right)^{-{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right) \left(1 + \sigma^{\mathrm{l}}\right)}}\right]} + {\omega} {\epsilon^{\mathrm{b}}_{t}} {\epsilon^{\mathrm{L}}_{t}} {\left({L_{t}} {{\pi^{\star^{\mathrm{w}}}_{t}}^{-{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right)}}\right)^{1 + \sigma^{\mathrm{l}}}}
+\end{equation}
+\begin{equation}
+f^{\mathrm{1}}_{t} = \eta^{\mathrm{w}}_{t} + f^{\mathrm{2}}_{t}
+\end{equation}
+\begin{equation}
+\pi^{\star^{\mathrm{w}}}_{t} = {w^{\star}_{t}} {W_{t}}^{-1}
+\end{equation}
+
+
+
+
+\section{WAGE EVOLUTION}
+
+\subsection{Identities}
+
+\begin{equation}
+1 = \left(1 - \xi^{\mathrm{w}}\right) {{\pi^{\star^{\mathrm{w}}}_{t}}^{-{\lambda^{\mathrm{w}}}^{-1}}} + {\xi^{\mathrm{w}}} {\left({W_{t-1}} {W_{t}}^{-1}\right)^{-{\lambda^{\mathrm{w}}}^{-1}}} {\left({\pi_{t}}^{-1} {{\pi_{t-1}}^{\gamma^{\mathrm{w}}}}\right)^{-{\lambda^{\mathrm{w}}}^{-1}}}
+\end{equation}
+
+
+
+
+\section{LABOUR AGGREGATION}
+
+\subsection{Identities}
+
+\begin{equation}
+\nu^{\mathrm{w}}_{t} = \left(1 - \xi^{\mathrm{w}}\right) {{\pi^{\star^{\mathrm{w}}}_{t}}^{-{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right)}} + {\xi^{\mathrm{w}}} {\nu^{\mathrm{w}}_{t-1}} {\left({W_{t-1}} {\pi_{t}}^{-1} {W_{t}}^{-1} {{\pi_{t-1}}^{\gamma^{\mathrm{w}}}}\right)^{-{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right)}}
+\end{equation}
+\begin{equation}
+L_{t} = {\nu^{\mathrm{w}}_{t}}^{-1} {L^{\mathrm{s}}_{t}}
+\end{equation}
+
+
+
+
+\section{CONSUMER FLEXIBLE}
+
+\subsection{Optimisation problem}
+
+\begin{align}
+&\max_{C^{\mathrm{f}}_{t}, K^{\mathrm{f}}_{t}, I^{\mathrm{f}}_{t}, B^{\mathrm{f}}_{t}, z^{\mathrm{f}}_{t}, L^{\mathrm{s}^{\mathrm{f}}}_{t}
+} U^{\mathrm{f}}_{t} = {\beta} {\mathrm{E}_{t}\left[U^{\mathrm{f}}_{t+1}\right]} + {\epsilon^{\mathrm{b}}_{t}} \left(\left(1 - \sigma^{\mathrm{c}}\right)^{-1} {\left(C^{\mathrm{f}}_{t} - H^{\mathrm{f}}_{t}\right)^{1 - \sigma^{\mathrm{c}}}} - {\omega} {\epsilon^{\mathrm{L}}_{t}} \left(1 + \sigma^{\mathrm{l}}\right)^{-1} {{L^{\mathrm{s}^{\mathrm{f}}}_{t}}^{1 + \sigma^{\mathrm{l}}}}\right)\\
+&\mathrm{s.t.:}\nonumber\\
+& C^{\mathrm{f}}_{t} + I^{\mathrm{f}}_{t} + {B^{\mathrm{f}}_{t}} {R^{\mathrm{f}}_{t}}^{-1} = B^{\mathrm{f}}_{t-1} + {D\!i\!v}^{\mathrm{f}}_{t} + \Pi^{\mathrm{ws}^{\mathrm{f}}}_{t} - T^{\mathrm{f}}_{t} + {L^{\mathrm{s}^{\mathrm{f}}}_{t}} {W^{\mathrm{disutil}^{\mathrm{f}}}_{t}} + {K^{\mathrm{f}}_{t-1}} {r^{\mathrm{k}^{\mathrm{f}}}_{t}} {z^{\mathrm{f}}_{t}} - {\psi}^{-1} {r^{\mathrm{k}^{\mathrm{f}}}_\mathrm{ss}} {K^{\mathrm{f}}_{t-1}} \left(-1 + e^{{\psi} \left(-1 + z^{\mathrm{f}}_{t}\right)}\right) \quad \left(\lambda^{\mathrm{f}}_{t}\right)\\
+& K^{\mathrm{f}}_{t} = {K^{\mathrm{f}}_{t-1}} \left(1 - \tau\right) + {I^{\mathrm{f}}_{t}} \left(1 - 0.5{\varphi} \left(-1 + {I^{\mathrm{f}}_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I^{\mathrm{f}}_{t}}\right)^{2}\right) \quad \left(q^{\mathrm{f}}_{t}\right)
+\end{align}
+
+
+\subsection{Identities}
+
+\begin{equation}
+H^{\mathrm{f}}_{t} = {h} {C^{\mathrm{f}}_{t-1}}
+\end{equation}
+\begin{equation}
+Q^{\mathrm{f}}_{t} = {\lambda^{\mathrm{f}}_{t}}^{-1} {q^{\mathrm{f}}_{t}}
+\end{equation}
+
+
+\subsection{First order conditions}
+
+\begin{equation}
+-\lambda^{\mathrm{f}}_{t} + {\epsilon^{\mathrm{b}}_{t}} {\left(C^{\mathrm{f}}_{t} - H^{\mathrm{f}}_{t}\right)^{-\sigma^{\mathrm{c}}}} = 0
+ \quad \left(C^{\mathrm{f}}_{t}\right)
+\end{equation}
+\begin{equation}
+-q^{\mathrm{f}}_{t} + {\beta} \left(\left(1 - \tau\right) {\mathrm{E}_{t}\left[q^{\mathrm{f}}_{t+1}\right]} + \mathrm{E}_{t}\left[{\lambda^{\mathrm{f}}_{t+1}} \left({r^{\mathrm{k}^{\mathrm{f}}}_{t+1}} {z^{\mathrm{f}}_{t+1}} - {\psi}^{-1} {r^{\mathrm{k}^{\mathrm{f}}}_\mathrm{ss}} \left(-1 + e^{{\psi} \left(-1 + z^{\mathrm{f}}_{t+1}\right)}\right)\right)\right]\right) = 0
+ \quad \left(K^{\mathrm{f}}_{t}\right)
+\end{equation}
+\begin{equation}
+-\lambda^{\mathrm{f}}_{t} + {q^{\mathrm{f}}_{t}} \left(1 - 0.5{\varphi} \left(-1 + {I^{\mathrm{f}}_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I^{\mathrm{f}}_{t}}\right)^{2} - {\varphi} {I^{\mathrm{f}}_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I^{\mathrm{f}}_{t}} \left(-1 + {I^{\mathrm{f}}_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I^{\mathrm{f}}_{t}}\right)\right) + {\beta} {\varphi} {I^{\mathrm{f}}_{t}}^{-2} {\mathrm{E}_{t}\left[{\epsilon^{\mathrm{I}}_{t+1}} {q^{\mathrm{f}}_{t+1}} {I^{\mathrm{f}}_{t+1}}^{2} \left(-1 + {I^{\mathrm{f}}_{t}}^{-1} {\epsilon^{\mathrm{I}}_{t+1}} {I^{\mathrm{f}}_{t+1}}\right)\right]} = 0
+ \quad \left(I^{\mathrm{f}}_{t}\right)
+\end{equation}
+\begin{equation}
+{\beta} {\mathrm{E}_{t}\left[\lambda^{\mathrm{f}}_{t+1}\right]} - {\lambda^{\mathrm{f}}_{t}} {R^{\mathrm{f}}_{t}}^{-1} = 0
+ \quad \left(B^{\mathrm{f}}_{t}\right)
+\end{equation}
+\begin{equation}
+{\lambda^{\mathrm{f}}_{t}} \left({K^{\mathrm{f}}_{t-1}} {r^{\mathrm{k}^{\mathrm{f}}}_{t}} - {r^{\mathrm{k}^{\mathrm{f}}}_\mathrm{ss}} {K^{\mathrm{f}}_{t-1}} {e^{{\psi} \left(-1 + z^{\mathrm{f}}_{t}\right)}}\right) = 0
+ \quad \left(z^{\mathrm{f}}_{t}\right)
+\end{equation}
+\begin{equation}
+{\lambda^{\mathrm{f}}_{t}} {W^{\mathrm{disutil}^{\mathrm{f}}}_{t}} - {\omega} {\epsilon^{\mathrm{b}}_{t}} {\epsilon^{\mathrm{L}}_{t}} {{L^{\mathrm{s}^{\mathrm{f}}}_{t}}^{\sigma^{\mathrm{l}}}} = 0
+ \quad \left(L^{\mathrm{s}^{\mathrm{f}}}_{t}\right)
+\end{equation}
+
+
+
+
+\section{FLEXIBLE MONOPOLISTIC WORKER}
+
+\subsection{Optimisation problem}
+
+\begin{align}
+&\max_{W^{\mathrm{i}^{\mathrm{f}}}_{t}, L^{\mathrm{i}^{\star^{\mathrm{f}}}}_{t}
+} \Pi^{\mathrm{ws}^{\mathrm{f}}}_{t} = {L^{\mathrm{i}^{\star^{\mathrm{f}}}}_{t}} \left(-W^{\mathrm{disutil}^{\mathrm{f}}}_{t} + W^{\mathrm{i}^{\mathrm{f}}}_{t}\right)\\
+&\mathrm{s.t.:}\nonumber\\
+& L^{\mathrm{i}^{\star^{\mathrm{f}}}}_{t} = {L^{\mathrm{f}}_{t}} {\left({W^{\mathrm{i}^{\mathrm{f}}}_{t}} {W^{\mathrm{f}}_{t}}^{-1}\right)^{{\lambda^{\mathrm{w}}}^{-1} \left(-1 - \lambda^{\mathrm{w}}\right)}} \quad \left(\lambda^{\mathrm{FLEXIBLE}^{\mathrm{MONOPOLISTIC}^{\mathrm{WORKER}^{\mathrm{1}}}}}_{t}\right)
+\end{align}
+
+
+\subsection{Identities}
+
+\begin{equation}
+L^{\mathrm{i}^{\star^{\mathrm{f}}}}_{t} = L^{\mathrm{i}^{\mathrm{f}}}_{t}
+\end{equation}
+
+
+\subsection{First order conditions}
+
+\begin{equation}
+L^{\mathrm{i}^{\star^{\mathrm{f}}}}_{t} + {\lambda^{\mathrm{w}}}^{-1} {\lambda^{\mathrm{FLEXIBLE}^{\mathrm{MONOPOLISTIC}^{\mathrm{WORKER}^{\mathrm{1}}}}}_{t}} {L^{\mathrm{f}}_{t}} {W^{\mathrm{f}}_{t}}^{-1} \left(-1 - \lambda^{\mathrm{w}}\right) {\left({W^{\mathrm{i}^{\mathrm{f}}}_{t}} {W^{\mathrm{f}}_{t}}^{-1}\right)^{-1 + {\lambda^{\mathrm{w}}}^{-1} \left(-1 - \lambda^{\mathrm{w}}\right)}} = 0
+ \quad \left(W^{\mathrm{i}^{\mathrm{f}}}_{t}\right)
+\end{equation}
+\begin{equation}
+-\lambda^{\mathrm{FLEXIBLE}^{\mathrm{MONOPOLISTIC}^{\mathrm{WORKER}^{\mathrm{1}}}}}_{t} - W^{\mathrm{disutil}^{\mathrm{f}}}_{t} + W^{\mathrm{i}^{\mathrm{f}}}_{t} = 0
+ \quad \left(L^{\mathrm{i}^{\star^{\mathrm{f}}}}_{t}\right)
+\end{equation}
+
+
+\subsection{First order conditions after reduction}
+
+\begin{equation}
+L^{\mathrm{i}^{\star^{\mathrm{f}}}}_{t} + {\lambda^{\mathrm{w}}}^{-1} {L^{\mathrm{f}}_{t}} {W^{\mathrm{f}}_{t}}^{-1} \left(-1 - \lambda^{\mathrm{w}}\right) \left(-W^{\mathrm{disutil}^{\mathrm{f}}}_{t} + W^{\mathrm{i}^{\mathrm{f}}}_{t}\right) {\left({W^{\mathrm{i}^{\mathrm{f}}}_{t}} {W^{\mathrm{f}}_{t}}^{-1}\right)^{-1 + {\lambda^{\mathrm{w}}}^{-1} \left(-1 - \lambda^{\mathrm{w}}\right)}} = 0
+ \quad \left(W^{\mathrm{i}^{\mathrm{f}}}_{t}\right)
+\end{equation}
+
+
+
+
+\section{LABOUR AGGREGATION FLEXIBLE}
+
+\subsection{Identities}
+
+\begin{equation}
+L^{\mathrm{s}^{\mathrm{f}}}_{t} = L^{\mathrm{i}^{\mathrm{f}}}_{t}
+\end{equation}
+\begin{equation}
+L^{\mathrm{f}}_{t} = L^{\mathrm{s}^{\mathrm{f}}}_{t}
+\end{equation}
+
+
+
+
+\section{FIRM}
+
+\subsection{Optimisation problem}
+
+\begin{align}
+&\max_{K^{\mathrm{j}^{\mathrm{d}}}_{t}, L^{\mathrm{j}^{\mathrm{d}}}_{t}
+} {t\!c}^{\mathrm{j}}_{t} = -{r^{\mathrm{k}}_{t}} {K^{\mathrm{j}^{\mathrm{d}}}_{t}} - {L^{\mathrm{j}^{\mathrm{d}}}_{t}} {W_{t}}\\
+&\mathrm{s.t.:}\nonumber\\
+& Y^{\mathrm{j}}_{t} = -\Phi + {\epsilon^{\mathrm{a}}_{t}} {{K^{\mathrm{j}^{\mathrm{d}}}_{t}}^{\alpha}} {{L^{\mathrm{j}^{\mathrm{d}}}_{t}}^{1 - \alpha}} \quad \left({m\!c}_{t}\right)
+\end{align}
+
+
+\subsection{First order conditions}
+
+\begin{equation}
+-r^{\mathrm{k}}_{t} + {\alpha} {\epsilon^{\mathrm{a}}_{t}} {{m\!c}_{t}} {{K^{\mathrm{j}^{\mathrm{d}}}_{t}}^{-1 + \alpha}} {{L^{\mathrm{j}^{\mathrm{d}}}_{t}}^{1 - \alpha}} = 0
+ \quad \left(K^{\mathrm{j}^{\mathrm{d}}}_{t}\right)
+\end{equation}
+\begin{equation}
+-W_{t} + {\epsilon^{\mathrm{a}}_{t}} {{m\!c}_{t}} \left(1 - \alpha\right) {{K^{\mathrm{j}^{\mathrm{d}}}_{t}}^{\alpha}} {{L^{\mathrm{j}^{\mathrm{d}}}_{t}}^{-\alpha}} = 0
+ \quad \left(L^{\mathrm{j}^{\mathrm{d}}}_{t}\right)
+\end{equation}
+
+
+
+
+\section{TECHNOLOGY}
+
+\subsection{Identities}
+
+\begin{equation}
+\log{\epsilon^{\mathrm{a}}_{t}} = \eta^{\mathrm{a}}_{t} + {\rho^{\mathrm{a}}} {\log{\epsilon^{\mathrm{a}}_{t-1}}}
+\end{equation}
+
+
+
+
+\section{PRICE SETTING PROBLEM}
+
+\subsection{Identities}
+
+\begin{equation}
+g^{\mathrm{1}}_{t} = \eta^{\mathrm{p}}_{t} + {g^{\mathrm{2}}_{t}} \left(1 + \lambda^{\mathrm{p}}\right)
+\end{equation}
+\begin{equation}
+g^{\mathrm{1}}_{t} = {\lambda_{t}} {\pi^{\star}_{t}} {Y_{t}} + {\beta} {\xi^{\mathrm{p}}} {\pi^{\star}_{t}} {\mathrm{E}_{t}\left[{g^{\mathrm{1}}_{t+1}} {\pi^{\star}_{t+1}}^{-1} {\left({\pi_{t+1}}^{-1} {{\pi_{t}}^{\gamma^{\mathrm{p}}}}\right)^{-{\lambda^{\mathrm{p}}}^{-1}}}\right]}
+\end{equation}
+\begin{equation}
+g^{\mathrm{2}}_{t} = {\beta} {\xi^{\mathrm{p}}} {\mathrm{E}_{t}\left[{g^{\mathrm{2}}_{t+1}} {\left({\pi_{t+1}}^{-1} {{\pi_{t}}^{\gamma^{\mathrm{p}}}}\right)^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}}\right]} + {\lambda_{t}} {{m\!c}_{t}} {Y_{t}}
+\end{equation}
+
+
+
+
+\section{PRICE EVOLUTION}
+
+\subsection{Identities}
+
+\begin{equation}
+1 = {\xi^{\mathrm{p}}} {\left({\pi_{t}}^{-1} {{\pi_{t-1}}^{\gamma^{\mathrm{p}}}}\right)^{-{\lambda^{\mathrm{p}}}^{-1}}} + \left(1 - \xi^{\mathrm{p}}\right) {{\pi^{\star}_{t}}^{-{\lambda^{\mathrm{p}}}^{-1}}}
+\end{equation}
+
+
+
+
+\section{FACTOR DEMAND AGGREGATION}
+
+\subsection{Identities}
+
+\begin{equation}
+K^{\mathrm{d}}_{t} = K^{\mathrm{j}^{\mathrm{d}}}_{t}
+\end{equation}
+\begin{equation}
+L^{\mathrm{d}}_{t} = L^{\mathrm{j}^{\mathrm{d}}}_{t}
+\end{equation}
+
+
+
+
+\section{PRODUCT AGGREGATION}
+
+\subsection{Identities}
+
+\begin{equation}
+Y^{\mathrm{s}}_{t} = Y^{\mathrm{j}}_{t}
+\end{equation}
+\begin{equation}
+\nu^{\mathrm{p}}_{t} = \left(1 - \xi^{\mathrm{p}}\right) {{\pi^{\star}_{t}}^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} + {\xi^{\mathrm{p}}} {\nu^{\mathrm{p}}_{t-1}} {\left({\pi_{t}}^{-1} {{\pi_{t-1}}^{\gamma^{\mathrm{p}}}}\right)^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}}
+\end{equation}
+\begin{equation}
+{\nu^{\mathrm{p}}_{t}} {Y_{t}} = Y^{\mathrm{s}}_{t}
+\end{equation}
+
+
+
+
+\section{FIRM FLEXIBLE}
+
+\subsection{Optimisation problem}
+
+\begin{align}
+&\max_{K^{\mathrm{j}^{\mathrm{d}^{\mathrm{f}}}}_{t}, L^{\mathrm{j}^{\mathrm{d}^{\mathrm{f}}}}_{t}
+} {t\!c}^{\mathrm{j}^{\mathrm{f}}}_{t} = -{r^{\mathrm{k}^{\mathrm{f}}}_{t}} {K^{\mathrm{j}^{\mathrm{d}^{\mathrm{f}}}}_{t}} - {L^{\mathrm{j}^{\mathrm{d}^{\mathrm{f}}}}_{t}} {W^{\mathrm{f}}_{t}}\\
+&\mathrm{s.t.:}\nonumber\\
+& Y^{\mathrm{j}^{\mathrm{f}}}_{t} = -\Phi + {\epsilon^{\mathrm{a}}_{t}} {{K^{\mathrm{j}^{\mathrm{d}^{\mathrm{f}}}}_{t}}^{\alpha}} {{L^{\mathrm{j}^{\mathrm{d}^{\mathrm{f}}}}_{t}}^{1 - \alpha}} \quad \left({m\!c}^{\mathrm{f}}_{t}\right)
+\end{align}
+
+
+\subsection{First order conditions}
+
+\begin{equation}
+-r^{\mathrm{k}^{\mathrm{f}}}_{t} + {\alpha} {\epsilon^{\mathrm{a}}_{t}} {{m\!c}^{\mathrm{f}}_{t}} {{K^{\mathrm{j}^{\mathrm{d}^{\mathrm{f}}}}_{t}}^{-1 + \alpha}} {{L^{\mathrm{j}^{\mathrm{d}^{\mathrm{f}}}}_{t}}^{1 - \alpha}} = 0
+ \quad \left(K^{\mathrm{j}^{\mathrm{d}^{\mathrm{f}}}}_{t}\right)
+\end{equation}
+\begin{equation}
+-W^{\mathrm{f}}_{t} + {\epsilon^{\mathrm{a}}_{t}} {{m\!c}^{\mathrm{f}}_{t}} \left(1 - \alpha\right) {{K^{\mathrm{j}^{\mathrm{d}^{\mathrm{f}}}}_{t}}^{\alpha}} {{L^{\mathrm{j}^{\mathrm{d}^{\mathrm{f}}}}_{t}}^{-\alpha}} = 0
+ \quad \left(L^{\mathrm{j}^{\mathrm{d}^{\mathrm{f}}}}_{t}\right)
+\end{equation}
+
+
+
+
+\section{PRICE SETTING PROBLEM FLEXIBLE}
+
+\subsection{Optimisation problem}
+
+\begin{align}
+&\max_{Y^{\mathrm{j}^{\mathrm{f}}}_{t}, P^{\mathrm{j}^{\mathrm{f}}}_{t}
+} \Pi^{\mathrm{ps}^{\mathrm{f}}}_{t} = {Y^{\mathrm{j}^{\mathrm{f}}}_{t}} \left(-{m\!c}^{\mathrm{f}}_{t} + P^{\mathrm{j}^{\mathrm{f}}}_{t}\right)\\
+&\mathrm{s.t.:}\nonumber\\
+& Y^{\mathrm{j}^{\mathrm{f}}}_{t} = {Y^{\mathrm{f}}_{t}} {\left({P^{\mathrm{f}}_{t}}^{-1} {P^{\mathrm{j}^{\mathrm{f}}}_{t}}\right)^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} \quad \left(\lambda^{\mathrm{PRICE}^{\mathrm{SETTING}^{\mathrm{PROBLEM}^{\mathrm{FLEXIBLE}^{\mathrm{1}}}}}}_{t}\right)
+\end{align}
+
+
+\subsection{First order conditions}
+
+\begin{equation}
+-\lambda^{\mathrm{PRICE}^{\mathrm{SETTING}^{\mathrm{PROBLEM}^{\mathrm{FLEXIBLE}^{\mathrm{1}}}}}}_{t} - {m\!c}^{\mathrm{f}}_{t} + P^{\mathrm{j}^{\mathrm{f}}}_{t} = 0
+ \quad \left(Y^{\mathrm{j}^{\mathrm{f}}}_{t}\right)
+\end{equation}
+\begin{equation}
+Y^{\mathrm{j}^{\mathrm{f}}}_{t} - {\lambda^{\mathrm{p}}}^{-1} {\lambda^{\mathrm{PRICE}^{\mathrm{SETTING}^{\mathrm{PROBLEM}^{\mathrm{FLEXIBLE}^{\mathrm{1}}}}}}_{t}} {P^{\mathrm{f}}_{t}}^{-1} {Y^{\mathrm{f}}_{t}} \left(1 + \lambda^{\mathrm{p}}\right) {\left({P^{\mathrm{f}}_{t}}^{-1} {P^{\mathrm{j}^{\mathrm{f}}}_{t}}\right)^{-1 - {\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} = 0
+ \quad \left(P^{\mathrm{j}^{\mathrm{f}}}_{t}\right)
+\end{equation}
+
+
+\subsection{First order conditions after reduction}
+
+\begin{equation}
+Y^{\mathrm{j}^{\mathrm{f}}}_{t} - {\lambda^{\mathrm{p}}}^{-1} {P^{\mathrm{f}}_{t}}^{-1} {Y^{\mathrm{f}}_{t}} \left(1 + \lambda^{\mathrm{p}}\right) \left(-{m\!c}^{\mathrm{f}}_{t} + P^{\mathrm{j}^{\mathrm{f}}}_{t}\right) {\left({P^{\mathrm{f}}_{t}}^{-1} {P^{\mathrm{j}^{\mathrm{f}}}_{t}}\right)^{-1 - {\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} = 0
+ \quad \left(P^{\mathrm{j}^{\mathrm{f}}}_{t}\right)
+\end{equation}
+
+
+
+
+\section{FACTOR DEMAND AGGREGATION FLEXIBLE}
+
+\subsection{Identities}
+
+\begin{equation}
+K^{\mathrm{d}^{\mathrm{f}}}_{t} = K^{\mathrm{j}^{\mathrm{d}^{\mathrm{f}}}}_{t}
+\end{equation}
+\begin{equation}
+L^{\mathrm{d}^{\mathrm{f}}}_{t} = L^{\mathrm{j}^{\mathrm{d}^{\mathrm{f}}}}_{t}
+\end{equation}
+
+
+
+
+\section{PRODUCT AGGREGATION FLEXIBLE}
+
+\subsection{Identities}
+
+\begin{equation}
+Y^{\mathrm{s}^{\mathrm{f}}}_{t} = Y^{\mathrm{j}^{\mathrm{f}}}_{t}
+\end{equation}
+\begin{equation}
+Y^{\mathrm{f}}_{t} = Y^{\mathrm{s}^{\mathrm{f}}}_{t}
+\end{equation}
+
+
+
+
+\section{PRICE EVOLUTION FLEXIBLE}
+
+\subsection{Identities}
+
+\begin{equation}
+P^{\mathrm{f}}_{t} = 1
+\end{equation}
+
+
+
+
+\section{GOVERNMENT}
+
+\subsection{Identities}
+
+\begin{equation}
+G_{t} = {G^{\mathrm{bar}}} {\epsilon^{\mathrm{G}}_{t}}
+\end{equation}
+\begin{equation}
+G_{t} + {B_{t-1}} {\pi_{t}}^{-1} = T_{t} + {B_{t}} {R_{t}}^{-1}
+\end{equation}
+
+
+
+
+\section{GOVERNMENT SPENDING SHOCK}
+
+\subsection{Identities}
+
+\begin{equation}
+\log{\epsilon^{\mathrm{G}}_{t}} = \eta^{\mathrm{G}}_{t} + {\rho^{\mathrm{G}}} {\log{\epsilon^{\mathrm{G}}_{t-1}}}
+\end{equation}
+
+
+
+
+\section{GOVERNMENT FLEXIBLE}
+
+\subsection{Identities}
+
+\begin{equation}
+G^{\mathrm{f}}_{t} = {G^{\mathrm{bar}}} {\epsilon^{\mathrm{G}}_{t}}
+\end{equation}
+\begin{equation}
+B^{\mathrm{f}}_{t-1} + G^{\mathrm{f}}_{t} = T^{\mathrm{f}}_{t} + {B^{\mathrm{f}}_{t}} {R^{\mathrm{f}}_{t}}^{-1}
+\end{equation}
+
+
+
+
+\section{MONETARY POLICY AUTHORITY}
+
+\subsection{Identities}
+
+\begin{equation}
+{c\!a\!l\!i\!b\!r}^{\pi} + \log\left({R_\mathrm{ss}}^{-1} {R_{t}}\right) = \eta^{\mathrm{R}}_{t} + {r^{\Delta^{\pi}}} \left(-\log\left({\pi_\mathrm{ss}}^{-1} {\pi_{t-1}}\right) + \log\left({\pi_\mathrm{ss}}^{-1} {\pi_{t}}\right)\right) + {r^{\Delta^{\mathrm{y}}}} \left(-\log\left({Y_\mathrm{ss}}^{-1} {Y_{t-1}}\right) + \log\left({Y_\mathrm{ss}}^{-1} {Y_{t}}\right) + \log\left({Y^{\mathrm{f}}_\mathrm{ss}}^{-1} {Y^{\mathrm{f}}_{t-1}}\right) - \log\left({Y^{\mathrm{f}}_\mathrm{ss}}^{-1} {Y^{\mathrm{f}}_{t}}\right)\right) + {\rho} {\log\left({R_\mathrm{ss}}^{-1} {R_{t-1}}\right)} + \left(1 - \rho\right) \left(\log{\pi^{\mathrm{obj}}_{t}} + {r^{\pi}} \left(-\log{\pi^{\mathrm{obj}}_{t}} + \log\left({\pi_\mathrm{ss}}^{-1} {\pi_{t-1}}\right)\right) + {r^{\mathrm{Y}}} \left(\log\left({Y_\mathrm{ss}}^{-1} {Y_{t}}\right) - \log\left({Y^{\mathrm{f}}_\mathrm{ss}}^{-1} {Y^{\mathrm{f}}_{t}}\right)\right)\right)
+\end{equation}
+\begin{equation}
+\log{\pi^{\mathrm{obj}}_{t}} = \eta^{\pi}_{t} + {\rho^{\pi^{\mathrm{bar}}}} {\log{\pi^{\mathrm{obj}}_{t-1}}} + {\log{{c\!a\!l\!i\!b\!r}^{\pi^{\mathrm{obj}}}}} \left(1 - \rho^{\pi^{\mathrm{bar}}}\right)
+\end{equation}
+
+
+
+
+\section{EQUILIBRIUM}
+
+\subsection{Identities}
+
+\begin{equation}
+K^{\mathrm{d}}_{t} = {K_{t-1}} {z_{t}}
+\end{equation}
+\begin{equation}
+L_{t} = L^{\mathrm{d}}_{t}
+\end{equation}
+\begin{equation}
+B_{t} = 0
+\end{equation}
+\begin{equation}
+{D\!i\!v}_{t} = Y_{t} - {L^{\mathrm{d}}_{t}} {W_{t}} - {r^{\mathrm{k}}_{t}} {K^{\mathrm{d}}_{t}}
+\end{equation}
+
+
+
+
+\section{EQUILIBRIUM FLEXIBLE}
+
+\subsection{Identities}
+
+\begin{equation}
+K^{\mathrm{d}^{\mathrm{f}}}_{t} = {K^{\mathrm{f}}_{t-1}} {z^{\mathrm{f}}_{t}}
+\end{equation}
+\begin{equation}
+L^{\mathrm{f}}_{t} = L^{\mathrm{d}^{\mathrm{f}}}_{t}
+\end{equation}
+\begin{equation}
+B^{\mathrm{f}}_{t} = 0
+\end{equation}
+\begin{equation}
+{D\!i\!v}^{\mathrm{f}}_{t} = Y^{\mathrm{f}}_{t} - {L^{\mathrm{d}^{\mathrm{f}}}_{t}} {W^{\mathrm{f}}_{t}} - {r^{\mathrm{k}^{\mathrm{f}}}_{t}} {K^{\mathrm{d}^{\mathrm{f}}}_{t}}
+\end{equation}
+
+
+
+
+\section{Equilibrium relationships (after reduction)}
+
+\begin{equation}
+-q_{t} + {\beta} \left(\left(1 - \tau\right) {\mathrm{E}_{t}\left[q_{t+1}\right]} + \mathrm{E}_{t}\left[{\epsilon^{\mathrm{b}}_{t+1}} \left({r^{\mathrm{k}}_{t+1}} {z_{t+1}} - {\psi}^{-1} {r^{\mathrm{k}}_\mathrm{ss}} \left(-1 + e^{{\psi} \left(-1 + z_{t+1}\right)}\right)\right) {\left(C_{t+1} - {h} {C_{t}}\right)^{-\sigma^{\mathrm{c}}}}\right]\right) = 0
+\end{equation}
+\begin{equation}
+-q^{\mathrm{f}}_{t} + {\beta} \left(\left(1 - \tau\right) {\mathrm{E}_{t}\left[q^{\mathrm{f}}_{t+1}\right]} + \mathrm{E}_{t}\left[{\epsilon^{\mathrm{b}}_{t+1}} \left({r^{\mathrm{k}^{\mathrm{f}}}_{t+1}} {z^{\mathrm{f}}_{t+1}} - {\psi}^{-1} {r^{\mathrm{k}^{\mathrm{f}}}_\mathrm{ss}} \left(-1 + e^{{\psi} \left(-1 + z^{\mathrm{f}}_{t+1}\right)}\right)\right) {\left(C^{\mathrm{f}}_{t+1} - {h} {C^{\mathrm{f}}_{t}}\right)^{-\sigma^{\mathrm{c}}}}\right]\right) = 0
+\end{equation}
+\begin{equation}
+-r^{\mathrm{k}}_{t} + {\alpha} {\epsilon^{\mathrm{a}}_{t}} {{m\!c}_{t}} {{L_{t}}^{1 - \alpha}} {\left({K_{t-1}} {z_{t}}\right)^{-1 + \alpha}} = 0
+\end{equation}
+\begin{equation}
+-r^{\mathrm{k}^{\mathrm{f}}}_{t} + {\alpha} {\epsilon^{\mathrm{a}}_{t}} {{m\!c}^{\mathrm{f}}_{t}} {{L^{\mathrm{f}}_{t}}^{1 - \alpha}} {\left({K^{\mathrm{f}}_{t-1}} {z^{\mathrm{f}}_{t}}\right)^{-1 + \alpha}} = 0
+\end{equation}
+\begin{equation}
+-G_{t} + T_{t} = 0
+\end{equation}
+\begin{equation}
+-G_{t} + {G^{\mathrm{bar}}} {\epsilon^{\mathrm{G}}_{t}} = 0
+\end{equation}
+\begin{equation}
+-G^{\mathrm{f}}_{t} + T^{\mathrm{f}}_{t} = 0
+\end{equation}
+\begin{equation}
+-G^{\mathrm{f}}_{t} + {G^{\mathrm{bar}}} {\epsilon^{\mathrm{G}}_{t}} = 0
+\end{equation}
+\begin{equation}
+-L_{t} + {\nu^{\mathrm{w}}_{t}}^{-1} {L^{\mathrm{s}}_{t}} = 0
+\end{equation}
+\begin{equation}
+-L^{\mathrm{s}^{\mathrm{f}}}_{t} + {L^{\mathrm{f}}_{t}} {\left({W^{\mathrm{i}^{\mathrm{f}}}_{t}} {W^{\mathrm{f}}_{t}}^{-1}\right)^{{\lambda^{\mathrm{w}}}^{-1} \left(-1 - \lambda^{\mathrm{w}}\right)}} = 0
+\end{equation}
+\begin{equation}
+L^{\mathrm{s}^{\mathrm{f}}}_{t} - L^{\mathrm{f}}_{t} = 0
+\end{equation}
+\begin{equation}
+L^{\mathrm{s}^{\mathrm{f}}}_{t} + {\lambda^{\mathrm{w}}}^{-1} {L^{\mathrm{f}}_{t}} {W^{\mathrm{f}}_{t}}^{-1} \left(-1 - \lambda^{\mathrm{w}}\right) \left(-W^{\mathrm{disutil}^{\mathrm{f}}}_{t} + W^{\mathrm{i}^{\mathrm{f}}}_{t}\right) {\left({W^{\mathrm{i}^{\mathrm{f}}}_{t}} {W^{\mathrm{f}}_{t}}^{-1}\right)^{-1 + {\lambda^{\mathrm{w}}}^{-1} \left(-1 - \lambda^{\mathrm{w}}\right)}} = 0
+\end{equation}
+\begin{equation}
+\Pi^{\mathrm{ws}^{\mathrm{f}}}_{t} - {L^{\mathrm{s}^{\mathrm{f}}}_{t}} \left(-W^{\mathrm{disutil}^{\mathrm{f}}}_{t} + W^{\mathrm{i}^{\mathrm{f}}}_{t}\right) = 0
+\end{equation}
+\begin{equation}
+\Pi^{\mathrm{ps}^{\mathrm{f}}}_{t} - {Y^{\mathrm{f}}_{t}} \left(-{m\!c}^{\mathrm{f}}_{t} + P^{\mathrm{j}^{\mathrm{f}}}_{t}\right) {{P^{\mathrm{j}^{\mathrm{f}}}_{t}}^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} = 0
+\end{equation}
+\begin{equation}
+-Q_{t} + {\epsilon^{\mathrm{b}}_{t}}^{-1} {q_{t}} {\left(C_{t} - {h} {C_{t-1}}\right)^{\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+\begin{equation}
+-Q^{\mathrm{f}}_{t} + {\epsilon^{\mathrm{b}}_{t}}^{-1} {q^{\mathrm{f}}_{t}} {\left(C^{\mathrm{f}}_{t} - {h} {C^{\mathrm{f}}_{t-1}}\right)^{\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+\begin{equation}
+-W_{t} + {\epsilon^{\mathrm{a}}_{t}} {{m\!c}_{t}} \left(1 - \alpha\right) {{L_{t}}^{-\alpha}} {\left({K_{t-1}} {z_{t}}\right)^{\alpha}} = 0
+\end{equation}
+\begin{equation}
+-W^{\mathrm{f}}_{t} + {\epsilon^{\mathrm{a}}_{t}} {{m\!c}^{\mathrm{f}}_{t}} \left(1 - \alpha\right) {{L^{\mathrm{f}}_{t}}^{-\alpha}} {\left({K^{\mathrm{f}}_{t-1}} {z^{\mathrm{f}}_{t}}\right)^{\alpha}} = 0
+\end{equation}
+\begin{equation}
+Y^{\mathrm{s}}_{t} - {\nu^{\mathrm{p}}_{t}} {Y_{t}} = 0
+\end{equation}
+\begin{equation}
+-Y^{\mathrm{f}}_{t} + Y^{\mathrm{s}^{\mathrm{f}}}_{t} = 0
+\end{equation}
+\begin{equation}
+-Y^{\mathrm{s}^{\mathrm{f}}}_{t} + {Y^{\mathrm{f}}_{t}} {{P^{\mathrm{j}^{\mathrm{f}}}_{t}}^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} = 0
+\end{equation}
+\begin{equation}
+{\beta} {\mathrm{E}_{t}\left[{\epsilon^{\mathrm{b}}_{t+1}} {\left(C^{\mathrm{f}}_{t+1} - {h} {C^{\mathrm{f}}_{t}}\right)^{-\sigma^{\mathrm{c}}}}\right]} - {\epsilon^{\mathrm{b}}_{t}} {R^{\mathrm{f}}_{t}}^{-1} {\left(C^{\mathrm{f}}_{t} - {h} {C^{\mathrm{f}}_{t-1}}\right)^{-\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+\begin{equation}
+{\beta} {\mathrm{E}_{t}\left[{\epsilon^{\mathrm{b}}_{t+1}} {\pi_{t+1}}^{-1} {\left(C_{t+1} - {h} {C_{t}}\right)^{-\sigma^{\mathrm{c}}}}\right]} - {\epsilon^{\mathrm{b}}_{t}} {R_{t}}^{-1} {\left(C_{t} - {h} {C_{t-1}}\right)^{-\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+\begin{equation}
+{Y^{\mathrm{f}}_{t}} {{P^{\mathrm{j}^{\mathrm{f}}}_{t}}^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} - {\lambda^{\mathrm{p}}}^{-1} {Y^{\mathrm{f}}_{t}} \left(1 + \lambda^{\mathrm{p}}\right) \left(-{m\!c}^{\mathrm{f}}_{t} + P^{\mathrm{j}^{\mathrm{f}}}_{t}\right) {{P^{\mathrm{j}^{\mathrm{f}}}_{t}}^{-1 - {\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} = 0
+\end{equation}
+\begin{equation}
+{\epsilon^{\mathrm{b}}_{t}} {W^{\mathrm{disutil}^{\mathrm{f}}}_{t}} {\left(C^{\mathrm{f}}_{t} - {h} {C^{\mathrm{f}}_{t-1}}\right)^{-\sigma^{\mathrm{c}}}} - {\omega} {\epsilon^{\mathrm{b}}_{t}} {\epsilon^{\mathrm{L}}_{t}} {{L^{\mathrm{s}^{\mathrm{f}}}_{t}}^{\sigma^{\mathrm{l}}}} = 0
+\end{equation}
+\begin{equation}
+-1 + {\xi^{\mathrm{p}}} {\left({\pi_{t}}^{-1} {{\pi_{t-1}}^{\gamma^{\mathrm{p}}}}\right)^{-{\lambda^{\mathrm{p}}}^{-1}}} + \left(1 - \xi^{\mathrm{p}}\right) {{\pi^{\star}_{t}}^{-{\lambda^{\mathrm{p}}}^{-1}}} = 0
+\end{equation}
+\begin{equation}
+-1 + \left(1 - \xi^{\mathrm{w}}\right) {\left({w^{\star}_{t}} {W_{t}}^{-1}\right)^{-{\lambda^{\mathrm{w}}}^{-1}}} + {\xi^{\mathrm{w}}} {\left({W_{t-1}} {W_{t}}^{-1}\right)^{-{\lambda^{\mathrm{w}}}^{-1}}} {\left({\pi_{t}}^{-1} {{\pi_{t-1}}^{\gamma^{\mathrm{w}}}}\right)^{-{\lambda^{\mathrm{w}}}^{-1}}} = 0
+\end{equation}
+\begin{equation}
+-\Phi - Y^{\mathrm{s}}_{t} + {\epsilon^{\mathrm{a}}_{t}} {{L_{t}}^{1 - \alpha}} {\left({K_{t-1}} {z_{t}}\right)^{\alpha}} = 0
+\end{equation}
+\begin{equation}
+-\Phi - {Y^{\mathrm{f}}_{t}} {{P^{\mathrm{j}^{\mathrm{f}}}_{t}}^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} + {\epsilon^{\mathrm{a}}_{t}} {{L^{\mathrm{f}}_{t}}^{1 - \alpha}} {\left({K^{\mathrm{f}}_{t-1}} {z^{\mathrm{f}}_{t}}\right)^{\alpha}} = 0
+\end{equation}
+\begin{equation}
+\eta^{\mathrm{b}}_{t} - \log{\epsilon^{\mathrm{b}}_{t}} + {\rho^{\mathrm{b}}} {\log{\epsilon^{\mathrm{b}}_{t-1}}} = 0
+\end{equation}
+\begin{equation}
+-\eta^{\mathrm{L}}_{t} - \log{\epsilon^{\mathrm{L}}_{t}} + {\rho^{\mathrm{L}}} {\log{\epsilon^{\mathrm{L}}_{t-1}}} = 0
+\end{equation}
+\begin{equation}
+\eta^{\mathrm{I}}_{t} - \log{\epsilon^{\mathrm{I}}_{t}} + {\rho^{\mathrm{I}}} {\log{\epsilon^{\mathrm{I}}_{t-1}}} = 0
+\end{equation}
+\begin{equation}
+\eta^{\mathrm{w}}_{t} - f^{\mathrm{1}}_{t} + f^{\mathrm{2}}_{t} = 0
+\end{equation}
+\begin{equation}
+\eta^{\mathrm{a}}_{t} - \log{\epsilon^{\mathrm{a}}_{t}} + {\rho^{\mathrm{a}}} {\log{\epsilon^{\mathrm{a}}_{t-1}}} = 0
+\end{equation}
+\begin{equation}
+\eta^{\mathrm{p}}_{t} - g^{\mathrm{1}}_{t} + {g^{\mathrm{2}}_{t}} \left(1 + \lambda^{\mathrm{p}}\right) = 0
+\end{equation}
+\begin{equation}
+\eta^{\mathrm{G}}_{t} - \log{\epsilon^{\mathrm{G}}_{t}} + {\rho^{\mathrm{G}}} {\log{\epsilon^{\mathrm{G}}_{t-1}}} = 0
+\end{equation}
+\begin{equation}
+-f^{\mathrm{1}}_{t} + {\beta} {\xi^{\mathrm{w}}} {\mathrm{E}_{t}\left[{f^{\mathrm{1}}_{t+1}} {\left({w^{\star}_{t}}^{-1} {w^{\star}_{t+1}}\right)^{{\lambda^{\mathrm{w}}}^{-1}}} {\left({\pi_{t+1}}^{-1} {{\pi_{t}}^{\gamma^{\mathrm{w}}}}\right)^{-{\lambda^{\mathrm{w}}}^{-1}}}\right]} + {\epsilon^{\mathrm{b}}_{t}} {w^{\star}_{t}} {L_{t}} \left(1 + \lambda^{\mathrm{w}}\right)^{-1} {\left(C_{t} - {h} {C_{t-1}}\right)^{-\sigma^{\mathrm{c}}}} {\left({w^{\star}_{t}} {W_{t}}^{-1}\right)^{-{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right)}} = 0
+\end{equation}
+\begin{equation}
+-f^{\mathrm{2}}_{t} + {\beta} {\xi^{\mathrm{w}}} {\mathrm{E}_{t}\left[{f^{\mathrm{2}}_{t+1}} {\left({w^{\star}_{t}}^{-1} {w^{\star}_{t+1}}\right)^{{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right) \left(1 + \sigma^{\mathrm{l}}\right)}} {\left({\pi_{t+1}}^{-1} {{\pi_{t}}^{\gamma^{\mathrm{w}}}}\right)^{-{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right) \left(1 + \sigma^{\mathrm{l}}\right)}}\right]} + {\omega} {\epsilon^{\mathrm{b}}_{t}} {\epsilon^{\mathrm{L}}_{t}} {\left({L_{t}} {\left({w^{\star}_{t}} {W_{t}}^{-1}\right)^{-{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right)}}\right)^{1 + \sigma^{\mathrm{l}}}} = 0
+\end{equation}
+\begin{equation}
+-g^{\mathrm{1}}_{t} + {\beta} {\xi^{\mathrm{p}}} {\pi^{\star}_{t}} {\mathrm{E}_{t}\left[{g^{\mathrm{1}}_{t+1}} {\pi^{\star}_{t+1}}^{-1} {\left({\pi_{t+1}}^{-1} {{\pi_{t}}^{\gamma^{\mathrm{p}}}}\right)^{-{\lambda^{\mathrm{p}}}^{-1}}}\right]} + {\epsilon^{\mathrm{b}}_{t}} {\pi^{\star}_{t}} {Y_{t}} {\left(C_{t} - {h} {C_{t-1}}\right)^{-\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+\begin{equation}
+-g^{\mathrm{2}}_{t} + {\beta} {\xi^{\mathrm{p}}} {\mathrm{E}_{t}\left[{g^{\mathrm{2}}_{t+1}} {\left({\pi_{t+1}}^{-1} {{\pi_{t}}^{\gamma^{\mathrm{p}}}}\right)^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}}\right]} + {\epsilon^{\mathrm{b}}_{t}} {{m\!c}_{t}} {Y_{t}} {\left(C_{t} - {h} {C_{t-1}}\right)^{-\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+\begin{equation}
+-\nu^{\mathrm{w}}_{t} + \left(1 - \xi^{\mathrm{w}}\right) {\left({w^{\star}_{t}} {W_{t}}^{-1}\right)^{-{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right)}} + {\xi^{\mathrm{w}}} {\nu^{\mathrm{w}}_{t-1}} {\left({W_{t-1}} {\pi_{t}}^{-1} {W_{t}}^{-1} {{\pi_{t-1}}^{\gamma^{\mathrm{w}}}}\right)^{-{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right)}} = 0
+\end{equation}
+\begin{equation}
+-\nu^{\mathrm{p}}_{t} + \left(1 - \xi^{\mathrm{p}}\right) {{\pi^{\star}_{t}}^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} + {\xi^{\mathrm{p}}} {\nu^{\mathrm{p}}_{t-1}} {\left({\pi_{t}}^{-1} {{\pi_{t-1}}^{\gamma^{\mathrm{p}}}}\right)^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} = 0
+\end{equation}
+\begin{equation}
+-K_{t} + {K_{t-1}} \left(1 - \tau\right) + {I_{t}} \left(1 - 0.5{\varphi} \left(-1 + {I_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I_{t}}\right)^{2}\right) = 0
+\end{equation}
+\begin{equation}
+-K^{\mathrm{f}}_{t} + {K^{\mathrm{f}}_{t-1}} \left(1 - \tau\right) + {I^{\mathrm{f}}_{t}} \left(1 - 0.5{\varphi} \left(-1 + {I^{\mathrm{f}}_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I^{\mathrm{f}}_{t}}\right)^{2}\right) = 0
+\end{equation}
+\begin{equation}
+U_{t} - {\beta} {\mathrm{E}_{t}\left[U_{t+1}\right]} - {\epsilon^{\mathrm{b}}_{t}} \left(\left(1 - \sigma^{\mathrm{c}}\right)^{-1} {\left(C_{t} - {h} {C_{t-1}}\right)^{1 - \sigma^{\mathrm{c}}}} - {\omega} {\epsilon^{\mathrm{L}}_{t}} \left(1 + \sigma^{\mathrm{l}}\right)^{-1} {{L^{\mathrm{s}}_{t}}^{1 + \sigma^{\mathrm{l}}}}\right) = 0
+\end{equation}
+\begin{equation}
+U^{\mathrm{f}}_{t} - {\beta} {\mathrm{E}_{t}\left[U^{\mathrm{f}}_{t+1}\right]} - {\epsilon^{\mathrm{b}}_{t}} \left(\left(1 - \sigma^{\mathrm{c}}\right)^{-1} {\left(C^{\mathrm{f}}_{t} - {h} {C^{\mathrm{f}}_{t-1}}\right)^{1 - \sigma^{\mathrm{c}}}} - {\omega} {\epsilon^{\mathrm{L}}_{t}} \left(1 + \sigma^{\mathrm{l}}\right)^{-1} {{L^{\mathrm{s}^{\mathrm{f}}}_{t}}^{1 + \sigma^{\mathrm{l}}}}\right) = 0
+\end{equation}
+\begin{equation}
+-{\epsilon^{\mathrm{b}}_{t}} {\left(C_{t} - {h} {C_{t-1}}\right)^{-\sigma^{\mathrm{c}}}} + {q_{t}} \left(1 - 0.5{\varphi} \left(-1 + {I_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I_{t}}\right)^{2} - {\varphi} {I_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I_{t}} \left(-1 + {I_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I_{t}}\right)\right) + {\beta} {\varphi} {I_{t}}^{-2} {\mathrm{E}_{t}\left[{\epsilon^{\mathrm{I}}_{t+1}} {q_{t+1}} {I_{t+1}}^{2} \left(-1 + {I_{t}}^{-1} {\epsilon^{\mathrm{I}}_{t+1}} {I_{t+1}}\right)\right]} = 0
+\end{equation}
+\begin{equation}
+-{\epsilon^{\mathrm{b}}_{t}} {\left(C^{\mathrm{f}}_{t} - {h} {C^{\mathrm{f}}_{t-1}}\right)^{-\sigma^{\mathrm{c}}}} + {q^{\mathrm{f}}_{t}} \left(1 - 0.5{\varphi} \left(-1 + {I^{\mathrm{f}}_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I^{\mathrm{f}}_{t}}\right)^{2} - {\varphi} {I^{\mathrm{f}}_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I^{\mathrm{f}}_{t}} \left(-1 + {I^{\mathrm{f}}_{t-1}}^{-1} {\epsilon^{\mathrm{I}}_{t}} {I^{\mathrm{f}}_{t}}\right)\right) + {\beta} {\varphi} {I^{\mathrm{f}}_{t}}^{-2} {\mathrm{E}_{t}\left[{\epsilon^{\mathrm{I}}_{t+1}} {q^{\mathrm{f}}_{t+1}} {I^{\mathrm{f}}_{t+1}}^{2} \left(-1 + {I^{\mathrm{f}}_{t}}^{-1} {\epsilon^{\mathrm{I}}_{t+1}} {I^{\mathrm{f}}_{t+1}}\right)\right]} = 0
+\end{equation}
+\begin{equation}
+\eta^{\pi}_{t} - \log{\pi^{\mathrm{obj}}_{t}} + {\rho^{\pi^{\mathrm{bar}}}} {\log{\pi^{\mathrm{obj}}_{t-1}}} + {\log{{c\!a\!l\!i\!b\!r}^{\pi^{\mathrm{obj}}}}} \left(1 - \rho^{\pi^{\mathrm{bar}}}\right) = 0
+\end{equation}
+\begin{equation}
+-C_{t} - I_{t} - T_{t} + Y_{t} - {\psi}^{-1} {r^{\mathrm{k}}_\mathrm{ss}} {K_{t-1}} \left(-1 + e^{{\psi} \left(-1 + z_{t}\right)}\right) = 0
+\end{equation}
+\begin{equation}
+-{c\!a\!l\!i\!b\!r}^{\pi} + \eta^{\mathrm{R}}_{t} - \log\left({R_\mathrm{ss}}^{-1} {R_{t}}\right) + {r^{\Delta^{\pi}}} \left(-\log\left({\pi_\mathrm{ss}}^{-1} {\pi_{t-1}}\right) + \log\left({\pi_\mathrm{ss}}^{-1} {\pi_{t}}\right)\right) + {r^{\Delta^{\mathrm{y}}}} \left(-\log\left({Y_\mathrm{ss}}^{-1} {Y_{t-1}}\right) + \log\left({Y_\mathrm{ss}}^{-1} {Y_{t}}\right) + \log\left({Y^{\mathrm{f}}_\mathrm{ss}}^{-1} {Y^{\mathrm{f}}_{t-1}}\right) - \log\left({Y^{\mathrm{f}}_\mathrm{ss}}^{-1} {Y^{\mathrm{f}}_{t}}\right)\right) + {\rho} {\log\left({R_\mathrm{ss}}^{-1} {R_{t-1}}\right)} + \left(1 - \rho\right) \left(\log{\pi^{\mathrm{obj}}_{t}} + {r^{\pi}} \left(-\log{\pi^{\mathrm{obj}}_{t}} + \log\left({\pi_\mathrm{ss}}^{-1} {\pi_{t-1}}\right)\right) + {r^{\mathrm{Y}}} \left(\log\left({Y_\mathrm{ss}}^{-1} {Y_{t}}\right) - \log\left({Y^{\mathrm{f}}_\mathrm{ss}}^{-1} {Y^{\mathrm{f}}_{t}}\right)\right)\right) = 0
+\end{equation}
+\begin{equation}
+-C^{\mathrm{f}}_{t} - I^{\mathrm{f}}_{t} + \Pi^{\mathrm{ws}^{\mathrm{f}}}_{t} - T^{\mathrm{f}}_{t} + Y^{\mathrm{f}}_{t} + {L^{\mathrm{s}^{\mathrm{f}}}_{t}} {W^{\mathrm{disutil}^{\mathrm{f}}}_{t}} - {L^{\mathrm{f}}_{t}} {W^{\mathrm{f}}_{t}} - {\psi}^{-1} {r^{\mathrm{k}^{\mathrm{f}}}_\mathrm{ss}} {K^{\mathrm{f}}_{t-1}} \left(-1 + e^{{\psi} \left(-1 + z^{\mathrm{f}}_{t}\right)}\right) = 0
+\end{equation}
+\begin{equation}
+{\epsilon^{\mathrm{b}}_{t}} \left({K_{t-1}} {r^{\mathrm{k}}_{t}} - {r^{\mathrm{k}}_\mathrm{ss}} {K_{t-1}} {e^{{\psi} \left(-1 + z_{t}\right)}}\right) {\left(C_{t} - {h} {C_{t-1}}\right)^{-\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+\begin{equation}
+{\epsilon^{\mathrm{b}}_{t}} \left({K^{\mathrm{f}}_{t-1}} {r^{\mathrm{k}^{\mathrm{f}}}_{t}} - {r^{\mathrm{k}^{\mathrm{f}}}_\mathrm{ss}} {K^{\mathrm{f}}_{t-1}} {e^{{\psi} \left(-1 + z^{\mathrm{f}}_{t}\right)}}\right) {\left(C^{\mathrm{f}}_{t} - {h} {C^{\mathrm{f}}_{t-1}}\right)^{-\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+
+
+
+\section{Steady state relationships (after reduction)}
+
+\begin{equation}
+-q_\mathrm{ss} + {\beta} \left({q_\mathrm{ss}} \left(1 - \tau\right) + {\epsilon^{\mathrm{b}}_\mathrm{ss}} \left({r^{\mathrm{k}}_\mathrm{ss}} {z_\mathrm{ss}} - {\psi}^{-1} {r^{\mathrm{k}}_\mathrm{ss}} \left(-1 + e^{{\psi} \left(-1 + z_\mathrm{ss}\right)}\right)\right) {\left(C_\mathrm{ss} - {h} {C_\mathrm{ss}}\right)^{-\sigma^{\mathrm{c}}}}\right) = 0
+\end{equation}
+\begin{equation}
+-q^{\mathrm{f}}_\mathrm{ss} + {\beta} \left({q^{\mathrm{f}}_\mathrm{ss}} \left(1 - \tau\right) + {\epsilon^{\mathrm{b}}_\mathrm{ss}} \left({r^{\mathrm{k}^{\mathrm{f}}}_\mathrm{ss}} {z^{\mathrm{f}}_\mathrm{ss}} - {\psi}^{-1} {r^{\mathrm{k}^{\mathrm{f}}}_\mathrm{ss}} \left(-1 + e^{{\psi} \left(-1 + z^{\mathrm{f}}_\mathrm{ss}\right)}\right)\right) {\left(C^{\mathrm{f}}_\mathrm{ss} - {h} {C^{\mathrm{f}}_\mathrm{ss}}\right)^{-\sigma^{\mathrm{c}}}}\right) = 0
+\end{equation}
+\begin{equation}
+-r^{\mathrm{k}}_\mathrm{ss} + {\alpha} {\epsilon^{\mathrm{a}}_\mathrm{ss}} {{m\!c}_\mathrm{ss}} {{L_\mathrm{ss}}^{1 - \alpha}} {\left({z_\mathrm{ss}} {K_\mathrm{ss}}\right)^{-1 + \alpha}} = 0
+\end{equation}
+\begin{equation}
+-r^{\mathrm{k}^{\mathrm{f}}}_\mathrm{ss} + {\alpha} {\epsilon^{\mathrm{a}}_\mathrm{ss}} {{m\!c}^{\mathrm{f}}_\mathrm{ss}} {{L^{\mathrm{f}}_\mathrm{ss}}^{1 - \alpha}} {\left({z^{\mathrm{f}}_\mathrm{ss}} {K^{\mathrm{f}}_\mathrm{ss}}\right)^{-1 + \alpha}} = 0
+\end{equation}
+\begin{equation}
+-G_\mathrm{ss} + T_\mathrm{ss} = 0
+\end{equation}
+\begin{equation}
+-G_\mathrm{ss} + {G^{\mathrm{bar}}} {\epsilon^{\mathrm{G}}_\mathrm{ss}} = 0
+\end{equation}
+\begin{equation}
+-G^{\mathrm{f}}_\mathrm{ss} + T^{\mathrm{f}}_\mathrm{ss} = 0
+\end{equation}
+\begin{equation}
+-G^{\mathrm{f}}_\mathrm{ss} + {G^{\mathrm{bar}}} {\epsilon^{\mathrm{G}}_\mathrm{ss}} = 0
+\end{equation}
+\begin{equation}
+-L_\mathrm{ss} + {\nu^{\mathrm{w}}_\mathrm{ss}}^{-1} {L^{\mathrm{s}}_\mathrm{ss}} = 0
+\end{equation}
+\begin{equation}
+-L^{\mathrm{s}^{\mathrm{f}}}_\mathrm{ss} + {L^{\mathrm{f}}_\mathrm{ss}} {\left({W^{\mathrm{i}^{\mathrm{f}}}_\mathrm{ss}} {W^{\mathrm{f}}_\mathrm{ss}}^{-1}\right)^{{\lambda^{\mathrm{w}}}^{-1} \left(-1 - \lambda^{\mathrm{w}}\right)}} = 0
+\end{equation}
+\begin{equation}
+L^{\mathrm{s}^{\mathrm{f}}}_\mathrm{ss} - L^{\mathrm{f}}_\mathrm{ss} = 0
+\end{equation}
+\begin{equation}
+L^{\mathrm{s}^{\mathrm{f}}}_\mathrm{ss} + {\lambda^{\mathrm{w}}}^{-1} {L^{\mathrm{f}}_\mathrm{ss}} {W^{\mathrm{f}}_\mathrm{ss}}^{-1} \left(-1 - \lambda^{\mathrm{w}}\right) \left(-W^{\mathrm{disutil}^{\mathrm{f}}}_\mathrm{ss} + W^{\mathrm{i}^{\mathrm{f}}}_\mathrm{ss}\right) {\left({W^{\mathrm{i}^{\mathrm{f}}}_\mathrm{ss}} {W^{\mathrm{f}}_\mathrm{ss}}^{-1}\right)^{-1 + {\lambda^{\mathrm{w}}}^{-1} \left(-1 - \lambda^{\mathrm{w}}\right)}} = 0
+\end{equation}
+\begin{equation}
+\Pi^{\mathrm{ws}^{\mathrm{f}}}_\mathrm{ss} - {L^{\mathrm{s}^{\mathrm{f}}}_\mathrm{ss}} \left(-W^{\mathrm{disutil}^{\mathrm{f}}}_\mathrm{ss} + W^{\mathrm{i}^{\mathrm{f}}}_\mathrm{ss}\right) = 0
+\end{equation}
+\begin{equation}
+\Pi^{\mathrm{ps}^{\mathrm{f}}}_\mathrm{ss} - {Y^{\mathrm{f}}_\mathrm{ss}} \left(-{m\!c}^{\mathrm{f}}_\mathrm{ss} + P^{\mathrm{j}^{\mathrm{f}}}_\mathrm{ss}\right) {{P^{\mathrm{j}^{\mathrm{f}}}_\mathrm{ss}}^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} = 0
+\end{equation}
+\begin{equation}
+-Q_\mathrm{ss} + {\epsilon^{\mathrm{b}}_\mathrm{ss}}^{-1} {q_\mathrm{ss}} {\left(C_\mathrm{ss} - {h} {C_\mathrm{ss}}\right)^{\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+\begin{equation}
+-Q^{\mathrm{f}}_\mathrm{ss} + {\epsilon^{\mathrm{b}}_\mathrm{ss}}^{-1} {q^{\mathrm{f}}_\mathrm{ss}} {\left(C^{\mathrm{f}}_\mathrm{ss} - {h} {C^{\mathrm{f}}_\mathrm{ss}}\right)^{\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+\begin{equation}
+-W_\mathrm{ss} + {\epsilon^{\mathrm{a}}_\mathrm{ss}} {{m\!c}_\mathrm{ss}} \left(1 - \alpha\right) {{L_\mathrm{ss}}^{-\alpha}} {\left({z_\mathrm{ss}} {K_\mathrm{ss}}\right)^{\alpha}} = 0
+\end{equation}
+\begin{equation}
+-W^{\mathrm{f}}_\mathrm{ss} + {\epsilon^{\mathrm{a}}_\mathrm{ss}} {{m\!c}^{\mathrm{f}}_\mathrm{ss}} \left(1 - \alpha\right) {{L^{\mathrm{f}}_\mathrm{ss}}^{-\alpha}} {\left({z^{\mathrm{f}}_\mathrm{ss}} {K^{\mathrm{f}}_\mathrm{ss}}\right)^{\alpha}} = 0
+\end{equation}
+\begin{equation}
+Y^{\mathrm{s}}_\mathrm{ss} - {\nu^{\mathrm{p}}_\mathrm{ss}} {Y_\mathrm{ss}} = 0
+\end{equation}
+\begin{equation}
+-Y^{\mathrm{f}}_\mathrm{ss} + Y^{\mathrm{s}^{\mathrm{f}}}_\mathrm{ss} = 0
+\end{equation}
+\begin{equation}
+-Y^{\mathrm{s}^{\mathrm{f}}}_\mathrm{ss} + {Y^{\mathrm{f}}_\mathrm{ss}} {{P^{\mathrm{j}^{\mathrm{f}}}_\mathrm{ss}}^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} = 0
+\end{equation}
+\begin{equation}
+{\beta} {\epsilon^{\mathrm{b}}_\mathrm{ss}} {\left(C^{\mathrm{f}}_\mathrm{ss} - {h} {C^{\mathrm{f}}_\mathrm{ss}}\right)^{-\sigma^{\mathrm{c}}}} - {\epsilon^{\mathrm{b}}_\mathrm{ss}} {R^{\mathrm{f}}_\mathrm{ss}}^{-1} {\left(C^{\mathrm{f}}_\mathrm{ss} - {h} {C^{\mathrm{f}}_\mathrm{ss}}\right)^{-\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+\begin{equation}
+-{\epsilon^{\mathrm{b}}_\mathrm{ss}} {R_\mathrm{ss}}^{-1} {\left(C_\mathrm{ss} - {h} {C_\mathrm{ss}}\right)^{-\sigma^{\mathrm{c}}}} + {\beta} {\epsilon^{\mathrm{b}}_\mathrm{ss}} {\pi_\mathrm{ss}}^{-1} {\left(C_\mathrm{ss} - {h} {C_\mathrm{ss}}\right)^{-\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+\begin{equation}
+{Y^{\mathrm{f}}_\mathrm{ss}} {{P^{\mathrm{j}^{\mathrm{f}}}_\mathrm{ss}}^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} - {\lambda^{\mathrm{p}}}^{-1} {Y^{\mathrm{f}}_\mathrm{ss}} \left(1 + \lambda^{\mathrm{p}}\right) \left(-{m\!c}^{\mathrm{f}}_\mathrm{ss} + P^{\mathrm{j}^{\mathrm{f}}}_\mathrm{ss}\right) {{P^{\mathrm{j}^{\mathrm{f}}}_\mathrm{ss}}^{-1 - {\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} = 0
+\end{equation}
+\begin{equation}
+{\epsilon^{\mathrm{b}}_\mathrm{ss}} {W^{\mathrm{disutil}^{\mathrm{f}}}_\mathrm{ss}} {\left(C^{\mathrm{f}}_\mathrm{ss} - {h} {C^{\mathrm{f}}_\mathrm{ss}}\right)^{-\sigma^{\mathrm{c}}}} - {\omega} {\epsilon^{\mathrm{b}}_\mathrm{ss}} {\epsilon^{\mathrm{L}}_\mathrm{ss}} {{L^{\mathrm{s}^{\mathrm{f}}}_\mathrm{ss}}^{\sigma^{\mathrm{l}}}} = 0
+\end{equation}
+\begin{equation}
+-1 + {\xi^{\mathrm{p}}} {\left({\pi_\mathrm{ss}}^{-1} {{\pi_\mathrm{ss}}^{\gamma^{\mathrm{p}}}}\right)^{-{\lambda^{\mathrm{p}}}^{-1}}} + \left(1 - \xi^{\mathrm{p}}\right) {{\pi^{\star}_\mathrm{ss}}^{-{\lambda^{\mathrm{p}}}^{-1}}} = 0
+\end{equation}
+\begin{equation}
+-1 + \left(1 - \xi^{\mathrm{w}}\right) {\left({w^{\star}_\mathrm{ss}} {W_\mathrm{ss}}^{-1}\right)^{-{\lambda^{\mathrm{w}}}^{-1}}} + {\xi^{\mathrm{w}}} {{1}^{-{\lambda^{\mathrm{w}}}^{-1}}} {\left({\pi_\mathrm{ss}}^{-1} {{\pi_\mathrm{ss}}^{\gamma^{\mathrm{w}}}}\right)^{-{\lambda^{\mathrm{w}}}^{-1}}} = 0
+\end{equation}
+\begin{equation}
+-\Phi - Y^{\mathrm{s}}_\mathrm{ss} + {\epsilon^{\mathrm{a}}_\mathrm{ss}} {{L_\mathrm{ss}}^{1 - \alpha}} {\left({z_\mathrm{ss}} {K_\mathrm{ss}}\right)^{\alpha}} = 0
+\end{equation}
+\begin{equation}
+-\Phi - {Y^{\mathrm{f}}_\mathrm{ss}} {{P^{\mathrm{j}^{\mathrm{f}}}_\mathrm{ss}}^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} + {\epsilon^{\mathrm{a}}_\mathrm{ss}} {{L^{\mathrm{f}}_\mathrm{ss}}^{1 - \alpha}} {\left({z^{\mathrm{f}}_\mathrm{ss}} {K^{\mathrm{f}}_\mathrm{ss}}\right)^{\alpha}} = 0
+\end{equation}
+\begin{equation}
+-\log{\epsilon^{\mathrm{b}}_\mathrm{ss}} + {\rho^{\mathrm{b}}} {\log{\epsilon^{\mathrm{b}}_\mathrm{ss}}} = 0
+\end{equation}
+\begin{equation}
+-\log{\epsilon^{\mathrm{L}}_\mathrm{ss}} + {\rho^{\mathrm{L}}} {\log{\epsilon^{\mathrm{L}}_\mathrm{ss}}} = 0
+\end{equation}
+\begin{equation}
+-\log{\epsilon^{\mathrm{I}}_\mathrm{ss}} + {\rho^{\mathrm{I}}} {\log{\epsilon^{\mathrm{I}}_\mathrm{ss}}} = 0
+\end{equation}
+\begin{equation}
+-f^{\mathrm{1}}_\mathrm{ss} + f^{\mathrm{2}}_\mathrm{ss} = 0
+\end{equation}
+\begin{equation}
+-\log{\epsilon^{\mathrm{a}}_\mathrm{ss}} + {\rho^{\mathrm{a}}} {\log{\epsilon^{\mathrm{a}}_\mathrm{ss}}} = 0
+\end{equation}
+\begin{equation}
+-g^{\mathrm{1}}_\mathrm{ss} + {g^{\mathrm{2}}_\mathrm{ss}} \left(1 + \lambda^{\mathrm{p}}\right) = 0
+\end{equation}
+\begin{equation}
+-\log{\epsilon^{\mathrm{G}}_\mathrm{ss}} + {\rho^{\mathrm{G}}} {\log{\epsilon^{\mathrm{G}}_\mathrm{ss}}} = 0
+\end{equation}
+\begin{equation}
+-f^{\mathrm{1}}_\mathrm{ss} + {\beta} {\xi^{\mathrm{w}}} {f^{\mathrm{1}}_\mathrm{ss}} {{1}^{{\lambda^{\mathrm{w}}}^{-1}}} {\left({\pi_\mathrm{ss}}^{-1} {{\pi_\mathrm{ss}}^{\gamma^{\mathrm{w}}}}\right)^{-{\lambda^{\mathrm{w}}}^{-1}}} + {\epsilon^{\mathrm{b}}_\mathrm{ss}} {w^{\star}_\mathrm{ss}} {L_\mathrm{ss}} \left(1 + \lambda^{\mathrm{w}}\right)^{-1} {\left(C_\mathrm{ss} - {h} {C_\mathrm{ss}}\right)^{-\sigma^{\mathrm{c}}}} {\left({w^{\star}_\mathrm{ss}} {W_\mathrm{ss}}^{-1}\right)^{-{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right)}} = 0
+\end{equation}
+\begin{equation}
+-f^{\mathrm{2}}_\mathrm{ss} + {\omega} {\epsilon^{\mathrm{b}}_\mathrm{ss}} {\epsilon^{\mathrm{L}}_\mathrm{ss}} {\left({L_\mathrm{ss}} {\left({w^{\star}_\mathrm{ss}} {W_\mathrm{ss}}^{-1}\right)^{-{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right)}}\right)^{1 + \sigma^{\mathrm{l}}}} + {\beta} {\xi^{\mathrm{w}}} {f^{\mathrm{2}}_\mathrm{ss}} {{1}^{{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right) \left(1 + \sigma^{\mathrm{l}}\right)}} {\left({\pi_\mathrm{ss}}^{-1} {{\pi_\mathrm{ss}}^{\gamma^{\mathrm{w}}}}\right)^{-{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right) \left(1 + \sigma^{\mathrm{l}}\right)}} = 0
+\end{equation}
+\begin{equation}
+-g^{\mathrm{1}}_\mathrm{ss} + {\beta} {\xi^{\mathrm{p}}} {g^{\mathrm{1}}_\mathrm{ss}} {\left({\pi_\mathrm{ss}}^{-1} {{\pi_\mathrm{ss}}^{\gamma^{\mathrm{p}}}}\right)^{-{\lambda^{\mathrm{p}}}^{-1}}} + {\epsilon^{\mathrm{b}}_\mathrm{ss}} {\pi^{\star}_\mathrm{ss}} {Y_\mathrm{ss}} {\left(C_\mathrm{ss} - {h} {C_\mathrm{ss}}\right)^{-\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+\begin{equation}
+-g^{\mathrm{2}}_\mathrm{ss} + {\beta} {\xi^{\mathrm{p}}} {g^{\mathrm{2}}_\mathrm{ss}} {\left({\pi_\mathrm{ss}}^{-1} {{\pi_\mathrm{ss}}^{\gamma^{\mathrm{p}}}}\right)^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} + {\epsilon^{\mathrm{b}}_\mathrm{ss}} {{m\!c}_\mathrm{ss}} {Y_\mathrm{ss}} {\left(C_\mathrm{ss} - {h} {C_\mathrm{ss}}\right)^{-\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+\begin{equation}
+-\nu^{\mathrm{w}}_\mathrm{ss} + \left(1 - \xi^{\mathrm{w}}\right) {\left({w^{\star}_\mathrm{ss}} {W_\mathrm{ss}}^{-1}\right)^{-{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right)}} + {\xi^{\mathrm{w}}} {\nu^{\mathrm{w}}_\mathrm{ss}} {\left({\pi_\mathrm{ss}}^{-1} {{\pi_\mathrm{ss}}^{\gamma^{\mathrm{w}}}}\right)^{-{\lambda^{\mathrm{w}}}^{-1} \left(1 + \lambda^{\mathrm{w}}\right)}} = 0
+\end{equation}
+\begin{equation}
+-\nu^{\mathrm{p}}_\mathrm{ss} + \left(1 - \xi^{\mathrm{p}}\right) {{\pi^{\star}_\mathrm{ss}}^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} + {\xi^{\mathrm{p}}} {\nu^{\mathrm{p}}_\mathrm{ss}} {\left({\pi_\mathrm{ss}}^{-1} {{\pi_\mathrm{ss}}^{\gamma^{\mathrm{p}}}}\right)^{-{\lambda^{\mathrm{p}}}^{-1} \left(1 + \lambda^{\mathrm{p}}\right)}} = 0
+\end{equation}
+\begin{equation}
+-K_\mathrm{ss} + {I_\mathrm{ss}} \left(1 - 0.5{\varphi} \left(-1 + \epsilon^{\mathrm{I}}_\mathrm{ss}\right)^{2}\right) + {K_\mathrm{ss}} \left(1 - \tau\right) = 0
+\end{equation}
+\begin{equation}
+-K^{\mathrm{f}}_\mathrm{ss} + {I^{\mathrm{f}}_\mathrm{ss}} \left(1 - 0.5{\varphi} \left(-1 + \epsilon^{\mathrm{I}}_\mathrm{ss}\right)^{2}\right) + {K^{\mathrm{f}}_\mathrm{ss}} \left(1 - \tau\right) = 0
+\end{equation}
+\begin{equation}
+U_\mathrm{ss} - {\beta} {U_\mathrm{ss}} - {\epsilon^{\mathrm{b}}_\mathrm{ss}} \left(\left(1 - \sigma^{\mathrm{c}}\right)^{-1} {\left(C_\mathrm{ss} - {h} {C_\mathrm{ss}}\right)^{1 - \sigma^{\mathrm{c}}}} - {\omega} {\epsilon^{\mathrm{L}}_\mathrm{ss}} \left(1 + \sigma^{\mathrm{l}}\right)^{-1} {{L^{\mathrm{s}}_\mathrm{ss}}^{1 + \sigma^{\mathrm{l}}}}\right) = 0
+\end{equation}
+\begin{equation}
+U^{\mathrm{f}}_\mathrm{ss} - {\beta} {U^{\mathrm{f}}_\mathrm{ss}} - {\epsilon^{\mathrm{b}}_\mathrm{ss}} \left(\left(1 - \sigma^{\mathrm{c}}\right)^{-1} {\left(C^{\mathrm{f}}_\mathrm{ss} - {h} {C^{\mathrm{f}}_\mathrm{ss}}\right)^{1 - \sigma^{\mathrm{c}}}} - {\omega} {\epsilon^{\mathrm{L}}_\mathrm{ss}} \left(1 + \sigma^{\mathrm{l}}\right)^{-1} {{L^{\mathrm{s}^{\mathrm{f}}}_\mathrm{ss}}^{1 + \sigma^{\mathrm{l}}}}\right) = 0
+\end{equation}
+\begin{equation}
+-{\epsilon^{\mathrm{b}}_\mathrm{ss}} {\left(C_\mathrm{ss} - {h} {C_\mathrm{ss}}\right)^{-\sigma^{\mathrm{c}}}} + {q_\mathrm{ss}} \left(1 - 0.5{\varphi} \left(-1 + \epsilon^{\mathrm{I}}_\mathrm{ss}\right)^{2} - {\varphi} {\epsilon^{\mathrm{I}}_\mathrm{ss}} \left(-1 + \epsilon^{\mathrm{I}}_\mathrm{ss}\right)\right) + {\beta} {\varphi} {\epsilon^{\mathrm{I}}_\mathrm{ss}} {q_\mathrm{ss}} \left(-1 + \epsilon^{\mathrm{I}}_\mathrm{ss}\right) = 0
+\end{equation}
+\begin{equation}
+-{\epsilon^{\mathrm{b}}_\mathrm{ss}} {\left(C^{\mathrm{f}}_\mathrm{ss} - {h} {C^{\mathrm{f}}_\mathrm{ss}}\right)^{-\sigma^{\mathrm{c}}}} + {q^{\mathrm{f}}_\mathrm{ss}} \left(1 - 0.5{\varphi} \left(-1 + \epsilon^{\mathrm{I}}_\mathrm{ss}\right)^{2} - {\varphi} {\epsilon^{\mathrm{I}}_\mathrm{ss}} \left(-1 + \epsilon^{\mathrm{I}}_\mathrm{ss}\right)\right) + {\beta} {\varphi} {\epsilon^{\mathrm{I}}_\mathrm{ss}} {q^{\mathrm{f}}_\mathrm{ss}} \left(-1 + \epsilon^{\mathrm{I}}_\mathrm{ss}\right) = 0
+\end{equation}
+\begin{equation}
+-\log{\pi^{\mathrm{obj}}_\mathrm{ss}} + {\rho^{\pi^{\mathrm{bar}}}} {\log{\pi^{\mathrm{obj}}_\mathrm{ss}}} + {\log{{c\!a\!l\!i\!b\!r}^{\pi^{\mathrm{obj}}}}} \left(1 - \rho^{\pi^{\mathrm{bar}}}\right) = 0
+\end{equation}
+\begin{equation}
+-C_\mathrm{ss} - I_\mathrm{ss} - T_\mathrm{ss} + Y_\mathrm{ss} - {\psi}^{-1} {r^{\mathrm{k}}_\mathrm{ss}} {K_\mathrm{ss}} \left(-1 + e^{{\psi} \left(-1 + z_\mathrm{ss}\right)}\right) = 0
+\end{equation}
+\begin{equation}
+-{c\!a\!l\!i\!b\!r}^{\pi} + \left(1 - \rho\right) \left(\log{\pi^{\mathrm{obj}}_\mathrm{ss}} - {r^{\pi}} {\log{\pi^{\mathrm{obj}}_\mathrm{ss}}}\right) = 0
+\end{equation}
+\begin{equation}
+-C^{\mathrm{f}}_\mathrm{ss} - I^{\mathrm{f}}_\mathrm{ss} + \Pi^{\mathrm{ws}^{\mathrm{f}}}_\mathrm{ss} - T^{\mathrm{f}}_\mathrm{ss} + Y^{\mathrm{f}}_\mathrm{ss} + {L^{\mathrm{s}^{\mathrm{f}}}_\mathrm{ss}} {W^{\mathrm{disutil}^{\mathrm{f}}}_\mathrm{ss}} - {L^{\mathrm{f}}_\mathrm{ss}} {W^{\mathrm{f}}_\mathrm{ss}} - {\psi}^{-1} {r^{\mathrm{k}^{\mathrm{f}}}_\mathrm{ss}} {K^{\mathrm{f}}_\mathrm{ss}} \left(-1 + e^{{\psi} \left(-1 + z^{\mathrm{f}}_\mathrm{ss}\right)}\right) = 0
+\end{equation}
+\begin{equation}
+{\epsilon^{\mathrm{b}}_\mathrm{ss}} \left({r^{\mathrm{k}}_\mathrm{ss}} {K_\mathrm{ss}} - {r^{\mathrm{k}}_\mathrm{ss}} {K_\mathrm{ss}} {e^{{\psi} \left(-1 + z_\mathrm{ss}\right)}}\right) {\left(C_\mathrm{ss} - {h} {C_\mathrm{ss}}\right)^{-\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+\begin{equation}
+{\epsilon^{\mathrm{b}}_\mathrm{ss}} \left({r^{\mathrm{k}^{\mathrm{f}}}_\mathrm{ss}} {K^{\mathrm{f}}_\mathrm{ss}} - {r^{\mathrm{k}^{\mathrm{f}}}_\mathrm{ss}} {K^{\mathrm{f}}_\mathrm{ss}} {e^{{\psi} \left(-1 + z^{\mathrm{f}}_\mathrm{ss}\right)}}\right) {\left(C^{\mathrm{f}}_\mathrm{ss} - {h} {C^{\mathrm{f}}_\mathrm{ss}}\right)^{-\sigma^{\mathrm{c}}}} = 0
+\end{equation}
+
+
+
+\section{Calibrating equations}
+
+\begin{equation}
+-1.408 + {Y^{\mathrm{s}}_\mathrm{ss}}^{-1} \left(\Phi + Y^{\mathrm{s}}_\mathrm{ss}\right) = 0
+\end{equation}
+\begin{equation}
+-1 + \pi^{\mathrm{obj}}_\mathrm{ss} = 0
+\end{equation}
+\begin{equation}
+-0.6 + {C^{\mathrm{f}}_\mathrm{ss}} {Y^{\mathrm{f}}_\mathrm{ss}}^{-1} = 0
+\end{equation}
+\begin{equation}
+-0.18 + {G_\mathrm{ss}} {Y_\mathrm{ss}}^{-1} = 0
+\end{equation}
+\begin{equation}
+\pi_\mathrm{ss} - \pi^{\mathrm{obj}}_\mathrm{ss} = 0
+\end{equation}
+
+
+
+\section{Parameter settings}
+
+\begin{equation}
+\alpha = 0.3
+\end{equation}
+\begin{equation}
+\beta = 0.99
+\end{equation}
+\begin{equation}
+\gamma^{\mathrm{w}} = 0.763
+\end{equation}
+\begin{equation}
+\gamma^{\mathrm{p}} = 0.469
+\end{equation}
+\begin{equation}
+h = 0.573
+\end{equation}
+\begin{equation}
+\lambda^{\mathrm{w}} = 0.5
+\end{equation}
+\begin{equation}
+\omega = 1
+\end{equation}
+\begin{equation}
+\psi = 0.169
+\end{equation}
+\begin{equation}
+r^{\pi} = 1.684
+\end{equation}
+\begin{equation}
+r^{\mathrm{Y}} = 0.099
+\end{equation}
+\begin{equation}
+r^{\Delta^{\pi}} = 0.14
+\end{equation}
+\begin{equation}
+r^{\Delta^{\mathrm{y}}} = 0.159
+\end{equation}
+\begin{equation}
+\rho^{\mathrm{b}} = 0.855
+\end{equation}
+\begin{equation}
+\rho^{\mathrm{L}} = 0.889
+\end{equation}
+\begin{equation}
+\rho^{\mathrm{I}} = 0.927
+\end{equation}
+\begin{equation}
+\rho^{\mathrm{a}} = 0.823
+\end{equation}
+\begin{equation}
+\rho^{\mathrm{G}} = 0.949
+\end{equation}
+\begin{equation}
+\rho = 0.961
+\end{equation}
+\begin{equation}
+\rho^{\pi^{\mathrm{bar}}} = 0.924
+\end{equation}
+\begin{equation}
+\sigma^{\mathrm{c}} = 1.353
+\end{equation}
+\begin{equation}
+\sigma^{\mathrm{l}} = 2.4
+\end{equation}
+\begin{equation}
+\tau = 0.025
+\end{equation}
+\begin{equation}
+\varphi = 6.771
+\end{equation}
+\begin{equation}
+\xi^{\mathrm{w}} = 0.737
+\end{equation}
+\begin{equation}
+\xi^{\mathrm{p}} = 0.908
+\end{equation}
+
+

@@ -1,0 +1,560 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>System.Data.Odbc</name>
+    </assembly>
+    <members>
+        <member name="P:System.SR.ADP_CollectionIndexInt32">
+            <summary>Invalid index {0} for this {1} with Count={2}.</summary>
+        </member>
+        <member name="P:System.SR.ADP_CollectionIndexString">
+            <summary>An {0} with {1} '{2}' is not contained by this {3}.</summary>
+        </member>
+        <member name="P:System.SR.ADP_CollectionInvalidType">
+            <summary>The {0} only accepts non-null {1} type objects, not {2} objects.</summary>
+        </member>
+        <member name="P:System.SR.ADP_CollectionIsNotParent">
+            <summary>The {0} is already contained by another {1}.</summary>
+        </member>
+        <member name="P:System.SR.ADP_CollectionNullValue">
+            <summary>The {0} only accepts non-null {1} type objects.</summary>
+        </member>
+        <member name="P:System.SR.ADP_CollectionRemoveInvalidObject">
+            <summary>Attempted to remove an {0} that is not contained by this {1}.</summary>
+        </member>
+        <member name="P:System.SR.ADP_CollectionUniqueValue">
+            <summary>The {0}.{1} is required to be unique, '{2}' already exists in the collection.</summary>
+        </member>
+        <member name="P:System.SR.ADP_ConnectionAlreadyOpen">
+            <summary>The connection was not closed. {0}</summary>
+        </member>
+        <member name="P:System.SR.ADP_ConnectionStateMsg_Closed">
+            <summary>The connection's current state is closed.</summary>
+        </member>
+        <member name="P:System.SR.ADP_ConnectionStateMsg_Connecting">
+            <summary>The connection's current state is connecting.</summary>
+        </member>
+        <member name="P:System.SR.ADP_ConnectionStateMsg_Open">
+            <summary>The connection's current state is open.</summary>
+        </member>
+        <member name="P:System.SR.ADP_ConnectionStateMsg_OpenExecuting">
+            <summary>The connection's current state is executing.</summary>
+        </member>
+        <member name="P:System.SR.ADP_ConnectionStateMsg_OpenFetching">
+            <summary>The connection's current state is fetching.</summary>
+        </member>
+        <member name="P:System.SR.ADP_ConnectionStateMsg">
+            <summary>The connection's current state: {0}.</summary>
+        </member>
+        <member name="P:System.SR.ADP_ConnectionStringSyntax">
+            <summary>Format of the initialization string does not conform to specification starting at index {0}.</summary>
+        </member>
+        <member name="P:System.SR.ADP_DataReaderClosed">
+            <summary>Invalid attempt to call {0} when reader is closed.</summary>
+        </member>
+        <member name="P:System.SR.ADP_EmptyString">
+            <summary>Expecting non-empty string for '{0}' parameter.</summary>
+        </member>
+        <member name="P:System.SR.ADP_InternalConnectionError">
+            <summary>Internal DbConnection Error: {0}</summary>
+        </member>
+        <member name="P:System.SR.ADP_InvalidDataDirectory">
+            <summary>The DataDirectory substitute is not a string.</summary>
+        </member>
+        <member name="P:System.SR.ADP_InvalidEnumerationValue">
+            <summary>The {0} enumeration value, {1}, is invalid.</summary>
+        </member>
+        <member name="P:System.SR.ADP_InvalidKey">
+            <summary>Invalid keyword, contain one or more of 'no characters', 'control characters', 'leading or trailing whitespace' or 'leading semicolons'.</summary>
+        </member>
+        <member name="P:System.SR.ADP_InvalidOffsetValue">
+            <summary>Invalid parameter Offset value '{0}'. The value must be greater than or equal to 0.</summary>
+        </member>
+        <member name="P:System.SR.ADP_InvalidValue">
+            <summary>The value contains embedded nulls (\\u0000).</summary>
+        </member>
+        <member name="P:System.SR.ADP_NoConnectionString">
+            <summary>The ConnectionString property has not been initialized.</summary>
+        </member>
+        <member name="P:System.SR.ADP_OpenConnectionPropertySet">
+            <summary>Not allowed to change the '{0}' property. {1}</summary>
+        </member>
+        <member name="P:System.SR.ADP_PooledOpenTimeout">
+            <summary>Timeout expired.  The timeout period elapsed prior to obtaining a connection from the pool.  This may have occurred because all pooled connections were in use and max pool size was reached.</summary>
+        </member>
+        <member name="P:System.SR.ADP_NonPooledOpenTimeout">
+            <summary>Timeout attempting to open the connection.  The time period elapsed prior to attempting to open the connection has been exceeded.  This may have occurred because of too many simultaneous non-pooled connection attempts.</summary>
+        </member>
+        <member name="P:System.SR.ADP_QuotePrefixNotSet">
+            <summary>{0} requires an open connection when the quote prefix has not been set.</summary>
+        </member>
+        <member name="P:System.SR.MDF_QueryFailed">
+            <summary>Unable to build the '{0}' collection because execution of the SQL query failed. See the inner exception for details.</summary>
+        </member>
+        <member name="P:System.SR.MDF_TooManyRestrictions">
+            <summary>More restrictions were provided than the requested schema ('{0}') supports.</summary>
+        </member>
+        <member name="P:System.SR.MDF_InvalidRestrictionValue">
+            <summary>'{2}' is not a valid value for the '{1}' restriction of the '{0}' schema collection.</summary>
+        </member>
+        <member name="P:System.SR.MDF_UndefinedCollection">
+            <summary>The requested collection ({0}) is not defined.</summary>
+        </member>
+        <member name="P:System.SR.MDF_UndefinedPopulationMechanism">
+            <summary>The population mechanism '{0}' is not defined.</summary>
+        </member>
+        <member name="P:System.SR.MDF_UnsupportedVersion">
+            <summary>The requested collection ({0}) is not supported by this version of the provider.</summary>
+        </member>
+        <member name="P:System.SR.MDF_MissingDataSourceInformationColumn">
+            <summary>One of the required DataSourceInformation tables columns is missing.</summary>
+        </member>
+        <member name="P:System.SR.MDF_IncorrectNumberOfDataSourceInformationRows">
+            <summary>The DataSourceInformation table must contain exactly one row.</summary>
+        </member>
+        <member name="P:System.SR.MDF_MissingRestrictionColumn">
+            <summary>One or more of the required columns of the restrictions collection is missing.</summary>
+        </member>
+        <member name="P:System.SR.MDF_MissingRestrictionRow">
+            <summary>A restriction exists for which there is no matching row in the restrictions collection.</summary>
+        </member>
+        <member name="P:System.SR.MDF_NoColumns">
+            <summary>The schema table contains no columns.</summary>
+        </member>
+        <member name="P:System.SR.MDF_UnableToBuildCollection">
+            <summary>Unable to build schema collection '{0}';</summary>
+        </member>
+        <member name="P:System.SR.MDF_AmbiguousCollectionName">
+            <summary>The collection name '{0}' matches at least two collections with the same name but with different case, but does not match any of them exactly.</summary>
+        </member>
+        <member name="P:System.SR.MDF_CollectionNameISNotUnique">
+            <summary>There are multiple collections named '{0}'.</summary>
+        </member>
+        <member name="P:System.SR.MDF_DataTableDoesNotExist">
+            <summary>The collection '{0}' is missing from the metadata XML.</summary>
+        </member>
+        <member name="P:System.SR.MDF_InvalidXml">
+            <summary>The metadata XML is invalid.</summary>
+        </member>
+        <member name="P:System.SR.MDF_InvalidXmlMissingColumn">
+            <summary>The metadata XML is invalid. The {0} collection must contain a {1} column and it must be a string column.</summary>
+        </member>
+        <member name="P:System.SR.MDF_InvalidXmlInvalidValue">
+            <summary>The metadata XML is invalid. The {1} column of the {0} collection must contain a non-empty string.</summary>
+        </member>
+        <member name="P:System.SR.SqlConvert_ConvertFailed">
+            <summary>Cannot convert object of type '{0}' to object of type '{1}'.</summary>
+        </member>
+        <member name="P:System.SR.ADP_InvalidConnectionOptionValue">
+            <summary>Invalid value for key '{0}'.</summary>
+        </member>
+        <member name="P:System.SR.ADP_KeywordNotSupported">
+            <summary>Keyword not supported: '{0}'.</summary>
+        </member>
+        <member name="P:System.SR.ADP_InternalProviderError">
+            <summary>Internal .NET Framework Data Provider error {0}.</summary>
+        </member>
+        <member name="P:System.SR.ADP_InvalidMultipartName">
+            <summary>{0} '{1}'.</summary>
+        </member>
+        <member name="P:System.SR.ADP_InvalidMultipartNameQuoteUsage">
+            <summary>{0} '{1}', incorrect usage of quotes.</summary>
+        </member>
+        <member name="P:System.SR.ADP_InvalidMultipartNameToManyParts">
+            <summary>{0} '{1}', the current limit of '{2}' is insufficient.</summary>
+        </member>
+        <member name="P:System.SR.ADP_NotSupportedEnumerationValue">
+            <summary>The {0} enumeration value, {1}, is not supported by the {2} method.</summary>
+        </member>
+        <member name="P:System.SR.ADP_StreamClosed">
+            <summary>Invalid attempt to {0} when stream is closed.</summary>
+        </member>
+        <member name="P:System.SR.ADP_InvalidSourceBufferIndex">
+            <summary>Invalid source buffer (size of {0}) offset: {1}</summary>
+        </member>
+        <member name="P:System.SR.ADP_InvalidDestinationBufferIndex">
+            <summary>Invalid destination buffer (size of {0}) offset: {1}</summary>
+        </member>
+        <member name="P:System.SR.SQL_InvalidBufferSizeOrIndex">
+            <summary>Buffer offset '{1}' plus the bytes available '{0}' is greater than the length of the passed in buffer.</summary>
+        </member>
+        <member name="P:System.SR.SQL_InvalidDataLength">
+            <summary>Data length '{0}' is less than 0.</summary>
+        </member>
+        <member name="P:System.SR.ADP_InvalidSeekOrigin">
+            <summary>Specified SeekOrigin value is invalid.</summary>
+        </member>
+        <member name="P:System.SR.SQL_WrongType">
+            <summary>Expecting argument of type {1}, but received type {0}.</summary>
+        </member>
+        <member name="P:System.SR.ODBC_ODBCCommandText">
+            <summary>OdbcCommandBuilder.DeriveParameters failed because the OdbcCommand.CommandText property value is an invalid multipart name</summary>
+        </member>
+        <member name="P:System.SR.ODBC_NotSupportedEnumerationValue">
+            <summary>The {0} enumeration value, {1}, is not supported by the .NET Framework Odbc Data Provider.</summary>
+        </member>
+        <member name="P:System.SR.ADP_CommandTextRequired">
+            <summary>{0}: CommandText property has not been initialized</summary>
+        </member>
+        <member name="P:System.SR.ADP_ConnectionRequired">
+            <summary>{0}: Connection property has not been initialized.</summary>
+        </member>
+        <member name="P:System.SR.ADP_OpenConnectionRequired">
+            <summary>{0} requires an open and available Connection. {1}</summary>
+        </member>
+        <member name="P:System.SR.ADP_TransactionConnectionMismatch">
+            <summary>The transaction is either not associated with the current connection or has been completed.</summary>
+        </member>
+        <member name="P:System.SR.ADP_TransactionRequired">
+            <summary>{0} requires the command to have a transaction when the connection assigned to the command is in a pending local transaction.  The Transaction property of the command has not been initialized.</summary>
+        </member>
+        <member name="P:System.SR.ADP_OpenReaderExists">
+            <summary>There is already an open DataReader associated with this Command which must be closed first.</summary>
+        </member>
+        <member name="P:System.SR.ADP_DeriveParametersNotSupported">
+            <summary>{0} DeriveParameters only supports CommandType.StoredProcedure, not CommandType. {1}.</summary>
+        </member>
+        <member name="P:System.SR.ADP_InvalidCommandTimeout">
+            <summary>Invalid CommandTimeout value {0}; the value must be &gt;= 0.</summary>
+        </member>
+        <member name="P:System.SR.ADP_UninitializedParameterSize">
+            <summary>{1}[{0}]: the Size property has an invalid size of 0.</summary>
+        </member>
+        <member name="P:System.SR.ADP_ClosedConnectionError">
+            <summary>Invalid operation. The connection is closed.</summary>
+        </member>
+        <member name="P:System.SR.ADP_ConnectionIsDisabled">
+            <summary>The connection has been disabled.</summary>
+        </member>
+        <member name="P:System.SR.ADP_EmptyDatabaseName">
+            <summary>Database cannot be null, the empty string, or string of only whitespace.</summary>
+        </member>
+        <member name="P:System.SR.ADP_DatabaseNameTooLong">
+            <summary>The argument is too long.</summary>
+        </member>
+        <member name="P:System.SR.ADP_DataReaderNoData">
+            <summary>No data exists for the row/column.</summary>
+        </member>
+        <member name="P:System.SR.ADP_NumericToDecimalOverflow">
+            <summary>The numerical value is too large to fit into a 96 bit decimal.</summary>
+        </member>
+        <member name="P:System.SR.ADP_InvalidDataType">
+            <summary>The parameter data type of {0} is invalid.</summary>
+        </member>
+        <member name="P:System.SR.ADP_UnknownDataType">
+            <summary>No mapping exists from object type {0} to a known managed provider native type.</summary>
+        </member>
+        <member name="P:System.SR.ADP_UnknownDataTypeCode">
+            <summary>Unable to handle an unknown TypeCode {0} returned by Type {1}.</summary>
+        </member>
+        <member name="P:System.SR.ADP_DbTypeNotSupported">
+            <summary>No mapping exists from DbType {0} to a known {1}.</summary>
+        </member>
+        <member name="P:System.SR.ADP_InvalidSizeValue">
+            <summary>Invalid parameter Size value '{0}'. The value must be greater than or equal to 0.</summary>
+        </member>
+        <member name="P:System.SR.ADP_ParameterConversionFailed">
+            <summary>Failed to convert parameter value from a {0} to a {1}.</summary>
+        </member>
+        <member name="P:System.SR.ADP_ParallelTransactionsNotSupported">
+            <summary>{0} does not support parallel transactions.</summary>
+        </member>
+        <member name="P:System.SR.ADP_TransactionZombied">
+            <summary>This {0} has completed; it is no longer usable.</summary>
+        </member>
+        <member name="P:System.SR.ADP_NonSeqByteAccess">
+            <summary>Invalid {2} attempt at dataIndex '{0}'.  With CommandBehavior.SequentialAccess, you may only read from dataIndex '{1}' or greater.</summary>
+        </member>
+        <member name="P:System.SR.ADP_OffsetOutOfRangeException">
+            <summary>Offset must refer to a location within the value.</summary>
+        </member>
+        <member name="P:System.SR.ODBC_GetSchemaRestrictionRequired">
+            <summary>The ODBC managed provider requires that the TABLE_NAME restriction be specified and non-null for the GetSchema indexes collection.</summary>
+        </member>
+        <member name="P:System.SR.ADP_OdbcNoTypesFromProvider">
+            <summary>The ODBC provider did not return results from SQLGETTYPEINFO.</summary>
+        </member>
+        <member name="P:System.SR.Odbc_UnknownSQLType">
+            <summary>Unknown SQL type - {0}.</summary>
+        </member>
+        <member name="P:System.SR.Odbc_NegativeArgument">
+            <summary>Invalid negative argument!</summary>
+        </member>
+        <member name="P:System.SR.Odbc_CantSetPropertyOnOpenConnection">
+            <summary>Can't set property on an open connection.</summary>
+        </member>
+        <member name="P:System.SR.Odbc_NoMappingForSqlTransactionLevel">
+            <summary>No valid mapping for a SQL_TRANSACTION '{0}' to a System.Data.IsolationLevel enumeration value.</summary>
+        </member>
+        <member name="P:System.SR.Odbc_CantEnableConnectionpooling">
+            <summary>{0} - unable to enable connection pooling...</summary>
+        </member>
+        <member name="P:System.SR.Odbc_CantAllocateEnvironmentHandle">
+            <summary>{0} - unable to allocate an environment handle.</summary>
+        </member>
+        <member name="P:System.SR.Odbc_FailedToGetDescriptorHandle">
+            <summary>{0} - unable to get descriptor handle.</summary>
+        </member>
+        <member name="P:System.SR.Odbc_NotInTransaction">
+            <summary>Not in a transaction</summary>
+        </member>
+        <member name="P:System.SR.Odbc_ExceptionMessage">
+            <summary>{0} [{1}] {2}</summary>
+        </member>
+        <member name="P:System.SR.Odbc_ConnectionClosed">
+            <summary>The connection is closed.</summary>
+        </member>
+        <member name="P:System.SR.Odbc_OpenConnectionNoOwner">
+            <summary>An internal connection does not have an owner.</summary>
+        </member>
+        <member name="P:System.SR.Odbc_PlatformNotSupported">
+            <summary>System.Data.ODBC is not supported on this platform.</summary>
+        </member>
+        <member name="P:System.SR.Odbc_UnixOdbcNotFound">
+            <summary>Dependency unixODBC with minimum version 2.3.1 is required.</summary>
+        </member>
+        <member name="T:System.Runtime.InteropServices.LibraryImportAttribute">
+            <summary>
+            Attribute used to indicate a source generator should create a function for marshalling
+            arguments instead of relying on the runtime to generate an equivalent marshalling function at run-time.
+            </summary>
+            <remarks>
+            This attribute is meaningless if the source generator associated with it is not enabled.
+            The current built-in source generator only supports C# and only supplies an implementation when
+            applied to static, partial, non-generic methods.
+            </remarks>
+        </member>
+        <member name="M:System.Runtime.InteropServices.LibraryImportAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Runtime.InteropServices.LibraryImportAttribute"/>.
+            </summary>
+            <param name="libraryName">Name of the library containing the import.</param>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.LibraryName">
+            <summary>
+            Gets the name of the library containing the import.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.EntryPoint">
+            <summary>
+            Gets or sets the name of the entry point to be called.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshalling">
+            <summary>
+            Gets or sets how to marshal string arguments to the method.
+            </summary>
+            <remarks>
+            If this field is set to a value other than <see cref="F:System.Runtime.InteropServices.StringMarshalling.Custom" />,
+            <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType" /> must not be specified.
+            </remarks>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType">
+            <summary>
+            Gets or sets the <see cref="T:System.Type"/> used to control how string arguments to the method are marshalled.
+            </summary>
+            <remarks>
+            If this field is specified, <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshalling" /> must not be specified
+            or must be set to <see cref="F:System.Runtime.InteropServices.StringMarshalling.Custom" />.
+            </remarks>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.SetLastError">
+            <summary>
+            Gets or sets whether the callee sets an error (SetLastError on Windows or errno
+            on other platforms) before returning from the attributed method.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.InteropServices.StringMarshalling">
+            <summary>
+            Specifies how strings should be marshalled for generated p/invokes
+            </summary>
+        </member>
+        <member name="F:System.Runtime.InteropServices.StringMarshalling.Custom">
+            <summary>
+            Indicates the user is suppling a specific marshaller in <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType"/>.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.InteropServices.StringMarshalling.Utf8">
+            <summary>
+            Use the platform-provided UTF-8 marshaller.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.InteropServices.StringMarshalling.Utf16">
+            <summary>
+            Use the platform-provided UTF-16 marshaller.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.Versioning.OSPlatformAttribute">
+            <summary>
+            Base type for all platform-specific API attributes.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.Versioning.TargetPlatformAttribute">
+            <summary>
+            Records the platform that the project targeted.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.Versioning.SupportedOSPlatformAttribute">
+             <summary>
+             Records the operating system (and minimum version) that supports an API. Multiple attributes can be
+             applied to indicate support on multiple operating systems.
+             </summary>
+             <remarks>
+             Callers can apply a <see cref="T:System.Runtime.Versioning.SupportedOSPlatformAttribute" />
+             or use guards to prevent calls to APIs on unsupported operating systems.
+            
+             A given platform should only be specified once.
+             </remarks>
+        </member>
+        <member name="T:System.Runtime.Versioning.UnsupportedOSPlatformAttribute">
+            <summary>
+            Marks APIs that were removed in a given operating system version.
+            </summary>
+            <remarks>
+            Primarily used by OS bindings to indicate APIs that are only available in
+            earlier versions.
+            </remarks>
+        </member>
+        <member name="T:System.Runtime.Versioning.ObsoletedOSPlatformAttribute">
+            <summary>
+            Marks APIs that were obsoleted in a given operating system version.
+            </summary>
+            <remarks>
+            Primarily used by OS bindings to indicate APIs that should not be used anymore.
+            </remarks>
+        </member>
+        <member name="T:System.Runtime.Versioning.SupportedOSPlatformGuardAttribute">
+             <summary>
+             Annotates a custom guard field, property or method with a supported platform name and optional version.
+             Multiple attributes can be applied to indicate guard for multiple supported platforms.
+             </summary>
+             <remarks>
+             Callers can apply a <see cref="T:System.Runtime.Versioning.SupportedOSPlatformGuardAttribute" /> to a field, property or method
+             and use that field, property or method in a conditional or assert statements in order to safely call platform specific APIs.
+            
+             The type of the field or property should be boolean, the method return type should be boolean in order to be used as platform guard.
+             </remarks>
+        </member>
+        <member name="T:System.Runtime.Versioning.UnsupportedOSPlatformGuardAttribute">
+             <summary>
+             Annotates the custom guard field, property or method with an unsupported platform name and optional version.
+             Multiple attributes can be applied to indicate guard for multiple unsupported platforms.
+             </summary>
+             <remarks>
+             Callers can apply a <see cref="T:System.Runtime.Versioning.UnsupportedOSPlatformGuardAttribute" /> to a field, property or method
+             and use that  field, property or method in a conditional or assert statements as a guard to safely call APIs unsupported on those platforms.
+            
+             The type of the field or property should be boolean, the method return type should be boolean in order to be used as platform guard.
+             </remarks>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.AllowNullAttribute">
+            <summary>Specifies that null is allowed as an input even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DisallowNullAttribute">
+            <summary>Specifies that null is disallowed as an input even if the corresponding type allows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullAttribute">
+            <summary>Specifies that an output may be null even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullAttribute">
+            <summary>Specifies that an output will not be null even if the corresponding type allows it. Specifies that an input argument was not null when the call returns.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute">
+            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue"/>, the parameter may be null even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified return value condition.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter may be null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute">
+            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue"/>, the parameter will not be null even if the corresponding type allows it.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified return value condition.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter will not be null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute">
+            <summary>Specifies that the output will be non-null if the named parameter is non-null.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.#ctor(System.String)">
+            <summary>Initializes the attribute with the associated parameter name.</summary>
+            <param name="parameterName">
+            The associated parameter name.  The output will be non-null if the argument to the parameter specified is non-null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.ParameterName">
+            <summary>Gets the associated parameter name.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnAttribute">
+            <summary>Applied to a method that will never return under any circumstance.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute">
+            <summary>Specifies that the method will not return if the associated Boolean parameter is passed the specified value.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified parameter value.</summary>
+            <param name="parameterValue">
+            The condition parameter value. Code after the method will be considered unreachable by diagnostics if the argument to
+            the associated parameter matches this value.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.ParameterValue">
+            <summary>Gets the condition parameter value.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute">
+            <summary>Specifies that the method or property will ensure that the listed field and property members have not-null values.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute.#ctor(System.String)">
+            <summary>Initializes the attribute with a field or property member.</summary>
+            <param name="member">
+            The field or property member that is promised to be not-null.
+            </param>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute.#ctor(System.String[])">
+            <summary>Initializes the attribute with the list of field and property members.</summary>
+            <param name="members">
+            The list of field and property members that are promised to be not-null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute.Members">
+            <summary>Gets field or property member names.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute">
+            <summary>Specifies that the method or property will ensure that the listed field and property members have not-null values when returning with the specified return value condition.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String)">
+            <summary>Initializes the attribute with the specified return value condition and a field or property member.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter will not be null.
+            </param>
+            <param name="member">
+            The field or property member that is promised to be not-null.
+            </param>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String[])">
+            <summary>Initializes the attribute with the specified return value condition and list of field and property members.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter will not be null.
+            </param>
+            <param name="members">
+            The list of field and property members that are promised to be not-null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.Members">
+            <summary>Gets field or property member names.</summary>
+        </member>
+    </members>
+</doc>

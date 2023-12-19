@@ -1807,6 +1807,109 @@
             <returns>The disposable object used to cancel the scheduled action (best effort).</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="action"/> is <c>null</c>.</exception>
         </member>
+        <member name="T:System.Reactive.Concurrency.TaskObservationOptions">
+            <summary>
+            Controls how completion or failure is handled when a <see cref="T:System.Threading.Tasks.Task"/> or
+            <see cref="T:System.Threading.Tasks.Task`1"/> is wrapped as an <see cref="T:System.IObservable`1"/> and observed by
+            an <see cref="T:System.IObserver`1"/>.
+            </summary>
+            <remarks>
+            <para>
+            This type can be passed to overloads of the various method that adapt a TPL task as an
+            <see cref="T:System.IObservable`1"/>. It deals with two concerns that arise whenever this is done:
+            the scheduler through which notifications are delivered, and the handling of exceptions
+            that occur after all observers have unsubscribed.
+            </para>
+            <para>
+            If the <see cref="P:System.Reactive.Concurrency.TaskObservationOptions.Scheduler"/> property is non-null, it will be used to deliver all
+            notifications to observers, whether those notifications occur immediately (because the task
+            had already finished by the time it was observed) or they happen later.
+            </para>
+            <para>
+            The <see cref="P:System.Reactive.Concurrency.TaskObservationOptions.IgnoreExceptionsAfterUnsubscribe"/> property determines how to deal with tasks
+            that fail after unsubscription (i.e., if an application calls <see cref="M:System.IObservable`1.Subscribe(System.IObserver{`0})"/>
+            on an observable wrapping, then calls Dispose on the result before that task completes, and
+            the task subsequently enters a faulted state). Overloads that don't take a <see cref="T:System.Reactive.Concurrency.TaskObservationOptions"/>
+            argument do not observe the <see cref="P:System.Threading.Tasks.Task.Exception"/> in this case, with the result that
+            the exception will then emerge from <see cref="E:System.Threading.Tasks.TaskScheduler.UnobservedTaskException"/>
+            (which could terminate the process, depending on how the .NET application has been
+            configured). This is consistent with how unobserved <see cref="T:System.Threading.Tasks.Task"/> failures are
+            normally handled, but it is not consistent with how Rx handles post-unsubcription failures
+            in general. For example, if the projection callback for Select is in progress at the moment
+            an observer unsubscribes, and that callback then goes on to throw an exception, that
+            exception is simply swallowed. (One could argue that it should instead be sent to some
+            application-level unhandled exception handler, but the current behaviour has been in place
+            for well over a decade, so it's not something we can change.) So there is an argument that
+            post-unsubscribe failures in <see cref="T:System.IObservable`1"/>-wrapped tasks should be
+            ignored in exactly the same way: the default behaviour for post-unsubscribe failures in
+            tasks is inconsistent with the handling of all other post-unsubscribe failures. This has
+            also been the case for over a decade, so that inconsistency of defaults cannot be changed,
+            but the <see cref="P:System.Reactive.Concurrency.TaskObservationOptions.IgnoreExceptionsAfterUnsubscribe"/> property enables applications to
+            ask for task-originated post-unsubscribe exceptions to be ignored in the same way as
+            non-task-originated post-unsubscribe exceptions are. (Where possible, applications should
+            avoid getting into situations where they throw exceptions in scenarios where nothing is
+            able to observe them is. This setting is a last resort for situations in which this is
+            truly unavoidable.)
+            </para>
+            </remarks>
+        </member>
+        <member name="P:System.Reactive.Concurrency.TaskObservationOptions.Scheduler">
+            <summary>
+            Gets the optional scheduler to use when delivering notifications of the tasks's
+            progress.
+            </summary>
+            <remarks>
+            If this is null, the behaviour depends on whether the task has already completed. If
+            the task has finished, the relevant completion or error notifications will be delivered
+            via <see cref="P:System.Reactive.Concurrency.ImmediateScheduler.Instance"/>. If the task is still running (or not yet
+            started) at the instant at which it is observed through Rx, no scheduler will be used
+            if this property is null.
+            </remarks>
+        </member>
+        <member name="P:System.Reactive.Concurrency.TaskObservationOptions.IgnoreExceptionsAfterUnsubscribe">
+            <summary>
+            Gets a flag controlling handling of exceptions that occur after cancellation
+            has been initiated by unsubscribing from the observable representing the task's
+            progress.
+            </summary>
+            <remarks>
+            If this is <c>true</c>, exceptions that occur after all observers have unsubscribed
+            will be handled and silently ignored. If <c>false</c>, they will go unobserved, meaning
+            they will eventually emerge through <see cref="E:System.Threading.Tasks.TaskScheduler.UnobservedTaskException"/>.
+            </remarks>
+        </member>
+        <member name="T:System.Reactive.Concurrency.TaskObservationOptions.Value">
+            <summary>
+            Value-type representation.
+            </summary>
+            <remarks>
+            <para>
+            The public API surface area for <see cref="T:System.Reactive.Concurrency.TaskObservationOptions"/> is a class because
+            using a value type would run into various issues. The type might appear in expression
+            trees due to use of <see cref="T:System.Reactive.Linq.IQbservable`1"/>, which limits us
+            to a fairly old subset of C#. It means we can't use the <c>in</c> modifier on
+            parameters, which in turn prevents us from passing options by reference, increasing the
+            overhead of each method call. Also, options types such as this aren't normally value
+            types, so it would be a curious design choice.
+            </para>
+            <para>
+            The downside of using a class is that it entails an extra allocation. Since the feature
+            for which this is designed (the ability to swallow unhandled exceptions thrown by tasks
+            after unsubscription) is one we don't expect most applications to use, that shouldn't
+            be a problem. However, to accommodate this feature, common code paths shared by various
+            overloads need the information that a <see cref="T:System.Reactive.Concurrency.TaskObservationOptions"/> holds. The
+            easy approach would be to construct an instance of this type in overloads that don't
+            take one as an argument. But that would be impose an additional allocation on code that
+            doesn't want this new feature.
+            </para>
+            <para>
+            So although we can't use a value type with <c>in</c> in public APIs dues to constraints
+            on expression trees, we can do so internally. This type is a value-typed version of
+            <see cref="T:System.Reactive.Concurrency.TaskObservationOptions"/> enabling us to share code paths without forcing
+            new allocations on existing code.
+            </para>
+            </remarks>
+        </member>
         <member name="T:System.Reactive.Concurrency.TaskPoolScheduler">
             <summary>
             Represents an object that schedules units of work on the Task Parallel Library (TPL) task pool.
@@ -2850,6 +2953,12 @@
             <summary>
             Disposes the underlying disposable.
             </summary>
+        </member>
+        <member name="M:System.Reactive.Disposables.SingleAssignmentDisposableValue.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:System.Reactive.Disposables.SingleAssignmentDisposableValue.GetHashCode">
+            <inheritdoc/>
         </member>
         <member name="T:System.Reactive.Disposables.StableCompositeDisposable">
             <summary>
@@ -5586,6 +5695,22 @@
             </list>
             </remarks>
         </member>
+        <member name="M:System.Reactive.Linq.Observable.StartAsync``1(System.Func{System.Threading.Tasks.Task{``0}},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Invokes the asynchronous function, surfacing the result through an observable sequence.
+            </summary>
+            <typeparam name="TResult">The type of the result returned by the asynchronous function.</typeparam>
+            <param name="functionAsync">Asynchronous function to run.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence exposing the function's result value, or an exception.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="functionAsync"/> is null.</exception>
+            <remarks>
+            <list type="bullet">
+            <item><description>The function is started immediately, not during the subscription of the resulting sequence.</description></item>
+            <item><description>Multiple subscriptions to the resulting sequence can observe the function's result.</description></item>
+            </list>
+            </remarks>
+        </member>
         <member name="M:System.Reactive.Linq.Observable.StartAsync``1(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}})">
             <summary>
             Invokes the asynchronous function, surfacing the result through an observable sequence.
@@ -5619,6 +5744,30 @@
             <param name="scheduler">Scheduler on which to notify observers.</param>
             <returns>An observable sequence exposing the function's result value, or an exception.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="functionAsync"/> is null or <paramref name="scheduler"/> is null.</exception>
+            <remarks>
+            <list type="bullet">
+            <item><description>The function is started immediately, not during the subscription of the resulting sequence.</description></item>
+            <item><description>Multiple subscriptions to the resulting sequence can observe the function's result.</description></item>
+            <item><description>
+            If any subscription to the resulting sequence is disposed, the CancellationToken is set. The observer associated to the disposed
+            subscription won't see the TaskCanceledException, but other observers will. You can protect against this using the Catch operator.
+            Be careful when handing out the resulting sequence because of this behavior. The most common use is to have a single subscription
+            to the resulting sequence, which controls the CancellationToken state. Alternatively, you can control subscription behavior using
+            multicast operators.
+            </description></item>
+            </list>
+            </remarks>
+        </member>
+        <member name="M:System.Reactive.Linq.Observable.StartAsync``1(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Invokes the asynchronous function, surfacing the result through an observable sequence.
+            The CancellationToken is shared by all subscriptions on the resulting observable sequence. See the remarks section for more information.
+            </summary>
+            <typeparam name="TResult">The type of the result returned by the asynchronous function.</typeparam>
+            <param name="functionAsync">Asynchronous function to run.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence exposing the function's result value, or an exception.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="functionAsync"/> is null.</exception>
             <remarks>
             <list type="bullet">
             <item><description>The function is started immediately, not during the subscription of the resulting sequence.</description></item>
@@ -5691,6 +5840,21 @@
             </list>
             </remarks>
         </member>
+        <member name="M:System.Reactive.Linq.Observable.StartAsync(System.Func{System.Threading.Tasks.Task},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Invokes the asynchronous action, surfacing the result through an observable sequence.
+            </summary>
+            <param name="actionAsync">Asynchronous action to run.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence exposing a Unit value upon completion of the action, or an exception.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="actionAsync"/> is null.</exception>
+            <remarks>
+            <list type="bullet">
+            <item><description>The action is started immediately, not during the subscription of the resulting sequence.</description></item>
+            <item><description>Multiple subscriptions to the resulting sequence can observe the action's outcome.</description></item>
+            </list>
+            </remarks>
+        </member>
         <member name="M:System.Reactive.Linq.Observable.StartAsync(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task})">
             <summary>
             Invokes the asynchronous action, surfacing the result through an observable sequence.
@@ -5736,6 +5900,29 @@
             </list>
             </remarks>
         </member>
+        <member name="M:System.Reactive.Linq.Observable.StartAsync(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Invokes the asynchronous action, surfacing the result through an observable sequence.
+            The CancellationToken is shared by all subscriptions on the resulting observable sequence. See the remarks section for more information.
+            </summary>
+            <param name="actionAsync">Asynchronous action to run.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence exposing a Unit value upon completion of the action, or an exception.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="actionAsync"/> is null.</exception>
+            <remarks>
+            <list type="bullet">
+            <item><description>The action is started immediately, not during the subscription of the resulting sequence.</description></item>
+            <item><description>Multiple subscriptions to the resulting sequence can observe the action's outcome.</description></item>
+            <item><description>
+            If any subscription to the resulting sequence is disposed, the CancellationToken is set. The observer associated to the disposed
+            subscription won't see the TaskCanceledException, but other observers will. You can protect against this using the Catch operator.
+            Be careful when handing out the resulting sequence because of this behavior. The most common use is to have a single subscription
+            to the resulting sequence, which controls the CancellationToken state. Alternatively, you can control subscription behavior using
+            multicast operators.
+            </description></item>
+            </list>
+            </remarks>
+        </member>
         <member name="M:System.Reactive.Linq.Observable.FromAsync``1(System.Func{System.Threading.Tasks.Task{``0}})">
             <summary>
             Converts an asynchronous function into an observable sequence. Each subscription to the resulting sequence causes the function to be started.
@@ -5754,6 +5941,16 @@
             <param name="scheduler">Scheduler on which to notify observers.</param>
             <returns>An observable sequence exposing the result of invoking the function, or an exception.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="functionAsync"/> is null or <paramref name="scheduler"/> is null.</exception>
+        </member>
+        <member name="M:System.Reactive.Linq.Observable.FromAsync``1(System.Func{System.Threading.Tasks.Task{``0}},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Converts an asynchronous function into an observable sequence. Each subscription to the resulting sequence causes the function to be started.
+            </summary>
+            <typeparam name="TResult">The type of the result returned by the asynchronous function.</typeparam>
+            <param name="functionAsync">Asynchronous function to convert.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence exposing the result of invoking the function, or an exception.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="functionAsync"/> is null.</exception>
         </member>
         <member name="M:System.Reactive.Linq.Observable.FromAsync``1(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}})">
             <summary>
@@ -5778,6 +5975,18 @@
             <exception cref="T:System.ArgumentNullException"><paramref name="functionAsync"/> is null or <paramref name="scheduler"/> is null.</exception>
             <remarks>When a subscription to the resulting sequence is disposed, the CancellationToken that was fed to the asynchronous function will be signaled.</remarks>
         </member>
+        <member name="M:System.Reactive.Linq.Observable.FromAsync``1(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Converts an asynchronous function into an observable sequence. Each subscription to the resulting sequence causes the function to be started.
+            The CancellationToken passed to the asynchronous function is tied to the observable sequence's subscription that triggered the function's invocation and can be used for best-effort cancellation.
+            </summary>
+            <typeparam name="TResult">The type of the result returned by the asynchronous function.</typeparam>
+            <param name="functionAsync">Asynchronous function to convert.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence exposing the result of invoking the function, or an exception.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="functionAsync"/> is null.</exception>
+            <remarks>When a subscription to the resulting sequence is disposed, the CancellationToken that was fed to the asynchronous function will be signaled.</remarks>
+        </member>
         <member name="M:System.Reactive.Linq.Observable.FromAsync(System.Func{System.Threading.Tasks.Task})">
             <summary>
             Converts an asynchronous action into an observable sequence. Each subscription to the resulting sequence causes the action to be started.
@@ -5794,6 +6003,15 @@
             <param name="scheduler">Scheduler on which to notify observers.</param>
             <returns>An observable sequence exposing a Unit value upon completion of the action, or an exception.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="actionAsync"/> is null or <paramref name="scheduler"/> is null.</exception>
+        </member>
+        <member name="M:System.Reactive.Linq.Observable.FromAsync(System.Func{System.Threading.Tasks.Task},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Converts an asynchronous action into an observable sequence. Each subscription to the resulting sequence causes the action to be started.
+            </summary>
+            <param name="actionAsync">Asynchronous action to convert.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence exposing a Unit value upon completion of the action, or an exception.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="actionAsync"/> is null.</exception>
         </member>
         <member name="M:System.Reactive.Linq.Observable.FromAsync(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task})">
             <summary>
@@ -5815,6 +6033,17 @@
             <returns>An observable sequence exposing a Unit value upon completion of the action, or an exception.</returns>
             <remarks>When a subscription to the resulting sequence is disposed, the CancellationToken that was fed to the asynchronous function will be signaled.</remarks>
             <exception cref="T:System.ArgumentNullException"><paramref name="actionAsync"/> is null or <paramref name="scheduler"/> is null.</exception>
+        </member>
+        <member name="M:System.Reactive.Linq.Observable.FromAsync(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Converts an asynchronous action into an observable sequence. Each subscription to the resulting sequence causes the action to be started.
+            The CancellationToken passed to the asynchronous action is tied to the observable sequence's subscription that triggered the action's invocation and can be used for best-effort cancellation.
+            </summary>
+            <param name="actionAsync">Asynchronous action to convert.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence exposing a Unit value upon completion of the action, or an exception.</returns>
+            <remarks>When a subscription to the resulting sequence is disposed, the CancellationToken that was fed to the asynchronous function will be signaled.</remarks>
+            <exception cref="T:System.ArgumentNullException"><paramref name="actionAsync"/> is null.</exception>
         </member>
         <member name="M:System.Reactive.Linq.Observable.ToAsync``1(System.Func{``0})">
             <summary>
@@ -7946,6 +8175,21 @@
             <exception cref="T:System.ArgumentNullException"><paramref name="observableFactoryAsync"/> is null.</exception>
             <remarks>This operator is especially useful in conjunction with the asynchronous programming features introduced in C# 5.0 and Visual Basic 11.</remarks>
         </member>
+        <member name="M:System.Reactive.Linq.Observable.Defer``1(System.Func{System.Threading.Tasks.Task{System.IObservable{``0}}},System.Boolean)">
+            <summary>
+            Returns an observable sequence that starts the specified asynchronous factory function whenever a new observer subscribes.
+            </summary>
+            <typeparam name="TResult">The type of the elements in the sequence returned by the factory function, and in the resulting sequence.</typeparam>
+            <param name="observableFactoryAsync">Asynchronous factory function to start for each observer that subscribes to the resulting sequence.</param>
+            <param name="ignoreExceptionsAfterUnsubscribe">
+            If true, exceptions that occur after cancellation has been initiated by unsubscribing from the observable
+            this method returns will be handled and silently ignored. If false, they will go unobserved, meaning they
+            will eventually emerge through <see cref="E:System.Threading.Tasks.TaskScheduler.UnobservedTaskException"/>.
+            </param>
+            <returns>An observable sequence whose observers trigger the given asynchronous observable factory function to be started.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="observableFactoryAsync"/> is null.</exception>
+            <remarks>This operator is especially useful in conjunction with the asynchronous programming features introduced in C# 5.0 and Visual Basic 11.</remarks>
+        </member>
         <member name="M:System.Reactive.Linq.Observable.DeferAsync``1(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{System.IObservable{``0}}})">
             <summary>
             Returns an observable sequence that starts the specified cancellable asynchronous factory function whenever a new observer subscribes.
@@ -7953,6 +8197,23 @@
             </summary>
             <typeparam name="TResult">The type of the elements in the sequence returned by the factory function, and in the resulting sequence.</typeparam>
             <param name="observableFactoryAsync">Asynchronous factory function to start for each observer that subscribes to the resulting sequence.</param>
+            <returns>An observable sequence whose observers trigger the given asynchronous observable factory function to be started.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="observableFactoryAsync"/> is null.</exception>
+            <remarks>This operator is especially useful in conjunction with the asynchronous programming features introduced in C# 5.0 and Visual Basic 11.</remarks>
+            <remarks>When a subscription to the resulting sequence is disposed, the CancellationToken that was fed to the asynchronous observable factory function will be signaled.</remarks>
+        </member>
+        <member name="M:System.Reactive.Linq.Observable.DeferAsync``1(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{System.IObservable{``0}}},System.Boolean)">
+            <summary>
+            Returns an observable sequence that starts the specified cancellable asynchronous factory function whenever a new observer subscribes.
+            The CancellationToken passed to the asynchronous factory function is tied to the returned disposable subscription, allowing best-effort cancellation.
+            </summary>
+            <typeparam name="TResult">The type of the elements in the sequence returned by the factory function, and in the resulting sequence.</typeparam>
+            <param name="observableFactoryAsync">Asynchronous factory function to start for each observer that subscribes to the resulting sequence.</param>
+            <param name="ignoreExceptionsAfterUnsubscribe">
+            If true, exceptions that occur after cancellation has been initiated by unsubscribing from the observable
+            this method returns will be handled and silently ignored. If false, they will go unobserved, meaning they
+            will eventually emerge through <see cref="E:System.Threading.Tasks.TaskScheduler.UnobservedTaskException"/>.
+            </param>
             <returns>An observable sequence whose observers trigger the given asynchronous observable factory function to be started.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="observableFactoryAsync"/> is null.</exception>
             <remarks>This operator is especially useful in conjunction with the asynchronous programming features introduced in C# 5.0 and Visual Basic 11.</remarks>
@@ -10851,7 +11112,7 @@
             <typeparam name="TSource">The type of the elements in the source sequence.</typeparam>
             <typeparam name="TSignal">The arbitrary element type signaled by the handler observable.</typeparam>
             <param name="source">Observable sequence to keep repeating when it successfully terminates.</param>
-            <param name="handler">The function that is called for each observer and takes an observable sequence objects.
+            <param name="handler">The function that is called for each observer and takes an observable sequence of objects.
             It should return an observable of arbitrary items that should signal that arbitrary item in
             response to receiving the completion signal from the source observable. If this observable signals
             a terminal event, the sequence is terminated with that signal instead.</param>
@@ -14892,6 +15153,23 @@
             <paramref name="observableFactoryAsync" /> is null.</exception>
             <remarks>This operator is especially useful in conjunction with the asynchronous programming features introduced in C# 5.0 and Visual Basic 11.</remarks>
         </member>
+        <member name="M:System.Reactive.Linq.Qbservable.Defer``1(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task{System.IObservable{``0}}}},System.Boolean)">
+            <summary>
+            Returns an observable sequence that starts the specified asynchronous factory function whenever a new observer subscribes.
+            </summary>
+            <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
+            <typeparam name="TResult">The type of the elements in the sequence returned by the factory function, and in the resulting sequence.</typeparam>
+            <param name="observableFactoryAsync">Asynchronous factory function to start for each observer that subscribes to the resulting sequence.</param>
+            <param name="ignoreExceptionsAfterUnsubscribe">
+            If true, exceptions that occur after cancellation has been initiated by unsubscribing from the observable
+            this method returns will be handled and silently ignored. If false, they will go unobserved, meaning they
+            will eventually emerge through <see cref="E:System.Threading.Tasks.TaskScheduler.UnobservedTaskException" />.
+            </param>
+            <returns>An observable sequence whose observers trigger the given asynchronous observable factory function to be started.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="observableFactoryAsync" /> is null.</exception>
+            <remarks>This operator is especially useful in conjunction with the asynchronous programming features introduced in C# 5.0 and Visual Basic 11.</remarks>
+        </member>
         <member name="M:System.Reactive.Linq.Qbservable.DeferAsync``1(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{System.IObservable{``0}}}})">
             <summary>
             Returns an observable sequence that starts the specified cancellable asynchronous factory function whenever a new observer subscribes.
@@ -14900,6 +15178,25 @@
             <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
             <typeparam name="TResult">The type of the elements in the sequence returned by the factory function, and in the resulting sequence.</typeparam>
             <param name="observableFactoryAsync">Asynchronous factory function to start for each observer that subscribes to the resulting sequence.</param>
+            <returns>An observable sequence whose observers trigger the given asynchronous observable factory function to be started.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="observableFactoryAsync" /> is null.</exception>
+            <remarks>This operator is especially useful in conjunction with the asynchronous programming features introduced in C# 5.0 and Visual Basic 11.</remarks>
+            <remarks>When a subscription to the resulting sequence is disposed, the CancellationToken that was fed to the asynchronous observable factory function will be signaled.</remarks>
+        </member>
+        <member name="M:System.Reactive.Linq.Qbservable.DeferAsync``1(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{System.IObservable{``0}}}},System.Boolean)">
+            <summary>
+            Returns an observable sequence that starts the specified cancellable asynchronous factory function whenever a new observer subscribes.
+            The CancellationToken passed to the asynchronous factory function is tied to the returned disposable subscription, allowing best-effort cancellation.
+            </summary>
+            <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
+            <typeparam name="TResult">The type of the elements in the sequence returned by the factory function, and in the resulting sequence.</typeparam>
+            <param name="observableFactoryAsync">Asynchronous factory function to start for each observer that subscribes to the resulting sequence.</param>
+            <param name="ignoreExceptionsAfterUnsubscribe">
+            If true, exceptions that occur after cancellation has been initiated by unsubscribing from the observable
+            this method returns will be handled and silently ignored. If false, they will go unobserved, meaning they
+            will eventually emerge through <see cref="E:System.Threading.Tasks.TaskScheduler.UnobservedTaskException" />.
+            </param>
             <returns>An observable sequence whose observers trigger the given asynchronous observable factory function to be started.</returns>
             <exception cref="T:System.ArgumentNullException">
             <paramref name="observableFactoryAsync" /> is null.</exception>
@@ -15436,7 +15733,7 @@
         </member>
         <member name="M:System.Reactive.Linq.Qbservable.FromAsync(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task}})">
             <summary>
-            Converts to asynchronous action into an observable sequence. Each subscription to the resulting sequence causes the action to be started.
+            Converts an asynchronous action into an observable sequence. Each subscription to the resulting sequence causes the action to be started.
             </summary>
             <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
             <param name="actionAsync">Asynchronous action to convert.</param>
@@ -15444,9 +15741,20 @@
             <exception cref="T:System.ArgumentNullException">
             <paramref name="actionAsync" /> is null.</exception>
         </member>
+        <member name="M:System.Reactive.Linq.Qbservable.FromAsync(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task}},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Converts an asynchronous action into an observable sequence. Each subscription to the resulting sequence causes the action to be started.
+            </summary>
+            <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
+            <param name="actionAsync">Asynchronous action to convert.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence exposing a Unit value upon completion of the action, or an exception.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="actionAsync" /> is null.</exception>
+        </member>
         <member name="M:System.Reactive.Linq.Qbservable.FromAsync(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task}},System.Reactive.Concurrency.IScheduler)">
             <summary>
-            Converts to asynchronous action into an observable sequence. Each subscription to the resulting sequence causes the action to be started.
+            Converts an asynchronous action into an observable sequence. Each subscription to the resulting sequence causes the action to be started.
             </summary>
             <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
             <param name="actionAsync">Asynchronous action to convert.</param>
@@ -15457,7 +15765,7 @@
         </member>
         <member name="M:System.Reactive.Linq.Qbservable.FromAsync(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task}})">
             <summary>
-            Converts to asynchronous action into an observable sequence. Each subscription to the resulting sequence causes the action to be started.
+            Converts an asynchronous action into an observable sequence. Each subscription to the resulting sequence causes the action to be started.
             The CancellationToken passed to the asynchronous action is tied to the observable sequence's subscription that triggered the action's invocation and can be used for best-effort cancellation.
             </summary>
             <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
@@ -15467,9 +15775,22 @@
             <exception cref="T:System.ArgumentNullException">
             <paramref name="actionAsync" /> is null.</exception>
         </member>
+        <member name="M:System.Reactive.Linq.Qbservable.FromAsync(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task}},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Converts an asynchronous action into an observable sequence. Each subscription to the resulting sequence causes the action to be started.
+            The CancellationToken passed to the asynchronous action is tied to the observable sequence's subscription that triggered the action's invocation and can be used for best-effort cancellation.
+            </summary>
+            <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
+            <param name="actionAsync">Asynchronous action to convert.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence exposing a Unit value upon completion of the action, or an exception.</returns>
+            <remarks>When a subscription to the resulting sequence is disposed, the CancellationToken that was fed to the asynchronous function will be signaled.</remarks>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="actionAsync" /> is null.</exception>
+        </member>
         <member name="M:System.Reactive.Linq.Qbservable.FromAsync(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task}},System.Reactive.Concurrency.IScheduler)">
             <summary>
-            Converts to asynchronous action into an observable sequence. Each subscription to the resulting sequence causes the action to be started.
+            Converts an asynchronous action into an observable sequence. Each subscription to the resulting sequence causes the action to be started.
             The CancellationToken passed to the asynchronous action is tied to the observable sequence's subscription that triggered the action's invocation and can be used for best-effort cancellation.
             </summary>
             <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
@@ -15482,7 +15803,7 @@
         </member>
         <member name="M:System.Reactive.Linq.Qbservable.FromAsync``1(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task{``0}}})">
             <summary>
-            Converts to asynchronous function into an observable sequence. Each subscription to the resulting sequence causes the function to be started.
+            Converts an asynchronous function into an observable sequence. Each subscription to the resulting sequence causes the function to be started.
             </summary>
             <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
             <typeparam name="TResult">The type of the result returned by the asynchronous function.</typeparam>
@@ -15493,7 +15814,7 @@
         </member>
         <member name="M:System.Reactive.Linq.Qbservable.FromAsync``1(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}}})">
             <summary>
-            Converts to asynchronous function into an observable sequence. Each subscription to the resulting sequence causes the function to be started.
+            Converts an asynchronous function into an observable sequence. Each subscription to the resulting sequence causes the function to be started.
             The CancellationToken passed to the asynchronous function is tied to the observable sequence's subscription that triggered the function's invocation and can be used for best-effort cancellation.
             </summary>
             <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
@@ -15504,9 +15825,35 @@
             <paramref name="functionAsync" /> is null.</exception>
             <remarks>When a subscription to the resulting sequence is disposed, the CancellationToken that was fed to the asynchronous function will be signaled.</remarks>
         </member>
+        <member name="M:System.Reactive.Linq.Qbservable.FromAsync``1(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task{``0}}},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Converts an asynchronous function into an observable sequence. Each subscription to the resulting sequence causes the function to be started.
+            </summary>
+            <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
+            <typeparam name="TResult">The type of the result returned by the asynchronous function.</typeparam>
+            <param name="functionAsync">Asynchronous function to convert.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence exposing the result of invoking the function, or an exception.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="functionAsync" /> is null.</exception>
+        </member>
+        <member name="M:System.Reactive.Linq.Qbservable.FromAsync``1(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}}},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Converts an asynchronous function into an observable sequence. Each subscription to the resulting sequence causes the function to be started.
+            The CancellationToken passed to the asynchronous function is tied to the observable sequence's subscription that triggered the function's invocation and can be used for best-effort cancellation.
+            </summary>
+            <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
+            <typeparam name="TResult">The type of the result returned by the asynchronous function.</typeparam>
+            <param name="functionAsync">Asynchronous function to convert.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence exposing the result of invoking the function, or an exception.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="functionAsync" /> is null.</exception>
+            <remarks>When a subscription to the resulting sequence is disposed, the CancellationToken that was fed to the asynchronous function will be signaled.</remarks>
+        </member>
         <member name="M:System.Reactive.Linq.Qbservable.FromAsync``1(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task{``0}}},System.Reactive.Concurrency.IScheduler)">
             <summary>
-            Converts to asynchronous function into an observable sequence. Each subscription to the resulting sequence causes the function to be started.
+            Converts an asynchronous function into an observable sequence. Each subscription to the resulting sequence causes the function to be started.
             </summary>
             <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
             <typeparam name="TResult">The type of the result returned by the asynchronous function.</typeparam>
@@ -15518,7 +15865,7 @@
         </member>
         <member name="M:System.Reactive.Linq.Qbservable.FromAsync``1(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}}},System.Reactive.Concurrency.IScheduler)">
             <summary>
-            Converts to asynchronous function into an observable sequence. Each subscription to the resulting sequence causes the function to be started.
+            Converts an asynchronous function into an observable sequence. Each subscription to the resulting sequence causes the function to be started.
             The CancellationToken passed to the asynchronous function is tied to the observable sequence's subscription that triggered the function's invocation and can be used for best-effort cancellation.
             </summary>
             <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
@@ -18249,7 +18596,7 @@
             <typeparam name="TSource">The type of the elements in the source sequence.</typeparam>
             <typeparam name="TSignal">The arbitrary element type signaled by the handler observable.</typeparam>
             <param name="source">Observable sequence to keep repeating when it successfully terminates.</param>
-            <param name="handler">The function that is called for each observer and takes an observable sequence objects.
+            <param name="handler">The function that is called for each observer and takes an observable sequence of objects.
             It should return an observable of arbitrary items that should signal that arbitrary item in
             response to receiving the completion signal from the source observable. If this observable signals
             a terminal event, the sequence is terminated with that signal instead.</param>
@@ -19199,6 +19546,27 @@
             </list>
             </remarks>
         </member>
+        <member name="M:System.Reactive.Linq.Qbservable.StartAsync(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task}},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Invokes the asynchronous action, surfacing the result through an observable sequence.
+            </summary>
+            <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
+            <param name="actionAsync">Asynchronous action to run.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence exposing a Unit value upon completion of the action, or an exception.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="actionAsync" /> is null.</exception>
+            <remarks>
+            <list type="bullet">
+            <item>
+            <description>The action is started immediately, not during the subscription of the resulting sequence.</description>
+            </item>
+            <item>
+            <description>Multiple subscriptions to the resulting sequence can observe the action's outcome.</description>
+            </item>
+            </list>
+            </remarks>
+        </member>
         <member name="M:System.Reactive.Linq.Qbservable.StartAsync(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task}},System.Reactive.Concurrency.IScheduler)">
             <summary>
             Invokes the asynchronous action, surfacing the result through an observable sequence.
@@ -19227,6 +19595,37 @@
             </summary>
             <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
             <param name="actionAsync">Asynchronous action to run.</param>
+            <returns>An observable sequence exposing a Unit value upon completion of the action, or an exception.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="actionAsync" /> is null.</exception>
+            <remarks>
+            <list type="bullet">
+            <item>
+            <description>The action is started immediately, not during the subscription of the resulting sequence.</description>
+            </item>
+            <item>
+            <description>Multiple subscriptions to the resulting sequence can observe the action's outcome.</description>
+            </item>
+            <item>
+            <description>
+            If any subscription to the resulting sequence is disposed, the CancellationToken is set. The observer associated to the disposed
+            subscription won't see the TaskCanceledException, but other observers will. You can protect against this using the Catch operator.
+            Be careful when handing out the resulting sequence because of this behavior. The most common use is to have a single subscription
+            to the resulting sequence, which controls the CancellationToken state. Alternatively, you can control subscription behavior using
+            multicast operators.
+            </description>
+            </item>
+            </list>
+            </remarks>
+        </member>
+        <member name="M:System.Reactive.Linq.Qbservable.StartAsync(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task}},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Invokes the asynchronous action, surfacing the result through an observable sequence.
+            The CancellationToken is shared by all subscriptions on the resulting observable sequence. See the remarks section for more information.
+            </summary>
+            <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
+            <param name="actionAsync">Asynchronous action to run.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
             <returns>An observable sequence exposing a Unit value upon completion of the action, or an exception.</returns>
             <exception cref="T:System.ArgumentNullException">
             <paramref name="actionAsync" /> is null.</exception>
@@ -19333,17 +19732,49 @@
             </list>
             </remarks>
         </member>
-        <member name="M:System.Reactive.Linq.Qbservable.StartAsync``1(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task{``0}}},System.Reactive.Concurrency.IScheduler)">
+        <member name="M:System.Reactive.Linq.Qbservable.StartAsync``1(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}}},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Invokes the asynchronous function, surfacing the result through an observable sequence.
+            The CancellationToken is shared by all subscriptions on the resulting observable sequence. See the remarks section for more information.
+            </summary>
+            <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
+            <typeparam name="TResult">The type of the result returned by the asynchronous function.</typeparam>
+            <param name="functionAsync">Asynchronous function to run.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence exposing the function's result value, or an exception.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="functionAsync" /> is null.</exception>
+            <remarks>
+            <list type="bullet">
+            <item>
+            <description>The function is started immediately, not during the subscription of the resulting sequence.</description>
+            </item>
+            <item>
+            <description>Multiple subscriptions to the resulting sequence can observe the function's result.</description>
+            </item>
+            <item>
+            <description>
+            If any subscription to the resulting sequence is disposed, the CancellationToken is set. The observer associated to the disposed
+            subscription won't see the TaskCanceledException, but other observers will. You can protect against this using the Catch operator.
+            Be careful when handing out the resulting sequence because of this behavior. The most common use is to have a single subscription
+            to the resulting sequence, which controls the CancellationToken state. Alternatively, you can control subscription behavior using
+            multicast operators.
+            </description>
+            </item>
+            </list>
+            </remarks>
+        </member>
+        <member name="M:System.Reactive.Linq.Qbservable.StartAsync``1(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task{``0}}},System.Reactive.Concurrency.TaskObservationOptions)">
             <summary>
             Invokes the asynchronous function, surfacing the result through an observable sequence.
             </summary>
             <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
             <typeparam name="TResult">The type of the result returned by the asynchronous function.</typeparam>
             <param name="functionAsync">Asynchronous function to run.</param>
-            <param name="scheduler">Scheduler on which to notify observers.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
             <returns>An observable sequence exposing the function's result value, or an exception.</returns>
             <exception cref="T:System.ArgumentNullException">
-            <paramref name="functionAsync" /> is null or <paramref name="scheduler" /> is null.</exception>
+            <paramref name="functionAsync" /> is null.</exception>
             <remarks>
             <list type="bullet">
             <item>
@@ -19383,6 +19814,28 @@
             to the resulting sequence, which controls the CancellationToken state. Alternatively, you can control subscription behavior using
             multicast operators.
             </description>
+            </item>
+            </list>
+            </remarks>
+        </member>
+        <member name="M:System.Reactive.Linq.Qbservable.StartAsync``1(System.Reactive.Linq.IQbservableProvider,System.Linq.Expressions.Expression{System.Func{System.Threading.Tasks.Task{``0}}},System.Reactive.Concurrency.IScheduler)">
+            <summary>
+            Invokes the asynchronous function, surfacing the result through an observable sequence.
+            </summary>
+            <param name="provider">Query provider used to construct the <see cref="T:System.Reactive.Linq.IQbservable`1"/> data source.</param>
+            <typeparam name="TResult">The type of the result returned by the asynchronous function.</typeparam>
+            <param name="functionAsync">Asynchronous function to run.</param>
+            <param name="scheduler">Scheduler on which to notify observers.</param>
+            <returns>An observable sequence exposing the function's result value, or an exception.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="functionAsync" /> is null or <paramref name="scheduler" /> is null.</exception>
+            <remarks>
+            <list type="bullet">
+            <item>
+            <description>The function is started immediately, not during the subscription of the resulting sequence.</description>
+            </item>
+            <item>
+            <description>Multiple subscriptions to the resulting sequence can observe the function's result.</description>
             </item>
             </list>
             </remarks>
@@ -24566,6 +25019,40 @@
             <returns>The observable sequence that supports remote subscriptions.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null.</exception>
         </member>
+        <member name="M:System.Reactive.ReflectionUtils.IsWinRTEventRegistrationTokenType(System.Type)">
+            <summary>
+            Determine whether a type represents a WinRT event registration token
+            (https://learn.microsoft.com/en-us/uwp/api/windows.foundation.eventregistrationtoken).
+            </summary>
+            <param name="t">The type to check.</param>
+            <returns>True if this represents a WinRT event registration token</returns>
+            <remarks>
+            <para>
+            We used to perform a simple comparison with typeof(EventRegistrationToken), but the
+            introduction of C#/WinRT has made this problematic. Before C#/WinRT, the .NET
+            projection of WinRT's Windows.Foundation.EventRegistrationToken type was
+            System.Runtime.InteropServices.WindowsRuntime.EventRegistrationToken. But that type is
+            associated with the old WinRT interop mechanisms in which the CLR works directly with
+            WinMD. That was how it worked up as far as .NET Core 3.1, and it's still how .NET
+            Framework works, but this direct WinMD support was removed in .NET 5.0.
+            </para>
+            <para>
+            If you're on .NET 5.0 or later, the System.Runtime.InteropServices.WindowsRuntime types
+            are no longer supported. While you can still get access to them through the NuGet
+            package of the same name (that's how .NET Standard 2.0 libraries are able to use these
+            types) they are best avoided, because the types in that library are no longer the types
+            you see when any of the WinRT types they are meant to represent are projected into the
+            CLR's world.
+            </para>
+            <para>
+            It was therefore necessary for Rx to stop using these types, and to drop its reference
+            to the System.Runtime.InteropServices.WindowsRuntime package. We can replicate the
+            same logic by looking for the type name. By checking for either the old or new
+            namespaces, we can support both the old projection (still used on .NET Framework) and
+            also the new C#/WinRT projection.
+            </para>
+            </remarks>
+        </member>
         <member name="T:System.Reactive.ObserveOnObserverNew`1">
             <summary>
             An ObserveOn operator implementation that uses lock-free
@@ -27460,6 +27947,16 @@
             <exception cref="T:System.ArgumentNullException"><paramref name="task"/> is <c>null</c> or <paramref name="scheduler"/> is <c>null</c>.</exception>
             <remarks>If the specified task object supports cancellation, consider using <see cref="M:System.Reactive.Linq.Observable.FromAsync(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task})"/> instead.</remarks>
         </member>
+        <member name="M:System.Reactive.Threading.Tasks.TaskObservableExtensions.ToObservable(System.Threading.Tasks.Task,System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Returns an observable sequence that signals when the task completes.
+            </summary>
+            <param name="task">Task to convert to an observable sequence.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence that produces a unit value when the task completes, or propagates the exception produced by the task.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="task"/> is <c>null</c>.</exception>
+            <remarks>If the specified task object supports cancellation, consider using <see cref="M:System.Reactive.Linq.Observable.FromAsync(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task})"/> instead.</remarks>
+        </member>
         <member name="M:System.Reactive.Threading.Tasks.TaskObservableExtensions.ToObservable``1(System.Threading.Tasks.Task{``0})">
             <summary>
             Returns an observable sequence that propagates the result of the task.
@@ -27479,6 +27976,17 @@
             <param name="scheduler">Scheduler on which to notify observers about completion, cancellation or failure.</param>
             <returns>An observable sequence that produces the task's result, or propagates the exception produced by the task.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="task"/> is <c>null</c> or <paramref name="scheduler"/> is <c>null</c>.</exception>
+            <remarks>If the specified task object supports cancellation, consider using <see cref="M:System.Reactive.Linq.Observable.FromAsync``1(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}})"/> instead.</remarks>
+        </member>
+        <member name="M:System.Reactive.Threading.Tasks.TaskObservableExtensions.ToObservable``1(System.Threading.Tasks.Task{``0},System.Reactive.Concurrency.TaskObservationOptions)">
+            <summary>
+            Returns an observable sequence that propagates the result of the task.
+            </summary>
+            <typeparam name="TResult">The type of the result produced by the task.</typeparam>
+            <param name="task">Task to convert to an observable sequence.</param>
+            <param name="options">Controls how the tasks's progress is observed.</param>
+            <returns>An observable sequence that produces the task's result, or propagates the exception produced by the task.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="task"/> is <c>null</c>.</exception>
             <remarks>If the specified task object supports cancellation, consider using <see cref="M:System.Reactive.Linq.Observable.FromAsync``1(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}})"/> instead.</remarks>
         </member>
         <member name="M:System.Reactive.Threading.Tasks.TaskObservableExtensions.ToTask``1(System.IObservable{``0})">

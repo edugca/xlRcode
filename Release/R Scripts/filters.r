@@ -22,7 +22,7 @@ local({
 # FUNCTIONS EXPOSED TO EXCEL
 ##################################################
 
-filterHP <- function(values, trendOrCycle = 'C', lambdaParameter = 14400, hasDrift = FALSE){
+xlRcode$Functions$R.FILTER.HP <- function(values, trendOrCycle = 'C', lambdaParameter = 14400, hasDrift = FALSE){
 
   # Load packages
   library(mFilter)
@@ -42,8 +42,8 @@ filterHP <- function(values, trendOrCycle = 'C', lambdaParameter = 14400, hasDri
   }
   isColumn <- TRUE
   if( dim(values)[1] == 1 ){
-	isColumn <- FALSE
-	values <- matrix(values)
+	  isColumn <- FALSE
+	  values <- matrix(values)
   }
 
   # Convert values to time series
@@ -64,9 +64,9 @@ filterHP <- function(values, trendOrCycle = 'C', lambdaParameter = 14400, hasDri
 
   # Transpose if needed
   if (isColumn){
-	final
+	  final
   } else {
-	t(final)
+	  t(final)
   }
 
   #print(unemp.hp)
@@ -96,8 +96,8 @@ filterTS <- function(values, trendOrCycle, filterName = 'HP', ...){
   }
   isColumn <- TRUE
   if( dim(values)[1] == 1 ){
-	isColumn <- FALSE
-	values <- matrix(values)
+	  isColumn <- FALSE
+	  values <- matrix(values)
   }
 
   valuesTS <- ts(values)
@@ -124,14 +124,21 @@ filterTS <- function(values, trendOrCycle, filterName = 'HP', ...){
   
 
   if (toupper(trendOrCycle) == 'T' || toupper(trendOrCycle) == 'TREND'){
-    as.numeric(filtered$trend)
+    final <- as.numeric(filtered$trend)
   } else if (toupper(trendOrCycle) == 'C' || toupper(trendOrCycle) == 'CYCLE'){
-    as.numeric(filtered$cycle)
+    final <- as.numeric(filtered$cycle)
   } else {
     errorMsg = '# trendOrCycle must be T (or TREND) or C (or CYCLE)'
     return(errorMsg)
   }
 
+  # Transpose if needed
+  if (isColumn){
+    final
+  } else {
+    t(final)
+  }
+  
   #print(unemp.hp)
   #summary(unemp.hp)
   #residuals(unemp.hp)

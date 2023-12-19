@@ -1096,6 +1096,8 @@
         <member name="T:Microsoft.CodeAnalysis.ClrGlobalAssemblyCache">
             <summary>
             Provides APIs to enumerate and look up assemblies stored in the Global Assembly Cache.
+            
+            This resolver only works when running under the .net framework runtime.
             </summary>
         </member>
         <member name="M:Microsoft.CodeAnalysis.ClrGlobalAssemblyCache.GetAssemblyIdentities(System.Reflection.AssemblyName,System.Collections.Immutable.ImmutableArray{System.Reflection.ProcessorArchitecture})">
@@ -1204,6 +1206,16 @@
         <member name="T:Microsoft.CodeAnalysis.MonoGlobalAssemblyCache">
             <summary>
             Provides APIs to enumerate and look up assemblies stored in the Global Assembly Cache.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CodeAnalysis.DotNetCoreGlobalAssemblyCache">
+            <summary>
+            Implements a no-op wrapper to search the global assembly cache when running under a .net core runtime.
+            At some point we may wish to get information about assemblies in the GAC under a .net core runtime - for example
+            if we're loading a .net framework project in vscode and want to find the actual assembly to decompile.
+            
+            However it isn't extremely straightforward to implement and we don't need it at this time so leaving it as a no-op.
+            More info on how this might be possible under a .net core runtime can be found https://github.com/dotnet/core/issues/3048#issuecomment-725781811
             </summary>
         </member>
         <member name="T:Roslyn.Utilities.CoreLightup">

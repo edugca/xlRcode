@@ -1,0 +1,479 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>System.Diagnostics.PerformanceCounter</name>
+    </assembly>
+    <members>
+        <member name="P:System.SR.InvalidParameter">
+            <summary>Invalid value '{1}' for parameter '{0}'.</summary>
+        </member>
+        <member name="P:System.SR.CategoryHelpCorrupt">
+            <summary>Cannot load Category Help data because an invalid index '{0}' was read from the registry. Performance counters on the machine may need to be repaired.</summary>
+        </member>
+        <member name="P:System.SR.CounterNameCorrupt">
+            <summary>Cannot load Counter Name data because an invalid index '{0}' was read from the registry. Performance counters on the machine may need to be repaired.</summary>
+        </member>
+        <member name="P:System.SR.CounterDataCorrupt">
+            <summary>Cannot load Performance Counter data because an unexpected registry key value type was read from '{0}'. Performance counters on the machine may need to be repaired.</summary>
+        </member>
+        <member name="P:System.SR.InstanceNameTooLong">
+            <summary>Instance names used for writing to custom counters must be 127 characters or less.</summary>
+        </member>
+        <member name="P:System.SR.ProcessLifetimeNotValidInGlobal">
+            <summary>PerformanceCounterInstanceLifetime.Process is not valid in the global shared memory.  If your performance counter category was created with an older version of the Framework, it uses the global shared memory.  Either use PerformanceCounterInstanceLifetime. ...</summary>
+        </member>
+        <member name="P:System.SR.CountersOOM">
+            <summary>Custom counters file view is out of memory.</summary>
+        </member>
+        <member name="P:System.SR.MappingCorrupted">
+            <summary>Cannot continue the current operation, the performance counters memory mapping has been corrupted.</summary>
+        </member>
+        <member name="P:System.SR.SingleInstanceOnly">
+            <summary>Category '{0}' is marked as single-instance.  Performance counters in this category can only be created without instance names.</summary>
+        </member>
+        <member name="P:System.SR.MultiInstanceOnly">
+            <summary>Category '{0}' is marked as multi-instance.  Performance counters in this category can only be created with instance names.</summary>
+        </member>
+        <member name="P:System.SR.CantConvertProcessToGlobal">
+            <summary>An instance with a lifetime of Process can only be accessed from a PerformanceCounter with the InstanceLifetime set to PerformanceCounterInstanceLifetime.Process.</summary>
+        </member>
+        <member name="P:System.SR.CantConvertGlobalToProcess">
+            <summary>An instance with a lifetime of Global can only be accessed from a PerformanceCounter with the InstanceLifetime set to PerformanceCounterInstanceLifetime.Global.</summary>
+        </member>
+        <member name="P:System.SR.InstanceAlreadyExists">
+            <summary>Instance '{0}' already exists with a lifetime of Process.  It cannot be recreated or reused until it has been removed or until the process using it has exited.</summary>
+        </member>
+        <member name="P:System.SR.SharedMemoryGhosted">
+            <summary>Cannot access shared memory, AppDomain has been unloaded.</summary>
+        </member>
+        <member name="P:System.SR.CantCreateFileMapping">
+            <summary>Cannot create file mapping.</summary>
+        </member>
+        <member name="P:System.SR.CantMapFileView">
+            <summary>Cannot map view of file.</summary>
+        </member>
+        <member name="P:System.SR.MismatchedCounterTypes">
+            <summary>MismatchedCounterTypes=Mismatched counter types.</summary>
+        </member>
+        <member name="P:System.SR.PerfCounterPdhError">
+            <summary>There was an error calculating the PerformanceCounter value (0x{0}).</summary>
+        </member>
+        <member name="P:System.SR.MustAddCounterCreationData">
+            <summary>Only objects of type CounterCreationData can be added to a CounterCreationDataCollection.</summary>
+        </member>
+        <member name="P:System.SR.CantReadInstance">
+            <summary>Instance '{0}' does not exist in the specified Category.</summary>
+        </member>
+        <member name="P:System.SR.CantReadCategoryIndex">
+            <summary>Could not read Category Index '{0}'.</summary>
+        </member>
+        <member name="P:System.SR.CounterLayout">
+            <summary>The Counter layout for the Category specified is invalid, a counter of the type:  AverageCount64, AverageTimer32, CounterMultiTimer, CounterMultiTimerInverse, CounterMultiTimer100Ns, CounterMultiTimer100NsInverse, RawFraction, or SampleFraction has to be i ...</summary>
+        </member>
+        <member name="P:System.SR.CantReadCounter">
+            <summary>Counter '{0}' does not exist in the specified Category.</summary>
+        </member>
+        <member name="P:System.SR.HelpNotAvailable">
+            <summary>Help Not Available</summary>
+        </member>
+        <member name="P:System.SR.MissingCategory">
+            <summary>Category '{0}' does not exist.</summary>
+        </member>
+        <member name="P:System.SR.MissingCounter">
+            <summary>Counter '{0}' does not exist.</summary>
+        </member>
+        <member name="P:System.SR.CantChangeCategoryRegistration">
+            <summary>Cannot create or delete the Performance Category '{0}' because access is denied.</summary>
+        </member>
+        <member name="P:System.SR.InvalidProperty">
+            <summary>Invalid value '{1}' for property '{0}'.</summary>
+        </member>
+        <member name="P:System.SR.CategoryNameNotSet">
+            <summary>Category name property has not been set.</summary>
+        </member>
+        <member name="P:System.SR.PerformanceCategoryExists">
+            <summary>Cannot create Performance Category '{0}' because it already exists.</summary>
+        </member>
+        <member name="P:System.SR.PerfInvalidCategoryName">
+            <summary>Invalid category name. Its length must be in the range between '{0}' and '{1}'. Double quotes, control characters and leading or trailing spaces are not allowed.</summary>
+        </member>
+        <member name="P:System.SR.CategoryNameTooLong">
+            <summary>Category names must be 1024 characters or less.</summary>
+        </member>
+        <member name="P:System.SR.PerfInvalidCounterName">
+            <summary>Invalid counter name. Its length must be in the range between '{0}' and '{1}'. Double quotes, control characters and leading or trailing spaces are not allowed.</summary>
+        </member>
+        <member name="P:System.SR.PerfInvalidHelp">
+            <summary>Invalid help string. Its length must be in the range between '{0}' and '{1}'.</summary>
+        </member>
+        <member name="P:System.SR.InvalidCounterName">
+            <summary>Invalid empty or null string for counter name.</summary>
+        </member>
+        <member name="P:System.SR.DuplicateCounterName">
+            <summary>Cannot create Performance Category with counter name '{0}' because the name is a duplicate.</summary>
+        </member>
+        <member name="P:System.SR.CantDeleteCategory">
+            <summary>Cannot delete Performance Category because this category is not registered or is a system category.</summary>
+        </member>
+        <member name="P:System.SR.InstanceNameRequired">
+            <summary>Counter is not single instance, an instance name needs to be specified.</summary>
+        </member>
+        <member name="P:System.SR.MissingInstance">
+            <summary>Instance '{0}' does not exist in category '{1}'.</summary>
+        </member>
+        <member name="P:System.SR.CantSetLifetimeAfterInitialized">
+            <summary>The InstanceLifetime cannot be set after the instance has been initialized.  You must use the default constructor and set the CategoryName, InstanceName, CounterName, InstanceLifetime and ReadOnly properties manually before setting the RawValue.</summary>
+        </member>
+        <member name="P:System.SR.ReadOnlyCounter">
+            <summary>Cannot update Performance Counter, this object has been initialized as ReadOnly.</summary>
+        </member>
+        <member name="P:System.SR.PCNotSupportedUnderAppContainer">
+            <summary>Writeable performance counters are not allowed when running in AppContainer.</summary>
+        </member>
+        <member name="P:System.SR.CategoryNameMissing">
+            <summary>Failed to initialize because CategoryName is missing.</summary>
+        </member>
+        <member name="P:System.SR.CounterNameMissing">
+            <summary>Failed to initialize because CounterName is missing.</summary>
+        </member>
+        <member name="P:System.SR.InstanceLifetimeProcessonReadOnly">
+            <summary>InstanceLifetime is unused by ReadOnly counters.</summary>
+        </member>
+        <member name="P:System.SR.RemoteWriting">
+            <summary>Cannot write to a Performance Counter in a remote machine.</summary>
+        </member>
+        <member name="P:System.SR.NotCustomCounter">
+            <summary>The requested Performance Counter is not a custom counter, it has to be initialized as ReadOnly.</summary>
+        </member>
+        <member name="P:System.SR.InstanceLifetimeProcessforSingleInstance">
+            <summary>Single instance categories are only valid with the Global lifetime.</summary>
+        </member>
+        <member name="P:System.SR.InstanceNameProhibited">
+            <summary>Counter is single instance, instance name '{0}' is not valid for this counter category.</summary>
+        </member>
+        <member name="P:System.SR.ReadOnlyRemoveInstance">
+            <summary>Cannot remove Performance Counter Instance, this object as been initialized as ReadOnly.</summary>
+        </member>
+        <member name="P:System.SR.CounterExists">
+            <summary>Could not locate Performance Counter with specified category name '{0}', counter name '{1}'.</summary>
+        </member>
+        <member name="P:System.SR.SetSecurityDescriptorFailed">
+            <summary>Cannot initialize security descriptor initialized.</summary>
+        </member>
+        <member name="P:System.SR.RegKeyMissingShort">
+            <summary>Cannot open registry key '{0}' on computer '{1}'</summary>
+        </member>
+        <member name="P:System.SR.CantGetMappingSize">
+            <summary>Cannot calculate the size of the file view.</summary>
+        </member>
+        <member name="P:System.SR.CantReadCategory">
+            <summary>Cannot read Category '{0}'.</summary>
+        </member>
+        <member name="P:System.SR.PlatformNotSupported_PerfCounters">
+            <summary>Performance Counters are not supported on this platform.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_Argument_InvalidCounterSetInstanceType">
+            <summary>CounterSetInstanceType '{0}' is not a valid CounterSetInstanceType.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_InvalidOperation_NoActiveProvider">
+            <summary>CounterSet provider '{0}' not active.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_Argument_InvalidCounterType">
+            <summary>CounterType '{0}' is not a valid CounterType.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_InvalidOperation_AddCounterAfterInstance">
+            <summary>Cannot AddCounter to CounterSet '{0}' after CreateCounterSetInstance.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_Argument_CounterAlreadyExists">
+            <summary>CounterId '{0}' already added to CounterSet '{1}'.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_Argument_EmptyInstanceName">
+            <summary>Non-empty instanceName required.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_InvalidOperation_CounterSetNotInstalled">
+            <summary>CounterSet '{0}' not installed yet.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_Argument_InvalidInstance">
+            <summary>Single instance type CounterSet '{0}' can only have 1 CounterSetInstance.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_Argument_EmptyCounterName">
+            <summary>Non-empty counterName required.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_Argument_CounterNameAlreadyExists">
+            <summary>CounterName '{0}' already added to CounterSet '{1}'.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_Argument_ProviderNotFound">
+            <summary>CounterSet provider '{0}' not found.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_InvalidOperation_CounterSetContainsNoCounter">
+            <summary>CounterSet '{0}' does not include any counters.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_Argument_CounterSetAlreadyRegister">
+            <summary>CounterSet '{0}' already registered.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_Argument_InstanceAlreadyExists">
+            <summary>Instance '{0}' already exists in CounterSet '{1}'.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_InsufficientMemory_InstanceCounterBlock">
+            <summary>Cannot allocate raw counter data for CounterSet '{0}' Instance '{1}'.</summary>
+        </member>
+        <member name="P:System.SR.Perflib_InvalidOperation_CounterRefValue">
+            <summary>Cannot locate raw counter data location for CounterSet '{0}', Counter '{1}, in Instance '{2}'.</summary>
+        </member>
+        <member name="P:System.SR.Arg_DllInitFailure">
+            <summary>One machine (either '{0}' or local) may not have remote administration enabled, or both machines may not be running the remote registry service.</summary>
+        </member>
+        <member name="P:System.SR.Arg_RegKeyNoRemoteConnect">
+            <summary>No remote connection to '{0}' while trying to read the registry.</summary>
+        </member>
+        <member name="P:System.SR.ObjectDisposed_CategorySampleClosed">
+            <summary>Cannot access a closed category sample.</summary>
+        </member>
+        <member name="P:System.SR.UnauthorizedAccess_RegistryKeyGeneric_Key">
+            <summary>Access to the registry key '{0}' is denied.</summary>
+        </member>
+        <member name="T:System.Runtime.InteropServices.LibraryImportAttribute">
+            <summary>
+            Attribute used to indicate a source generator should create a function for marshalling
+            arguments instead of relying on the runtime to generate an equivalent marshalling function at run-time.
+            </summary>
+            <remarks>
+            This attribute is meaningless if the source generator associated with it is not enabled.
+            The current built-in source generator only supports C# and only supplies an implementation when
+            applied to static, partial, non-generic methods.
+            </remarks>
+        </member>
+        <member name="M:System.Runtime.InteropServices.LibraryImportAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Runtime.InteropServices.LibraryImportAttribute"/>.
+            </summary>
+            <param name="libraryName">Name of the library containing the import.</param>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.LibraryName">
+            <summary>
+            Gets the name of the library containing the import.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.EntryPoint">
+            <summary>
+            Gets or sets the name of the entry point to be called.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshalling">
+            <summary>
+            Gets or sets how to marshal string arguments to the method.
+            </summary>
+            <remarks>
+            If this field is set to a value other than <see cref="F:System.Runtime.InteropServices.StringMarshalling.Custom" />,
+            <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType" /> must not be specified.
+            </remarks>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType">
+            <summary>
+            Gets or sets the <see cref="T:System.Type"/> used to control how string arguments to the method are marshalled.
+            </summary>
+            <remarks>
+            If this field is specified, <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshalling" /> must not be specified
+            or must be set to <see cref="F:System.Runtime.InteropServices.StringMarshalling.Custom" />.
+            </remarks>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.SetLastError">
+            <summary>
+            Gets or sets whether the callee sets an error (SetLastError on Windows or errno
+            on other platforms) before returning from the attributed method.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.InteropServices.StringMarshalling">
+            <summary>
+            Specifies how strings should be marshalled for generated p/invokes
+            </summary>
+        </member>
+        <member name="F:System.Runtime.InteropServices.StringMarshalling.Custom">
+            <summary>
+            Indicates the user is suppling a specific marshaller in <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType"/>.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.InteropServices.StringMarshalling.Utf8">
+            <summary>
+            Use the platform-provided UTF-8 marshaller.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.InteropServices.StringMarshalling.Utf16">
+            <summary>
+            Use the platform-provided UTF-16 marshaller.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.Versioning.OSPlatformAttribute">
+            <summary>
+            Base type for all platform-specific API attributes.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.Versioning.TargetPlatformAttribute">
+            <summary>
+            Records the platform that the project targeted.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.Versioning.SupportedOSPlatformAttribute">
+             <summary>
+             Records the operating system (and minimum version) that supports an API. Multiple attributes can be
+             applied to indicate support on multiple operating systems.
+             </summary>
+             <remarks>
+             Callers can apply a <see cref="T:System.Runtime.Versioning.SupportedOSPlatformAttribute" />
+             or use guards to prevent calls to APIs on unsupported operating systems.
+            
+             A given platform should only be specified once.
+             </remarks>
+        </member>
+        <member name="T:System.Runtime.Versioning.UnsupportedOSPlatformAttribute">
+            <summary>
+            Marks APIs that were removed in a given operating system version.
+            </summary>
+            <remarks>
+            Primarily used by OS bindings to indicate APIs that are only available in
+            earlier versions.
+            </remarks>
+        </member>
+        <member name="T:System.Runtime.Versioning.ObsoletedOSPlatformAttribute">
+            <summary>
+            Marks APIs that were obsoleted in a given operating system version.
+            </summary>
+            <remarks>
+            Primarily used by OS bindings to indicate APIs that should not be used anymore.
+            </remarks>
+        </member>
+        <member name="T:System.Runtime.Versioning.SupportedOSPlatformGuardAttribute">
+             <summary>
+             Annotates a custom guard field, property or method with a supported platform name and optional version.
+             Multiple attributes can be applied to indicate guard for multiple supported platforms.
+             </summary>
+             <remarks>
+             Callers can apply a <see cref="T:System.Runtime.Versioning.SupportedOSPlatformGuardAttribute" /> to a field, property or method
+             and use that field, property or method in a conditional or assert statements in order to safely call platform specific APIs.
+            
+             The type of the field or property should be boolean, the method return type should be boolean in order to be used as platform guard.
+             </remarks>
+        </member>
+        <member name="T:System.Runtime.Versioning.UnsupportedOSPlatformGuardAttribute">
+             <summary>
+             Annotates the custom guard field, property or method with an unsupported platform name and optional version.
+             Multiple attributes can be applied to indicate guard for multiple unsupported platforms.
+             </summary>
+             <remarks>
+             Callers can apply a <see cref="T:System.Runtime.Versioning.UnsupportedOSPlatformGuardAttribute" /> to a field, property or method
+             and use that  field, property or method in a conditional or assert statements as a guard to safely call APIs unsupported on those platforms.
+            
+             The type of the field or property should be boolean, the method return type should be boolean in order to be used as platform guard.
+             </remarks>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.AllowNullAttribute">
+            <summary>Specifies that null is allowed as an input even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DisallowNullAttribute">
+            <summary>Specifies that null is disallowed as an input even if the corresponding type allows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullAttribute">
+            <summary>Specifies that an output may be null even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullAttribute">
+            <summary>Specifies that an output will not be null even if the corresponding type allows it. Specifies that an input argument was not null when the call returns.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute">
+            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue"/>, the parameter may be null even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified return value condition.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter may be null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute">
+            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue"/>, the parameter will not be null even if the corresponding type allows it.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified return value condition.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter will not be null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute">
+            <summary>Specifies that the output will be non-null if the named parameter is non-null.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.#ctor(System.String)">
+            <summary>Initializes the attribute with the associated parameter name.</summary>
+            <param name="parameterName">
+            The associated parameter name.  The output will be non-null if the argument to the parameter specified is non-null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.ParameterName">
+            <summary>Gets the associated parameter name.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnAttribute">
+            <summary>Applied to a method that will never return under any circumstance.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute">
+            <summary>Specifies that the method will not return if the associated Boolean parameter is passed the specified value.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified parameter value.</summary>
+            <param name="parameterValue">
+            The condition parameter value. Code after the method will be considered unreachable by diagnostics if the argument to
+            the associated parameter matches this value.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.ParameterValue">
+            <summary>Gets the condition parameter value.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute">
+            <summary>Specifies that the method or property will ensure that the listed field and property members have not-null values.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute.#ctor(System.String)">
+            <summary>Initializes the attribute with a field or property member.</summary>
+            <param name="member">
+            The field or property member that is promised to be not-null.
+            </param>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute.#ctor(System.String[])">
+            <summary>Initializes the attribute with the list of field and property members.</summary>
+            <param name="members">
+            The list of field and property members that are promised to be not-null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute.Members">
+            <summary>Gets field or property member names.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute">
+            <summary>Specifies that the method or property will ensure that the listed field and property members have not-null values when returning with the specified return value condition.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String)">
+            <summary>Initializes the attribute with the specified return value condition and a field or property member.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter will not be null.
+            </param>
+            <param name="member">
+            The field or property member that is promised to be not-null.
+            </param>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String[])">
+            <summary>Initializes the attribute with the specified return value condition and list of field and property members.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter will not be null.
+            </param>
+            <param name="members">
+            The list of field and property members that are promised to be not-null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.Members">
+            <summary>Gets field or property member names.</summary>
+        </member>
+    </members>
+</doc>

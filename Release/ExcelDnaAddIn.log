@@ -1,0 +1,695 @@
+ExcelDna.Integration Verbose: 1 : Enter DnaLibrary.InitializeRootLibrary
+ExcelDna.Integration Verbose: 1 : No Dna file in resources - looking for file.
+ExcelDna.Integration Verbose: 1 : xlRcode Add-In - Begin Initialize
+ExcelDna.Integration Information: 1 : ResolvePath: Resolving xlRcode.dll from DnaDirectory: C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release
+ExcelDna.Integration Verbose: 1 : ResolvePath: Checking at C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode.dll
+ExcelDna.Integration Information: 1 : ResolvePath: Found at C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode.dll
+ExcelDna.Integration Verbose: 1 : Processing assembly xlRcode, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null. ExplicitExports False, ExplicitRegistration True, ComServer False, IsDynamic False
+ExcelDna.Integration Verbose: 1 : Processing type <>f__AnonymousType0
+ExcelDna.Integration Verbose: 1 : Processing type Ribbon.RibbonController
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Created add-in object of type: Ribbon.RibbonController
+ExcelDna.Integration Verbose: 1 : Processing type T.MessageQueue`1
+ExcelDna.Integration Verbose: 1 : Processing type T.MessagingSynchronizationContext
+ExcelDna.Integration Verbose: 1 : Processing type System.InputBoxDialog
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AsyncHelpers
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.AsyncHelpers
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fLambdaFolder
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyTaskScheduler
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.MyTaskScheduler
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fAbout
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.consoleControl
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dCTPManager
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.dCTPManager
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.XLRTIMER_DataSource
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.XLRTIMERNOW_DataSource
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.WaveDataSource
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.dFunctions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.DynamicCollection
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.DeclarationSnippet
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.DeclarationMethod
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyMethodItem
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fEnvironment
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fLambda
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.MyFunctions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.ArrayExtensions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.ArrayExtensions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.TreeViewExtensions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.TreeViewExtensions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.CustomArray`1
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.CustomArray`1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.RExtensions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.RExtensions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.StringExtensions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.StringExtensions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.ImageHelpers
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.ImageHelpers
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Helpers_GitHub
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.Helpers_GitHub
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Helpers_Form
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.Helpers_Form
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Helpers
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.Helpers
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.WinFormsExtensions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.WinFormsExtensions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.ControlExtensions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.ControlExtensions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.WindowHelper
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.WindowHelper
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Global
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.Global
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Created add-in object of type: xlRcode.AddIn
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.CustomCharacterDevice
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.RPrompt
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.RPrompt
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.myRDotNet
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.myRDotNet
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.SetUp
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Program
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.Program
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fSetUp
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dRtdServer
+ExcelDna.Integration Verbose: 1 : GetRtdServerTypes - Found RTD server type: xlRcode.dRtdServer
+ExcelDna.Integration Verbose: 1 : GetComClassTypes - Found type xlRcode.dRtdServer, with ProgId xlRcode.dRtdServer
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Properties.Resources
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Properties.Settings
+ExcelDna.Integration Verbose: 1 : Processing type <PrivateImplementationDetails>
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Core.MsoTriState
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Core.MsoTriState
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.AddIn
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.AddIn
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.AddIns
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.AddIns
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.AppEvents
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.AppEvents
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.AppEvents_Event
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.AppEvents_Event
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Application
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Application
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Chart
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Chart
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.ChartEvents
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.ChartEvents
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.ChartEvents_Event
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.ChartEvents_Event
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.ChartObject
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.ChartObject
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.DocEvents
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.DocEvents
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.DocEvents_Event
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.DocEvents_Event
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Name
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Name
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Names
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Names
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.RTD
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.RTD
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Range
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Range
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Series
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Series
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.SeriesCollection
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.SeriesCollection
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Shape
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Shape
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Shapes
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Shapes
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Sheets
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Sheets
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Workbook
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Workbook
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.WorkbookEvents
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.WorkbookEvents
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.WorkbookEvents_Event
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.WorkbookEvents_Event
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Worksheet
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Worksheet
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.XlChartType
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.XlChartType
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.XlReferenceStyle
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.XlReferenceStyle
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel._Application
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel._Application
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel._Chart
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel._Chart
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel._Workbook
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel._Workbook
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel._Worksheet
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel._Worksheet
+ExcelDna.Integration Verbose: 1 : Processing type Ribbon.RibbonController+<>c__DisplayClass10_0
+ExcelDna.Integration Verbose: 1 : Processing type Ribbon.RibbonController+<>o__15
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Ribbon.RibbonController+<>o__15
+ExcelDna.Integration Verbose: 1 : Processing type Ribbon.RibbonController+<>o__16
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Ribbon.RibbonController+<>o__16
+ExcelDna.Integration Verbose: 1 : Processing type Ribbon.RibbonController+<OnButtonPressed_StopRTasks>d__10
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Ribbon.RibbonController+<OnButtonPressed_StopRTasks>d__10
+ExcelDna.Integration Verbose: 1 : Processing type T.MessageQueue`1+<ReceiveAsync>d__10
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: T.MessageQueue`1+<ReceiveAsync>d__10
+ExcelDna.Integration Verbose: 1 : Processing type T.MessageQueue`1+<ReceiveAsync>d__9
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: T.MessageQueue`1+<ReceiveAsync>d__9
+ExcelDna.Integration Verbose: 1 : Processing type T.MessagingSynchronizationContext+Message
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: T.MessagingSynchronizationContext+Message
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AsyncHelpers+ExclusiveSynchronizationContext
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AsyncHelpers+<>c__DisplayClass0_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AsyncHelpers+<>c__DisplayClass1_0`1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fLambdaFolder+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fLambdaFolder+<>c__DisplayClass2_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyTaskScheduler+LimitedConcurrencyLevelTaskScheduler
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fAbout+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+ExcelObservableSource
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>c__DisplayClass12_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>c__DisplayClass6_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>c__DisplayClass7_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>c__DisplayClass8_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>c__DisplayClass9_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>o__10
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.dFunctions+<>o__10
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>o__11
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.dFunctions+<>o__11
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>o__12
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.dFunctions+<>o__12
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<t1>d__6
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.dFunctions+<t1>d__6
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole+<>c__DisplayClass10_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole+<>c__DisplayClass12_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole+<>c__DisplayClass9_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole+<executeAllCode>d__9
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.fConsole+<executeAllCode>d__9
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole+<executeSelectedCode>d__10
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.fConsole+<executeSelectedCode>d__10
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole+<tbConsoleCode_KeyDown>d__12
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.fConsole+<tbConsoleCode_KeyDown>d__12
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.DynamicCollection+<BuildList>d__5
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fEnvironment+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fEnvironment+<>c__DisplayClass1_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fEnvironment+<>o__4
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.fEnvironment+<>o__4
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fLambda+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fLambda+<>c__DisplayClass4_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass10_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass11_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass14_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass15_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass16_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass17_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass18_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass19_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass4_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass5_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass7_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass8_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>o__20
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.MyFunctions+<>o__20
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>o__5
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.MyFunctions+<>o__5
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.ArrayExtensions+<ToEnumerable>d__0`1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.TreeViewExtensions+<Descendants>d__0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.CustomArray`1+<>c__DisplayClass0_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.CustomArray`1+<>c__DisplayClass1_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Helpers_GitHub+GithubContent
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Helpers_GitHub+<ListFolders>d__2
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.Helpers_GitHub+<ListFolders>d__2
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Helpers_GitHub+<Main>d__1
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.Helpers_GitHub+<Main>d__1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Helpers_Form+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.WinFormsExtensions+<>c__DisplayClass0_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.WinFormsExtensions+<>c__DisplayClass2_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+ParamsAction
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+ParmModel
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+<>c__DisplayClass10_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+<>c__DisplayClass5_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+<>c__DisplayClass6_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+<>c__DisplayClass6_1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+<>c__DisplayClass8_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+<>o__8
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.AddIn+<>o__8
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.CustomCharacterDevice+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.CustomCharacterDevice+<>c__DisplayClass1_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c__DisplayClass10_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c__DisplayClass2_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c__DisplayClass2_1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c__DisplayClass6_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c__DisplayClass6_1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c__DisplayClass7_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c__DisplayClass7_1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<writeToCodeConsole>d__10
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.fPackages+<writeToCodeConsole>d__10
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dRtdServer+<>c__DisplayClass2_0
+ExcelDna.Integration Verbose: 1 : Processing type <PrivateImplementationDetails>+__StaticArrayInitTypeSize=48
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: <PrivateImplementationDetails>+__StaticArrayInitTypeSize=48
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AsyncHelpers+<>c__DisplayClass0_0+<<RunSync>b__0>d
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.AsyncHelpers+<>c__DisplayClass0_0+<<RunSync>b__0>d
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AsyncHelpers+<>c__DisplayClass1_0`1+<<RunSync>b__0>d
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.AsyncHelpers+<>c__DisplayClass1_0`1+<<RunSync>b__0>d
+ExcelDna.Integration Verbose: 1 : RTD Server found - Type xlRcode.dRtdServer (No ProgId)
+ExcelDna.Integration Information: 1 : SynchronizationManager - Install
+ExcelDna.Integration Verbose: 1 : xlRcode Add-In - End Initialize
+ExcelDna.Integration Verbose: 1 : Exit DnaLibrary.Initialize
+ExcelDna.Integration Verbose: 1 : In XlAddIn.XlAutoOpen
+ExcelDna.Integration Verbose: 1 : Enter Integration.DnaLibraryAutoOpen
+ExcelDna.Integration Verbose: 3 : Register RegistrationInfo - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=RegistrationInfo, FunctionType=QQ, MethodName=RegistrationInfo_8417142f8e6d51988febdad81c23827c - Result=1523646504
+ExcelDna.Integration Verbose: 3 : Register SyncMacro - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=SyncMacro, FunctionType=>B, MethodName=SyncMacro_8417142f8e6d51988febdad81c23827c - Result=-531365847
+ExcelDna.Integration Verbose: 3 : Registering 0 methods
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 3 : Registering 8 methods
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f0, FunctionType=QD%QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ, Name=XLRSCRIPT_ENV - Result=1130102828
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f1, FunctionType=QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ, Name=XLRSCRIPT - Result=1129054253
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f2, FunctionType=QD%D%D%QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ, Name=XLRFUNC_ENV - Result=1132199982
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f3, FunctionType=QD%D%QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ, Name=XLRFUNC - Result=1131151407
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f4, FunctionType=QQQD%, Name=XLRDATE - Result=1125908528
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f5, FunctionType=QD%QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ, Name=XLRCODE_ENV - Result=1124859953
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f6, FunctionType=QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ, Name=XLRCODE - Result=1128005682
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f7, FunctionType=QD%QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ, Name=ggplot - Result=1126957107
+ExcelDna.Integration Verbose: 3 : Registering 1 methods
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f8, FunctionType=QQ, Name=IntelliSenseServerControl_32e432f0059042b8be5788717ad7cacf - Result=1138491444
+ExcelDna.Integration Verbose: 4 : Getting Application object
+ExcelDna.Integration Verbose: 4 : Got Application object: System.__ComObject
+ExcelDna.Integration Verbose: 4 : Loading Ribbon/COM Add-In Ribbon.RibbonController (xlRcode Add-In) Dna_8417142f8e6d51988febdad81c23827c_0 / 8417142f-8e6d-5198-8feb-dad81c23827c
+ExcelDna.Integration Verbose: 4 : Loading Ribbon/COM Add-In
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.CanWriteMachineHive - UnauthorizedAccessException - False
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.CanWriteUserHive - True
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.ClassesRootKey - Using Users subkey S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES
+ExcelDna.Integration Verbose: 4 : ProgIdRegistration - Set Value - HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\Dna_8417142f8e6d51988febdad81c23827c_0 -> {8417142F-8E6D-5198-8FEB-DAD81C23827C}
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.SetValue(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\Dna_8417142f8e6d51988febdad81c23827c_0\CLSID, , {8417142F-8E6D-5198-8FEB-DAD81C23827C}, String)
+ExcelDna.Integration Verbose: 4 : ClsIdRegistration - Set Values - HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\CLSID\{8417142F-8E6D-5198-8FEB-DAD81C23827C} (Dna_8417142f8e6d51988febdad81c23827c_0) - C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.SetValue(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\CLSID\{8417142F-8E6D-5198-8FEB-DAD81C23827C}\InProcServer32, , C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, String)
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.SetValue(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\CLSID\{8417142F-8E6D-5198-8FEB-DAD81C23827C}\InProcServer32, ThreadingModel, Both, String)
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.SetValue(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\CLSID\{8417142F-8E6D-5198-8FEB-DAD81C23827C}\ProgID, , Dna_8417142f8e6d51988febdad81c23827c_0, String)
+ExcelDna.Integration Verbose: 4 : ComAddInRegistration - Creating User SubKey: S-1-5-21-1342077187-2227175357-3606161825-1001\Software\Microsoft\Office\Excel\Addins\Dna_8417142f8e6d51988febdad81c23827c_0
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.UsersCreateSubKey(S-1-5-21-1342077187-2227175357-3606161825-1001\Software\Microsoft\Office\Excel\Addins\Dna_8417142f8e6d51988febdad81c23827c_0, ReadWriteSubTree)
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.KeySetValue(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001\Software\Microsoft\Office\Excel\Addins\Dna_8417142f8e6d51988febdad81c23827c_0, LoadBehavior, 0, DWord)
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.KeySetValue(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001\Software\Microsoft\Office\Excel\Addins\Dna_8417142f8e6d51988febdad81c23827c_0, FriendlyName, xlRcode Add-In, String)
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.KeySetValue(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001\Software\Microsoft\Office\Excel\Addins\Dna_8417142f8e6d51988febdad81c23827c_0, Description, Dynamically created COM Add-in to load custom UI for the Excel Add-in xlRcode Add-In, located at C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll., String)
+ExcelDna.Integration Verbose: 1 : In DllGetClassObject
+ExcelDna.Integration Verbose: 4 : ExcelComAddIn.OnConnection
+ExcelDna.Integration Verbose: 4 : ExcelComAddIn.OnAddInsUpdate
+ExcelDna.Integration Verbose: 4 : Completed Loading Ribbon/COM Add-In
+ExcelDna.Integration Verbose: 4 : ComAddInRegistration - Deleting User SubKey: S-1-5-21-1342077187-2227175357-3606161825-1001\Software\Microsoft\Office\Excel\Addins\Dna_8417142f8e6d51988febdad81c23827c_0
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.UsersDeleteSubKey(S-1-5-21-1342077187-2227175357-3606161825-1001\Software\Microsoft\Office\Excel\Addins\Dna_8417142f8e6d51988febdad81c23827c_0)
+ExcelDna.Integration Verbose: 4 : ClsIdRegistration - Delete SubKey HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\CLSID{8417142F-8E6D-5198-8FEB-DAD81C23827C}
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.DeleteSubKeyTree(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\CLSID, {8417142F-8E6D-5198-8FEB-DAD81C23827C})
+ExcelDna.Integration Verbose: 4 : ProgIdRegistration - Delete SubKey Dna_8417142f8e6d51988febdad81c23827c_0
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.DeleteSubKeyTree(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES, Dna_8417142f8e6d51988febdad81c23827c_0)
+ExcelDna.Integration Verbose: 1 : Exit Integration.DnaLibraryAutoOpen
+ExcelDna.Integration Verbose: 1 : In XlAddIn.XlAutoRemove
+ExcelDna.Integration Verbose: 1 : DnaLibrary AutoClose
+ExcelDna.Integration Verbose: 4 : ExcelComAddIn.OnDisconnection
+ExcelDna.Integration Information: 4 : Ribbon/COM Add-In Unloaded.
+ExcelDna.Integration Information: 1 : SynchronizationManager - Uninstall
+ExcelDna.Integration Verbose: 1 : Enter DnaLibrary.InitializeRootLibrary
+ExcelDna.Integration Verbose: 1 : No Dna file in resources - looking for file.
+ExcelDna.Integration Verbose: 1 : xlRcode Add-In - Begin Initialize
+ExcelDna.Integration Information: 1 : ResolvePath: Resolving xlRcode.dll from DnaDirectory: C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release
+ExcelDna.Integration Verbose: 1 : ResolvePath: Checking at C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode.dll
+ExcelDna.Integration Information: 1 : ResolvePath: Found at C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode.dll
+ExcelDna.Integration Verbose: 1 : Processing assembly xlRcode, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null. ExplicitExports False, ExplicitRegistration True, ComServer False, IsDynamic False
+ExcelDna.Integration Verbose: 1 : Processing type <>f__AnonymousType0
+ExcelDna.Integration Verbose: 1 : Processing type Ribbon.RibbonController
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Created add-in object of type: Ribbon.RibbonController
+ExcelDna.Integration Verbose: 1 : Processing type T.MessageQueue`1
+ExcelDna.Integration Verbose: 1 : Processing type T.MessagingSynchronizationContext
+ExcelDna.Integration Verbose: 1 : Processing type System.InputBoxDialog
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AsyncHelpers
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.AsyncHelpers
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fLambdaFolder
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyTaskScheduler
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.MyTaskScheduler
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fAbout
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.consoleControl
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dCTPManager
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.dCTPManager
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.XLRTIMER_DataSource
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.XLRTIMERNOW_DataSource
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.WaveDataSource
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.dFunctions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.DynamicCollection
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.DeclarationSnippet
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.DeclarationMethod
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyMethodItem
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fEnvironment
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fLambda
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.MyFunctions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.ArrayExtensions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.ArrayExtensions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.TreeViewExtensions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.TreeViewExtensions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.CustomArray`1
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.CustomArray`1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.RExtensions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.RExtensions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.StringExtensions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.StringExtensions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.ImageHelpers
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.ImageHelpers
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Helpers_GitHub
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.Helpers_GitHub
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Helpers_Form
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.Helpers_Form
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Helpers
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.Helpers
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.WinFormsExtensions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.WinFormsExtensions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.ControlExtensions
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.ControlExtensions
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.WindowHelper
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.WindowHelper
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Global
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.Global
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Created add-in object of type: xlRcode.AddIn
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.CustomCharacterDevice
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.RPrompt
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.RPrompt
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.myRDotNet
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.myRDotNet
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.SetUp
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Program
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.Program
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fSetUp
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dRtdServer
+ExcelDna.Integration Verbose: 1 : GetRtdServerTypes - Found RTD server type: xlRcode.dRtdServer
+ExcelDna.Integration Verbose: 1 : GetComClassTypes - Found type xlRcode.dRtdServer, with ProgId xlRcode.dRtdServer
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Properties.Resources
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Properties.Settings
+ExcelDna.Integration Verbose: 1 : Processing type <PrivateImplementationDetails>
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Core.MsoTriState
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Core.MsoTriState
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.AddIn
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.AddIn
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.AddIns
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.AddIns
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.AppEvents
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.AppEvents
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.AppEvents_Event
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.AppEvents_Event
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Application
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Application
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Chart
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Chart
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.ChartEvents
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.ChartEvents
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.ChartEvents_Event
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.ChartEvents_Event
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.ChartObject
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.ChartObject
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.DocEvents
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.DocEvents
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.DocEvents_Event
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.DocEvents_Event
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Name
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Name
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Names
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Names
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.RTD
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.RTD
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Range
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Range
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Series
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Series
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.SeriesCollection
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.SeriesCollection
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Shape
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Shape
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Shapes
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Shapes
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Sheets
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Sheets
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Workbook
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Workbook
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.WorkbookEvents
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.WorkbookEvents
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.WorkbookEvents_Event
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.WorkbookEvents_Event
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.Worksheet
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.Worksheet
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.XlChartType
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.XlChartType
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel.XlReferenceStyle
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel.XlReferenceStyle
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel._Application
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel._Application
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel._Chart
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel._Chart
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel._Workbook
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel._Workbook
+ExcelDna.Integration Verbose: 1 : Processing type Microsoft.Office.Interop.Excel._Worksheet
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Microsoft.Office.Interop.Excel._Worksheet
+ExcelDna.Integration Verbose: 1 : Processing type Ribbon.RibbonController+<>c__DisplayClass10_0
+ExcelDna.Integration Verbose: 1 : Processing type Ribbon.RibbonController+<>o__15
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Ribbon.RibbonController+<>o__15
+ExcelDna.Integration Verbose: 1 : Processing type Ribbon.RibbonController+<>o__16
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Ribbon.RibbonController+<>o__16
+ExcelDna.Integration Verbose: 1 : Processing type Ribbon.RibbonController+<OnButtonPressed_StopRTasks>d__10
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: Ribbon.RibbonController+<OnButtonPressed_StopRTasks>d__10
+ExcelDna.Integration Verbose: 1 : Processing type T.MessageQueue`1+<ReceiveAsync>d__10
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: T.MessageQueue`1+<ReceiveAsync>d__10
+ExcelDna.Integration Verbose: 1 : Processing type T.MessageQueue`1+<ReceiveAsync>d__9
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: T.MessageQueue`1+<ReceiveAsync>d__9
+ExcelDna.Integration Verbose: 1 : Processing type T.MessagingSynchronizationContext+Message
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: T.MessagingSynchronizationContext+Message
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AsyncHelpers+ExclusiveSynchronizationContext
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AsyncHelpers+<>c__DisplayClass0_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AsyncHelpers+<>c__DisplayClass1_0`1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fLambdaFolder+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fLambdaFolder+<>c__DisplayClass2_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyTaskScheduler+LimitedConcurrencyLevelTaskScheduler
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fAbout+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+ExcelObservableSource
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>c__DisplayClass12_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>c__DisplayClass6_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>c__DisplayClass7_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>c__DisplayClass8_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>c__DisplayClass9_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>o__10
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.dFunctions+<>o__10
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>o__11
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.dFunctions+<>o__11
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<>o__12
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.dFunctions+<>o__12
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dFunctions+<t1>d__6
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.dFunctions+<t1>d__6
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole+<>c__DisplayClass10_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole+<>c__DisplayClass12_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole+<>c__DisplayClass9_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole+<executeAllCode>d__9
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.fConsole+<executeAllCode>d__9
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole+<executeSelectedCode>d__10
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.fConsole+<executeSelectedCode>d__10
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fConsole+<tbConsoleCode_KeyDown>d__12
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.fConsole+<tbConsoleCode_KeyDown>d__12
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.DynamicCollection+<BuildList>d__5
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fEnvironment+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fEnvironment+<>c__DisplayClass1_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fEnvironment+<>o__4
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.fEnvironment+<>o__4
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fLambda+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fLambda+<>c__DisplayClass4_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass10_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass11_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass14_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass15_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass16_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass17_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass18_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass19_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass4_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass5_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass7_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>c__DisplayClass8_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>o__20
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.MyFunctions+<>o__20
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.MyFunctions+<>o__5
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.MyFunctions+<>o__5
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.ArrayExtensions+<ToEnumerable>d__0`1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.TreeViewExtensions+<Descendants>d__0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.CustomArray`1+<>c__DisplayClass0_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.CustomArray`1+<>c__DisplayClass1_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Helpers_GitHub+GithubContent
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Helpers_GitHub+<ListFolders>d__2
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.Helpers_GitHub+<ListFolders>d__2
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Helpers_GitHub+<Main>d__1
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.Helpers_GitHub+<Main>d__1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.Helpers_Form+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.WinFormsExtensions+<>c__DisplayClass0_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.WinFormsExtensions+<>c__DisplayClass2_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+ParamsAction
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+ParmModel
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+<>c__DisplayClass10_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+<>c__DisplayClass5_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+<>c__DisplayClass6_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+<>c__DisplayClass6_1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+<>c__DisplayClass8_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AddIn+<>o__8
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.AddIn+<>o__8
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.CustomCharacterDevice+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.CustomCharacterDevice+<>c__DisplayClass1_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c__DisplayClass10_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c__DisplayClass2_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c__DisplayClass2_1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c__DisplayClass6_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c__DisplayClass6_1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c__DisplayClass7_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<>c__DisplayClass7_1
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fPackages+<writeToCodeConsole>d__10
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.fPackages+<writeToCodeConsole>d__10
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fSetUp+<>c__DisplayClass5_0
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.fSetUp+<btCRAN_Click>d__5
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.fSetUp+<btCRAN_Click>d__5
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.dRtdServer+<>c__DisplayClass2_0
+ExcelDna.Integration Verbose: 1 : Processing type <PrivateImplementationDetails>+__StaticArrayInitTypeSize=48
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: <PrivateImplementationDetails>+__StaticArrayInitTypeSize=48
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AsyncHelpers+<>c__DisplayClass0_0+<<RunSync>b__0>d
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.AsyncHelpers+<>c__DisplayClass0_0+<<RunSync>b__0>d
+ExcelDna.Integration Verbose: 1 : Processing type xlRcode.AsyncHelpers+<>c__DisplayClass1_0`1+<<RunSync>b__0>d
+ExcelDna.Integration Verbose: 3 : GetExcelAddIns - Skipped add-in object of type: xlRcode.AsyncHelpers+<>c__DisplayClass1_0`1+<<RunSync>b__0>d
+ExcelDna.Integration Verbose: 1 : RTD Server found - Type xlRcode.dRtdServer (No ProgId)
+ExcelDna.Integration Information: 1 : SynchronizationManager - Install
+ExcelDna.Integration Verbose: 1 : xlRcode Add-In - End Initialize
+ExcelDna.Integration Verbose: 1 : Exit DnaLibrary.Initialize
+ExcelDna.Integration Verbose: 1 : In XlAddIn.XlAutoOpen
+ExcelDna.Integration Verbose: 1 : Enter Integration.DnaLibraryAutoOpen
+ExcelDna.Integration Verbose: 3 : Register RegistrationInfo - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=RegistrationInfo, FunctionType=QQ, MethodName=RegistrationInfo_8417142f8e6d51988febdad81c23827c - Result=1523646504
+ExcelDna.Integration Verbose: 3 : Register SyncMacro - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=SyncMacro, FunctionType=>B, MethodName=SyncMacro_8417142f8e6d51988febdad81c23827c - Result=-531365847
+ExcelDna.Integration Verbose: 3 : Registering 0 methods
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT-BR from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT-BR could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 1 : Attempting to load XLRCODE.RESOURCES.PT from resources.
+ExcelDna.Integration Verbose: 1 : Assembly XLRCODE.RESOURCES.PT could not be loaded from resources (ResourceManager probing for satellite assemblies).
+ExcelDna.Integration Verbose: 3 : Registering 8 methods
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f0, FunctionType=QD%QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ, Name=XLRSCRIPT_ENV - Result=1130102828
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f1, FunctionType=QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ, Name=XLRSCRIPT - Result=1129054253
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f2, FunctionType=QD%D%D%QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ, Name=XLRFUNC_ENV - Result=1132199982
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f3, FunctionType=QD%D%QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ, Name=XLRFUNC - Result=1131151407
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f4, FunctionType=QQQD%, Name=XLRDATE - Result=1125908528
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f5, FunctionType=QD%QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ, Name=XLRCODE_ENV - Result=1124859953
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f6, FunctionType=QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ, Name=XLRCODE - Result=1128005682
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f7, FunctionType=QD%QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ, Name=ggplot - Result=1126957107
+ExcelDna.Integration Verbose: 3 : Registering 1 methods
+ExcelDna.Integration Information: 3 : Register - XllPath=C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, ProcName=f8, FunctionType=QQ, Name=IntelliSenseServerControl_6ae01c9ca2e940328d66a6bd17a3fd29 - Result=1138491444
+ExcelDna.Integration Verbose: 4 : Getting Application object
+ExcelDna.Integration Verbose: 4 : Got Application object: System.__ComObject
+ExcelDna.Integration Verbose: 4 : Loading Ribbon/COM Add-In Ribbon.RibbonController (xlRcode Add-In) Dna_8417142f8e6d51988febdad81c23827c_0 / 8417142f-8e6d-5198-8feb-dad81c23827c
+ExcelDna.Integration Verbose: 4 : Loading Ribbon/COM Add-In
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.CanWriteMachineHive - UnauthorizedAccessException - False
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.CanWriteUserHive - True
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.ClassesRootKey - Using Users subkey S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES
+ExcelDna.Integration Verbose: 4 : ProgIdRegistration - Set Value - HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\Dna_8417142f8e6d51988febdad81c23827c_0 -> {8417142F-8E6D-5198-8FEB-DAD81C23827C}
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.SetValue(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\Dna_8417142f8e6d51988febdad81c23827c_0\CLSID, , {8417142F-8E6D-5198-8FEB-DAD81C23827C}, String)
+ExcelDna.Integration Verbose: 4 : ClsIdRegistration - Set Values - HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\CLSID\{8417142F-8E6D-5198-8FEB-DAD81C23827C} (Dna_8417142f8e6d51988febdad81c23827c_0) - C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.SetValue(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\CLSID\{8417142F-8E6D-5198-8FEB-DAD81C23827C}\InProcServer32, , C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll, String)
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.SetValue(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\CLSID\{8417142F-8E6D-5198-8FEB-DAD81C23827C}\InProcServer32, ThreadingModel, Both, String)
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.SetValue(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\CLSID\{8417142F-8E6D-5198-8FEB-DAD81C23827C}\ProgID, , Dna_8417142f8e6d51988febdad81c23827c_0, String)
+ExcelDna.Integration Verbose: 4 : ComAddInRegistration - Creating User SubKey: S-1-5-21-1342077187-2227175357-3606161825-1001\Software\Microsoft\Office\Excel\Addins\Dna_8417142f8e6d51988febdad81c23827c_0
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.UsersCreateSubKey(S-1-5-21-1342077187-2227175357-3606161825-1001\Software\Microsoft\Office\Excel\Addins\Dna_8417142f8e6d51988febdad81c23827c_0, ReadWriteSubTree)
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.KeySetValue(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001\Software\Microsoft\Office\Excel\Addins\Dna_8417142f8e6d51988febdad81c23827c_0, LoadBehavior, 0, DWord)
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.KeySetValue(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001\Software\Microsoft\Office\Excel\Addins\Dna_8417142f8e6d51988febdad81c23827c_0, FriendlyName, xlRcode Add-In, String)
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.KeySetValue(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001\Software\Microsoft\Office\Excel\Addins\Dna_8417142f8e6d51988febdad81c23827c_0, Description, Dynamically created COM Add-in to load custom UI for the Excel Add-in xlRcode Add-In, located at C:\Users\Eduardo\Google Drive\Meus Projetos\xlRcode\VS\xlRcode\bin\Release\xlRcode-AddIn64.xll., String)
+ExcelDna.Integration Verbose: 1 : In DllGetClassObject
+ExcelDna.Integration Verbose: 4 : ExcelComAddIn.OnConnection
+ExcelDna.Integration Verbose: 4 : ExcelComAddIn.OnAddInsUpdate
+ExcelDna.Integration Verbose: 4 : Completed Loading Ribbon/COM Add-In
+ExcelDna.Integration Verbose: 4 : ComAddInRegistration - Deleting User SubKey: S-1-5-21-1342077187-2227175357-3606161825-1001\Software\Microsoft\Office\Excel\Addins\Dna_8417142f8e6d51988febdad81c23827c_0
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.UsersDeleteSubKey(S-1-5-21-1342077187-2227175357-3606161825-1001\Software\Microsoft\Office\Excel\Addins\Dna_8417142f8e6d51988febdad81c23827c_0)
+ExcelDna.Integration Verbose: 4 : ClsIdRegistration - Delete SubKey HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\CLSID{8417142F-8E6D-5198-8FEB-DAD81C23827C}
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.DeleteSubKeyTree(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES\CLSID, {8417142F-8E6D-5198-8FEB-DAD81C23827C})
+ExcelDna.Integration Verbose: 4 : ProgIdRegistration - Delete SubKey Dna_8417142f8e6d51988febdad81c23827c_0
+ExcelDna.Integration Verbose: 4 : RegistrationUtil.DeleteSubKeyTree(HKEY_USERS\S-1-5-21-1342077187-2227175357-3606161825-1001_CLASSES, Dna_8417142f8e6d51988febdad81c23827c_0)
+ExcelDna.Integration Verbose: 1 : Exit Integration.DnaLibraryAutoOpen
+ExcelDna.Integration Verbose: 1 : In XlAddIn.XlAutoRemove
+ExcelDna.Integration Verbose: 1 : DnaLibrary AutoClose
+ExcelDna.Integration Verbose: 4 : ExcelComAddIn.OnDisconnection
+ExcelDna.Integration Information: 4 : Ribbon/COM Add-In Unloaded.
+ExcelDna.Integration Information: 1 : SynchronizationManager - Uninstall

@@ -1,0 +1,1 @@
+paste(sep=",", txtA,txtB)

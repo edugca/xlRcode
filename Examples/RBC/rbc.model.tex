@@ -1,0 +1,198 @@
+% Generated on 2023-12-19 17:52:39 by gEcon ver. 1.2.0 (2019-09-08)
+% http://gecon.r-forge.r-project.org/
+
+% Model name: rbc
+
+\section{CONSUMER}
+
+\subsection{Optimisation problem}
+
+\begin{align}
+&\max_{K^{\mathrm{s}}_{t}, C_{t}, L^{\mathrm{s}}_{t}, I_{t}
+} U_{t} = {\beta} {\mathrm{E}_{t}\left[U_{t+1}\right]} + \left(1 - \eta\right)^{-1} {\left({{C_{t}}^{\mu}} {\left(1 - L^{\mathrm{s}}_{t}\right)^{1 - \mu}}\right)^{1 - \eta}}\\
+&\mathrm{s.t.:}\nonumber\\
+& C_{t} + I_{t} = \pi_{t} + {K^{\mathrm{s}}_{t-1}} {r_{t}} + {L^{\mathrm{s}}_{t}} {W_{t}} \quad \left(\lambda^{\mathrm{CONSUMER}^{\mathrm{1}}}_{t}\right)\\
+& K^{\mathrm{s}}_{t} = I_{t} + {K^{\mathrm{s}}_{t-1}} \left(1 - \delta\right) \quad \left(\lambda^{\mathrm{CONSUMER}^{\mathrm{2}}}_{t}\right)
+\end{align}
+
+
+\subsection{First order conditions}
+
+\begin{equation}
+-\lambda^{\mathrm{CONSUMER}^{\mathrm{2}}}_{t} + {\beta} \left(\left(1 - \delta\right) {\mathrm{E}_{t}\left[\lambda^{\mathrm{CONSUMER}^{\mathrm{2}}}_{t+1}\right]} + \mathrm{E}_{t}\left[{\lambda^{\mathrm{CONSUMER}^{\mathrm{1}}}_{t+1}} {r_{t+1}}\right]\right) = 0
+ \quad \left(K^{\mathrm{s}}_{t}\right)
+\end{equation}
+\begin{equation}
+-\lambda^{\mathrm{CONSUMER}^{\mathrm{1}}}_{t} + {\mu} {{C_{t}}^{-1 + \mu}} {\left(1 - L^{\mathrm{s}}_{t}\right)^{1 - \mu}} {\left({{C_{t}}^{\mu}} {\left(1 - L^{\mathrm{s}}_{t}\right)^{1 - \mu}}\right)^{-\eta}} = 0
+ \quad \left(C_{t}\right)
+\end{equation}
+\begin{equation}
+{\lambda^{\mathrm{CONSUMER}^{\mathrm{1}}}_{t}} {W_{t}} + \left(-1 + \mu\right) {{C_{t}}^{\mu}} {\left(1 - L^{\mathrm{s}}_{t}\right)^{-\mu}} {\left({{C_{t}}^{\mu}} {\left(1 - L^{\mathrm{s}}_{t}\right)^{1 - \mu}}\right)^{-\eta}} = 0
+ \quad \left(L^{\mathrm{s}}_{t}\right)
+\end{equation}
+\begin{equation}
+-\lambda^{\mathrm{CONSUMER}^{\mathrm{1}}}_{t} + \lambda^{\mathrm{CONSUMER}^{\mathrm{2}}}_{t} = 0
+ \quad \left(I_{t}\right)
+\end{equation}
+
+
+
+
+\section{FIRM}
+
+\subsection{Optimisation problem}
+
+\begin{align}
+&\max_{K^{\mathrm{d}}_{t}, L^{\mathrm{d}}_{t}, Y_{t}
+} \pi_{t} = Y_{t} - {L^{\mathrm{d}}_{t}} {W_{t}} - {r_{t}} {K^{\mathrm{d}}_{t}}\\
+&\mathrm{s.t.:}\nonumber\\
+& Y_{t} = {Z_{t}} {{K^{\mathrm{d}}_{t}}^{\alpha}} {{L^{\mathrm{d}}_{t}}^{1 - \alpha}} \quad \left(\lambda^{\mathrm{FIRM}^{\mathrm{1}}}_{t}\right)
+\end{align}
+
+
+\subsection{First order conditions}
+
+\begin{equation}
+-r_{t} + {\alpha} {\lambda^{\mathrm{FIRM}^{\mathrm{1}}}_{t}} {Z_{t}} {{K^{\mathrm{d}}_{t}}^{-1 + \alpha}} {{L^{\mathrm{d}}_{t}}^{1 - \alpha}} = 0
+ \quad \left(K^{\mathrm{d}}_{t}\right)
+\end{equation}
+\begin{equation}
+-W_{t} + {\lambda^{\mathrm{FIRM}^{\mathrm{1}}}_{t}} {Z_{t}} \left(1 - \alpha\right) {{K^{\mathrm{d}}_{t}}^{\alpha}} {{L^{\mathrm{d}}_{t}}^{-\alpha}} = 0
+ \quad \left(L^{\mathrm{d}}_{t}\right)
+\end{equation}
+\begin{equation}
+1 - \lambda^{\mathrm{FIRM}^{\mathrm{1}}}_{t} = 0
+ \quad \left(Y_{t}\right)
+\end{equation}
+
+
+\subsection{First order conditions after reduction}
+
+\begin{equation}
+-r_{t} + {\alpha} {Z_{t}} {{K^{\mathrm{d}}_{t}}^{-1 + \alpha}} {{L^{\mathrm{d}}_{t}}^{1 - \alpha}} = 0
+ \quad \left(K^{\mathrm{d}}_{t}\right)
+\end{equation}
+\begin{equation}
+-W_{t} + {Z_{t}} \left(1 - \alpha\right) {{K^{\mathrm{d}}_{t}}^{\alpha}} {{L^{\mathrm{d}}_{t}}^{-\alpha}} = 0
+ \quad \left(L^{\mathrm{d}}_{t}\right)
+\end{equation}
+
+
+
+
+\section{EQUILIBRIUM}
+
+\subsection{Identities}
+
+\begin{equation}
+K^{\mathrm{d}}_{t} = K^{\mathrm{s}}_{t-1}
+\end{equation}
+\begin{equation}
+L^{\mathrm{d}}_{t} = L^{\mathrm{s}}_{t}
+\end{equation}
+
+
+
+
+\section{EXOG}
+
+\subsection{Identities}
+
+\begin{equation}
+Z_{t} = e^{\epsilon^{\mathrm{Z}}_{t} + {\phi} {\log{Z_{t-1}}}}
+\end{equation}
+
+
+
+
+\section{Equilibrium relationships (after reduction)}
+
+\begin{equation}
+-r_{t} + {\alpha} {Z_{t}} {{K^{\mathrm{s}}_{t-1}}^{-1 + \alpha}} {{L^{\mathrm{s}}_{t}}^{1 - \alpha}} = 0
+\end{equation}
+\begin{equation}
+-W_{t} + {Z_{t}} \left(1 - \alpha\right) {{K^{\mathrm{s}}_{t-1}}^{\alpha}} {{L^{\mathrm{s}}_{t}}^{-\alpha}} = 0
+\end{equation}
+\begin{equation}
+-Y_{t} + {Z_{t}} {{K^{\mathrm{s}}_{t-1}}^{\alpha}} {{L^{\mathrm{s}}_{t}}^{1 - \alpha}} = 0
+\end{equation}
+\begin{equation}
+-Z_{t} + e^{\epsilon^{\mathrm{Z}}_{t} + {\phi} {\log{Z_{t-1}}}} = 0
+\end{equation}
+\begin{equation}
+{\beta} \left({\mu} {\mathrm{E}_{t}\left[{r_{t+1}} {{C_{t+1}}^{-1 + \mu}} {\left(1 - L^{\mathrm{s}}_{t+1}\right)^{1 - \mu}} {\left({{C_{t+1}}^{\mu}} {\left(1 - L^{\mathrm{s}}_{t+1}\right)^{1 - \mu}}\right)^{-\eta}}\right]} + {\mu} \left(1 - \delta\right) {\mathrm{E}_{t}\left[{{C_{t+1}}^{-1 + \mu}} {\left(1 - L^{\mathrm{s}}_{t+1}\right)^{1 - \mu}} {\left({{C_{t+1}}^{\mu}} {\left(1 - L^{\mathrm{s}}_{t+1}\right)^{1 - \mu}}\right)^{-\eta}}\right]}\right) - {\mu} {{C_{t}}^{-1 + \mu}} {\left(1 - L^{\mathrm{s}}_{t}\right)^{1 - \mu}} {\left({{C_{t}}^{\mu}} {\left(1 - L^{\mathrm{s}}_{t}\right)^{1 - \mu}}\right)^{-\eta}} = 0
+\end{equation}
+\begin{equation}
+\left(-1 + \mu\right) {{C_{t}}^{\mu}} {\left(1 - L^{\mathrm{s}}_{t}\right)^{-\mu}} {\left({{C_{t}}^{\mu}} {\left(1 - L^{\mathrm{s}}_{t}\right)^{1 - \mu}}\right)^{-\eta}} + {\mu} {W_{t}} {{C_{t}}^{-1 + \mu}} {\left(1 - L^{\mathrm{s}}_{t}\right)^{1 - \mu}} {\left({{C_{t}}^{\mu}} {\left(1 - L^{\mathrm{s}}_{t}\right)^{1 - \mu}}\right)^{-\eta}} = 0
+\end{equation}
+\begin{equation}
+-C_{t} - I_{t} + Y_{t} = 0
+\end{equation}
+\begin{equation}
+I_{t} - K^{\mathrm{s}}_{t} + {K^{\mathrm{s}}_{t-1}} \left(1 - \delta\right) = 0
+\end{equation}
+\begin{equation}
+U_{t} - {\beta} {\mathrm{E}_{t}\left[U_{t+1}\right]} - \left(1 - \eta\right)^{-1} {\left({{C_{t}}^{\mu}} {\left(1 - L^{\mathrm{s}}_{t}\right)^{1 - \mu}}\right)^{1 - \eta}} = 0
+\end{equation}
+
+
+
+\section{Steady state relationships (after reduction)}
+
+\begin{equation}
+-r_\mathrm{ss} + {\alpha} {Z_\mathrm{ss}} {{K^{\mathrm{s}}_\mathrm{ss}}^{-1 + \alpha}} {{L^{\mathrm{s}}_\mathrm{ss}}^{1 - \alpha}} = 0
+\end{equation}
+\begin{equation}
+-W_\mathrm{ss} + {Z_\mathrm{ss}} \left(1 - \alpha\right) {{K^{\mathrm{s}}_\mathrm{ss}}^{\alpha}} {{L^{\mathrm{s}}_\mathrm{ss}}^{-\alpha}} = 0
+\end{equation}
+\begin{equation}
+-Y_\mathrm{ss} + {Z_\mathrm{ss}} {{K^{\mathrm{s}}_\mathrm{ss}}^{\alpha}} {{L^{\mathrm{s}}_\mathrm{ss}}^{1 - \alpha}} = 0
+\end{equation}
+\begin{equation}
+-Z_\mathrm{ss} + e^{{\phi} {\log{Z_\mathrm{ss}}}} = 0
+\end{equation}
+\begin{equation}
+{\beta} \left({\mu} {r_\mathrm{ss}} {{C_\mathrm{ss}}^{-1 + \mu}} {\left(1 - L^{\mathrm{s}}_\mathrm{ss}\right)^{1 - \mu}} {\left({{C_\mathrm{ss}}^{\mu}} {\left(1 - L^{\mathrm{s}}_\mathrm{ss}\right)^{1 - \mu}}\right)^{-\eta}} + {\mu} \left(1 - \delta\right) {{C_\mathrm{ss}}^{-1 + \mu}} {\left(1 - L^{\mathrm{s}}_\mathrm{ss}\right)^{1 - \mu}} {\left({{C_\mathrm{ss}}^{\mu}} {\left(1 - L^{\mathrm{s}}_\mathrm{ss}\right)^{1 - \mu}}\right)^{-\eta}}\right) - {\mu} {{C_\mathrm{ss}}^{-1 + \mu}} {\left(1 - L^{\mathrm{s}}_\mathrm{ss}\right)^{1 - \mu}} {\left({{C_\mathrm{ss}}^{\mu}} {\left(1 - L^{\mathrm{s}}_\mathrm{ss}\right)^{1 - \mu}}\right)^{-\eta}} = 0
+\end{equation}
+\begin{equation}
+\left(-1 + \mu\right) {{C_\mathrm{ss}}^{\mu}} {\left(1 - L^{\mathrm{s}}_\mathrm{ss}\right)^{-\mu}} {\left({{C_\mathrm{ss}}^{\mu}} {\left(1 - L^{\mathrm{s}}_\mathrm{ss}\right)^{1 - \mu}}\right)^{-\eta}} + {\mu} {W_\mathrm{ss}} {{C_\mathrm{ss}}^{-1 + \mu}} {\left(1 - L^{\mathrm{s}}_\mathrm{ss}\right)^{1 - \mu}} {\left({{C_\mathrm{ss}}^{\mu}} {\left(1 - L^{\mathrm{s}}_\mathrm{ss}\right)^{1 - \mu}}\right)^{-\eta}} = 0
+\end{equation}
+\begin{equation}
+-C_\mathrm{ss} - I_\mathrm{ss} + Y_\mathrm{ss} = 0
+\end{equation}
+\begin{equation}
+I_\mathrm{ss} - K^{\mathrm{s}}_\mathrm{ss} + {K^{\mathrm{s}}_\mathrm{ss}} \left(1 - \delta\right) = 0
+\end{equation}
+\begin{equation}
+U_\mathrm{ss} - {\beta} {U_\mathrm{ss}} - \left(1 - \eta\right)^{-1} {\left({{C_\mathrm{ss}}^{\mu}} {\left(1 - L^{\mathrm{s}}_\mathrm{ss}\right)^{1 - \mu}}\right)^{1 - \eta}} = 0
+\end{equation}
+
+
+
+\section{Calibrating equations}
+
+\begin{equation}
+-0.36Y_\mathrm{ss} + {r_\mathrm{ss}} {K^{\mathrm{s}}_\mathrm{ss}} = 0
+\end{equation}
+
+
+
+\section{Parameter settings}
+
+\begin{equation}
+\beta = 0.99
+\end{equation}
+\begin{equation}
+\delta = 0.025
+\end{equation}
+\begin{equation}
+\eta = 2
+\end{equation}
+\begin{equation}
+\mu = 0.3
+\end{equation}
+\begin{equation}
+\phi = 0.95
+\end{equation}
+
+

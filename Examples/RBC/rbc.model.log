@@ -1,0 +1,101 @@
+Generated on 2023-12-19 17:52:39 by gEcon ver. 1.2.0 (2019-09-08)
+http://gecon.r-forge.r-project.org/
+
+Model name: rbc
+
+1 WARNING, see bottom of this logfile
+
+
+Variables selected for reduction:
+    pi[], K_d[], L_d[]
+
+Block: CONSUMER
+ Definitions:
+    u[] = (1 - eta)^-1 * (C[]^mu * (1 - L_s[])^(1 - mu))^(1 - eta)
+ Controls:
+    K_s[], C[], L_s[], I[]
+ Objective:
+    U[] = beta * E[][U[1]] + (1 - eta)^-1 * (C[]^mu * (1 - L_s[])^(1 - mu))^(1 - eta)
+ Constraints:
+    pi[] - C[] - I[] + K_s[-1] * r[] + L_s[] * W[] = 0    (lambda__CONSUMER_1[])
+    I[] - K_s[] + K_s[-1] * (1 - delta) = 0    (lambda__CONSUMER_2[])
+ First order conditions:
+    -lambda__CONSUMER_2[] + beta * ((1 - delta) * E[][lambda__CONSUMER_2[1]] + E[][lambda__CONSUMER_1[1] * r[1]]) = 0    (K_s[])
+    -lambda__CONSUMER_1[] + mu * C[]^(-1 + mu) * (1 - L_s[])^(1 - mu) * (C[]^mu * (1 - L_s[])^(1 - mu))^(-eta) = 0    (C[])
+    lambda__CONSUMER_1[] * W[] + (-1 + mu) * C[]^mu * (1 - L_s[])^(-mu) * (C[]^mu * (1 - L_s[])^(1 - mu))^(-eta) = 0    (L_s[])
+    -lambda__CONSUMER_1[] + lambda__CONSUMER_2[] = 0    (I[])
+
+Block: FIRM
+ Controls:
+    K_d[], L_d[], Y[]
+ Objective:
+    pi[] = Y[] - L_d[] * W[] - r[] * K_d[]
+ Constraints:
+    -Y[] + Z[] * K_d[]^alpha * L_d[]^(1 - alpha) = 0    (lambda__FIRM_1[])
+ First order conditions:
+    -r[] + alpha * lambda__FIRM_1[] * Z[] * K_d[]^(-1 + alpha) * L_d[]^(1 - alpha) = 0    (K_d[])
+    -W[] + lambda__FIRM_1[] * Z[] * (1 - alpha) * K_d[]^alpha * L_d[]^(-alpha) = 0    (L_d[])
+    1 - lambda__FIRM_1[] = 0    (Y[])
+ First order conditions after reduction:
+    -r[] + alpha * Z[] * K_d[]^(-1 + alpha) * L_d[]^(1 - alpha) = 0    (K_d[])
+    -W[] + Z[] * (1 - alpha) * K_d[]^alpha * L_d[]^(-alpha) = 0    (L_d[])
+
+Block: EQUILIBRIUM
+ Identities:
+    K_s[-1] - K_d[] = 0
+    -L_d[] + L_s[] = 0
+
+Block: EXOG
+ Identities:
+    -Z[] + exp(epsilon_Z[] + phi * log(Z[-1])) = 0
+
+Variables (9):
+    r[], C[], I[], K_s[], L_s[], U[], W[], Y[], Z[]
+
+Shocks (1):
+    epsilon_Z[]
+
+Parameters (6):
+    alpha, beta, delta, eta, mu, phi
+
+Free parameters (5):
+    beta, delta, eta, mu, phi
+
+Calibrated parameters (1):
+    alpha
+
+Equations (9):
+ (1)  -r[] + alpha * Z[] * K_s[-1]^(-1 + alpha) * L_s[]^(1 - alpha) = 0
+ (2)  -W[] + Z[] * (1 - alpha) * K_s[-1]^alpha * L_s[]^(-alpha) = 0
+ (3)  -Y[] + Z[] * K_s[-1]^alpha * L_s[]^(1 - alpha) = 0
+ (4)  -Z[] + exp(epsilon_Z[] + phi * log(Z[-1])) = 0
+ (5)  beta * (mu * E[][r[1] * C[1]^(-1 + mu) * (1 - L_s[1])^(1 - mu) * (C[1]^mu * (1 - L_s[1])^(1 - mu))^(-eta)] + mu * (1 - delta) * E[][C[1]^(-1 + mu) * (1 - L_s[1])^(1 - mu) * (C[1]^mu * (1 - L_s[1])^(1 - mu))^(-eta)]) - mu * C[]^(-1 + mu) * (1 - L_s[])^(1 - mu) * (C[]^mu * (1 - L_s[])^(1 - mu))^(-eta) = 0
+ (6)  (-1 + mu) * C[]^mu * (1 - L_s[])^(-mu) * (C[]^mu * (1 - L_s[])^(1 - mu))^(-eta) + mu * W[] * C[]^(-1 + mu) * (1 - L_s[])^(1 - mu) * (C[]^mu * (1 - L_s[])^(1 - mu))^(-eta) = 0
+ (7)  -C[] - I[] + Y[] = 0
+ (8)  I[] - K_s[] + K_s[-1] * (1 - delta) = 0
+ (9)  U[] - beta * E[][U[1]] - (1 - eta)^-1 * (C[]^mu * (1 - L_s[])^(1 - mu))^(1 - eta) = 0
+
+Steady state equations (9):
+ (1)  -r[ss] + alpha * Z[ss] * K_s[ss]^(-1 + alpha) * L_s[ss]^(1 - alpha) = 0
+ (2)  -W[ss] + Z[ss] * (1 - alpha) * K_s[ss]^alpha * L_s[ss]^(-alpha) = 0
+ (3)  -Y[ss] + Z[ss] * K_s[ss]^alpha * L_s[ss]^(1 - alpha) = 0
+ (4)  -Z[ss] + exp(phi * log(Z[ss])) = 0
+ (5)  beta * (mu * r[ss] * C[ss]^(-1 + mu) * (1 - L_s[ss])^(1 - mu) * (C[ss]^mu * (1 - L_s[ss])^(1 - mu))^(-eta) + mu * (1 - delta) * C[ss]^(-1 + mu) * (1 - L_s[ss])^(1 - mu) * (C[ss]^mu * (1 - L_s[ss])^(1 - mu))^(-eta)) - mu * C[ss]^(-1 + mu) * (1 - L_s[ss])^(1 - mu) * (C[ss]^mu * (1 - L_s[ss])^(1 - mu))^(-eta) = 0
+ (6)  (-1 + mu) * C[ss]^mu * (1 - L_s[ss])^(-mu) * (C[ss]^mu * (1 - L_s[ss])^(1 - mu))^(-eta) + mu * W[ss] * C[ss]^(-1 + mu) * (1 - L_s[ss])^(1 - mu) * (C[ss]^mu * (1 - L_s[ss])^(1 - mu))^(-eta) = 0
+ (7)  -C[ss] - I[ss] + Y[ss] = 0
+ (8)  I[ss] - K_s[ss] + K_s[ss] * (1 - delta) = 0
+ (9)  U[ss] - beta * U[ss] - (1 - eta)^-1 * (C[ss]^mu * (1 - L_s[ss])^(1 - mu))^(1 - eta) = 0
+
+Calibrating equations (1):
+ (1)  -0.36 * Y[ss] + r[ss] * K_s[ss] = 0
+
+Parameter settings (5):
+ (1)  beta = 0.99
+ (2)  delta = 0.025
+ (3)  eta = 2
+ (4)  mu = 0.3
+ (5)  phi = 0.95
+
+
+1 WARNING
+(gEcon model warning 1): variable "K_d[]" selected for reduction appears in calibrating equation "-0.36 * Y[ss] + r[ss] * K_d[ss] = 0"

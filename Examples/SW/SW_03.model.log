@@ -1,0 +1,371 @@
+Generated on 2023-12-19 17:52:29 by gEcon ver. 1.2.0 (2019-09-08)
+http://gecon.r-forge.r-project.org/
+
+Model name: SW_03
+
+1 WARNING, see bottom of this logfile
+
+
+Variables selected for reduction:
+    H[], B[], H_f[], B_f[], K_j_d[], K_j_d_f[], K_d[], K_d_f[], P_f[], pi_star_w[], tc_j[], tc_j_f[], Y_j[], Y_j_f[], Div[], Div_f[], L_j_d_f[], L_j_d[], L_d[], L_d_f[], lambda[], lambda_f[], L_i_f[], L_i_star_f[]
+
+Block: CONSUMER
+ Definitions:
+    u[] = epsilon_b[] * ((1 - sigma_c)^-1 * (C[] - H[])^(1 - sigma_c) - omega * epsilon_L[] * (1 + sigma_l)^-1 * L_s[]^(1 + sigma_l))
+ Controls:
+    C[], K[], I[], B[], z[]
+ Objective:
+    U[] = beta * E[][U[1]] + epsilon_b[] * ((1 - sigma_c)^-1 * (C[] - H[])^(1 - sigma_c) - omega * epsilon_L[] * (1 + sigma_l)^-1 * L_s[]^(1 + sigma_l))
+ Constraints:
+    -C[] + Div[] - I[] - T[] + B[-1] * pi[]^-1 - B[] * R[]^-1 + L[] * W[] + K[-1] * r_k[] * z[] - psi^-1 * r_k[ss] * K[-1] * (-1 + exp(psi * (-1 + z[]))) = 0    (lambda[])
+    -K[] + K[-1] * (1 - tau) + I[] * (1 - 0.5 * varphi * (-1 + I[-1]^-1 * epsilon_I[] * I[])^2) = 0    (q[])
+ Identities:
+    -H[] + h * C[-1] = 0
+    -Q[] + lambda[]^-1 * q[] = 0
+ First order conditions:
+    -lambda[] + epsilon_b[] * (C[] - H[])^(-sigma_c) = 0    (C[])
+    -q[] + beta * ((1 - tau) * E[][q[1]] + E[][lambda[1] * (r_k[1] * z[1] - psi^-1 * r_k[ss] * (-1 + exp(psi * (-1 + z[1]))))]) = 0    (K[])
+    -lambda[] + q[] * (1 - 0.5 * varphi * (-1 + I[-1]^-1 * epsilon_I[] * I[])^2 - varphi * I[-1]^-1 * epsilon_I[] * I[] * (-1 + I[-1]^-1 * epsilon_I[] * I[])) + beta * varphi * I[]^-2 * E[][epsilon_I[1] * q[1] * I[1]^2 * (-1 + I[]^-1 * epsilon_I[1] * I[1])] = 0    (I[])
+    beta * E[][lambda[1] * pi[1]^-1] - lambda[] * R[]^-1 = 0    (B[])
+    lambda[] * (K[-1] * r_k[] - r_k[ss] * K[-1] * exp(psi * (-1 + z[]))) = 0    (z[])
+
+Block: PREFERENCE_SHOCKS
+ Identities:
+    eta_b[] - log(epsilon_b[]) + rho_b * log(epsilon_b[-1]) = 0
+    -eta_L[] - log(epsilon_L[]) + rho_L * log(epsilon_L[-1]) = 0
+
+Block: INVESTMENT_COST_SHOCKS
+ Identities:
+    eta_I[] - log(epsilon_I[]) + rho_I * log(epsilon_I[-1]) = 0
+
+Block: WAGE_SETTING_PROBLEM
+ Definitions:
+    L_star[] = L[] * pi_star_w[]^(-lambda_w^-1 * (1 + lambda_w))
+ Identities:
+    -f_1[] + beta * xi_w * E[][f_1[1] * (w_star[]^-1 * w_star[1])^(lambda_w^-1) * (pi[1]^-1 * pi[]^gamma_w)^(-lambda_w^-1)] + lambda[] * w_star[] * L[] * (1 + lambda_w)^-1 * pi_star_w[]^(-lambda_w^-1 * (1 + lambda_w)) = 0
+    -f_2[] + beta * xi_w * E[][f_2[1] * (w_star[]^-1 * w_star[1])^(lambda_w^-1 * (1 + lambda_w) * (1 + sigma_l)) * (pi[1]^-1 * pi[]^gamma_w)^(-lambda_w^-1 * (1 + lambda_w) * (1 + sigma_l))] + omega * epsilon_b[] * epsilon_L[] * (L[] * pi_star_w[]^(-lambda_w^-1 * (1 + lambda_w)))^(1 + sigma_l) = 0
+    eta_w[] - f_1[] + f_2[] = 0
+    -pi_star_w[] + w_star[] * W[]^-1 = 0
+
+Block: WAGE_EVOLUTION
+ Identities:
+    -1 + (1 - xi_w) * pi_star_w[]^(-lambda_w^-1) + xi_w * (W[-1] * W[]^-1)^(-lambda_w^-1) * (pi[]^-1 * pi[-1]^gamma_w)^(-lambda_w^-1) = 0
+
+Block: LABOUR_AGGREGATION
+ Identities:
+    -nu_w[] + (1 - xi_w) * pi_star_w[]^(-lambda_w^-1 * (1 + lambda_w)) + xi_w * nu_w[-1] * (W[-1] * pi[]^-1 * W[]^-1 * pi[-1]^gamma_w)^(-lambda_w^-1 * (1 + lambda_w)) = 0
+    -L[] + nu_w[]^-1 * L_s[] = 0
+
+Block: CONSUMER_FLEXIBLE
+ Definitions:
+    u_f[] = epsilon_b[] * ((1 - sigma_c)^-1 * (C_f[] - H_f[])^(1 - sigma_c) - omega * epsilon_L[] * (1 + sigma_l)^-1 * L_s_f[]^(1 + sigma_l))
+    Inc_i_f[] = Pi_ws_f[] + L_s_f[] * W_disutil_f[] + K_f[-1] * r_k_f[] * z_f[] - psi^-1 * r_k_f[ss] * K_f[-1] * (-1 + exp(psi * (-1 + z_f[])))
+ Controls:
+    C_f[], K_f[], I_f[], B_f[], z_f[], L_s_f[]
+ Objective:
+    U_f[] = beta * E[][U_f[1]] + epsilon_b[] * ((1 - sigma_c)^-1 * (C_f[] - H_f[])^(1 - sigma_c) - omega * epsilon_L[] * (1 + sigma_l)^-1 * L_s_f[]^(1 + sigma_l))
+ Constraints:
+    B_f[-1] - C_f[] + Div_f[] - I_f[] + Pi_ws_f[] - T_f[] - B_f[] * R_f[]^-1 + L_s_f[] * W_disutil_f[] + K_f[-1] * r_k_f[] * z_f[] - psi^-1 * r_k_f[ss] * K_f[-1] * (-1 + exp(psi * (-1 + z_f[]))) = 0    (lambda_f[])
+    -K_f[] + K_f[-1] * (1 - tau) + I_f[] * (1 - 0.5 * varphi * (-1 + I_f[-1]^-1 * epsilon_I[] * I_f[])^2) = 0    (q_f[])
+ Identities:
+    -H_f[] + h * C_f[-1] = 0
+    -Q_f[] + lambda_f[]^-1 * q_f[] = 0
+ First order conditions:
+    -lambda_f[] + epsilon_b[] * (C_f[] - H_f[])^(-sigma_c) = 0    (C_f[])
+    -q_f[] + beta * ((1 - tau) * E[][q_f[1]] + E[][lambda_f[1] * (r_k_f[1] * z_f[1] - psi^-1 * r_k_f[ss] * (-1 + exp(psi * (-1 + z_f[1]))))]) = 0    (K_f[])
+    -lambda_f[] + q_f[] * (1 - 0.5 * varphi * (-1 + I_f[-1]^-1 * epsilon_I[] * I_f[])^2 - varphi * I_f[-1]^-1 * epsilon_I[] * I_f[] * (-1 + I_f[-1]^-1 * epsilon_I[] * I_f[])) + beta * varphi * I_f[]^-2 * E[][epsilon_I[1] * q_f[1] * I_f[1]^2 * (-1 + I_f[]^-1 * epsilon_I[1] * I_f[1])] = 0    (I_f[])
+    beta * E[][lambda_f[1]] - lambda_f[] * R_f[]^-1 = 0    (B_f[])
+    lambda_f[] * (K_f[-1] * r_k_f[] - r_k_f[ss] * K_f[-1] * exp(psi * (-1 + z_f[]))) = 0    (z_f[])
+    lambda_f[] * W_disutil_f[] - omega * epsilon_b[] * epsilon_L[] * L_s_f[]^sigma_l = 0    (L_s_f[])
+
+Block: FLEXIBLE_MONOPOLISTIC_WORKER
+ Controls:
+    W_i_f[], L_i_star_f[]
+ Objective:
+    Pi_ws_f[] = L_i_star_f[] * (-W_disutil_f[] + W_i_f[])
+ Constraints:
+    -L_i_star_f[] + L_f[] * (W_i_f[] * W_f[]^-1)^(lambda_w^-1 * (-1 - lambda_w)) = 0    (lambda__FLEXIBLE_MONOPOLISTIC_WORKER_1[])
+ Identities:
+    L_i_f[] - L_i_star_f[] = 0
+ First order conditions:
+    L_i_star_f[] + lambda_w^-1 * lambda__FLEXIBLE_MONOPOLISTIC_WORKER_1[] * L_f[] * W_f[]^-1 * (-1 - lambda_w) * (W_i_f[] * W_f[]^-1)^(-1 + lambda_w^-1 * (-1 - lambda_w)) = 0    (W_i_f[])
+    -lambda__FLEXIBLE_MONOPOLISTIC_WORKER_1[] - W_disutil_f[] + W_i_f[] = 0    (L_i_star_f[])
+ First order conditions after reduction:
+    L_i_star_f[] + lambda_w^-1 * L_f[] * W_f[]^-1 * (-1 - lambda_w) * (-W_disutil_f[] + W_i_f[]) * (W_i_f[] * W_f[]^-1)^(-1 + lambda_w^-1 * (-1 - lambda_w)) = 0    (W_i_f[])
+
+Block: LABOUR_AGGREGATION_FLEXIBLE
+ Identities:
+    L_i_f[] - L_s_f[] = 0
+    L_s_f[] - L_f[] = 0
+
+Block: FIRM
+ Controls:
+    K_j_d[], L_j_d[]
+ Objective:
+    tc_j[] = -r_k[] * K_j_d[] - L_j_d[] * W[]
+ Constraints:
+    -Phi - Y_j[] + epsilon_a[] * K_j_d[]^alpha * L_j_d[]^(1 - alpha) = 0    (mc[])
+ First order conditions:
+    -r_k[] + alpha * epsilon_a[] * mc[] * K_j_d[]^(-1 + alpha) * L_j_d[]^(1 - alpha) = 0    (K_j_d[])
+    -W[] + epsilon_a[] * mc[] * (1 - alpha) * K_j_d[]^alpha * L_j_d[]^(-alpha) = 0    (L_j_d[])
+
+Block: TECHNOLOGY
+ Identities:
+    eta_a[] - log(epsilon_a[]) + rho_a * log(epsilon_a[-1]) = 0
+
+Block: PRICE_SETTING_PROBLEM
+ Identities:
+    eta_p[] - g_1[] + g_2[] * (1 + lambda_p) = 0
+    -g_1[] + lambda[] * pi_star[] * Y[] + beta * xi_p * pi_star[] * E[][g_1[1] * pi_star[1]^-1 * (pi[1]^-1 * pi[]^gamma_p)^(-lambda_p^-1)] = 0
+    -g_2[] + beta * xi_p * E[][g_2[1] * (pi[1]^-1 * pi[]^gamma_p)^(-lambda_p^-1 * (1 + lambda_p))] + lambda[] * mc[] * Y[] = 0
+
+Block: PRICE_EVOLUTION
+ Identities:
+    -1 + xi_p * (pi[]^-1 * pi[-1]^gamma_p)^(-lambda_p^-1) + (1 - xi_p) * pi_star[]^(-lambda_p^-1) = 0
+
+Block: FACTOR_DEMAND_AGGREGATION
+ Identities:
+    K_j_d[] - K_d[] = 0
+    L_j_d[] - L_d[] = 0
+
+Block: PRODUCT_AGGREGATION
+ Identities:
+    Y_j[] - Y_s[] = 0
+    -nu_p[] + (1 - xi_p) * pi_star[]^(-lambda_p^-1 * (1 + lambda_p)) + xi_p * nu_p[-1] * (pi[]^-1 * pi[-1]^gamma_p)^(-lambda_p^-1 * (1 + lambda_p)) = 0
+    Y_s[] - nu_p[] * Y[] = 0
+
+Block: FIRM_FLEXIBLE
+ Controls:
+    K_j_d_f[], L_j_d_f[]
+ Objective:
+    tc_j_f[] = -r_k_f[] * K_j_d_f[] - L_j_d_f[] * W_f[]
+ Constraints:
+    -Phi - Y_j_f[] + epsilon_a[] * K_j_d_f[]^alpha * L_j_d_f[]^(1 - alpha) = 0    (mc_f[])
+ First order conditions:
+    -r_k_f[] + alpha * epsilon_a[] * mc_f[] * K_j_d_f[]^(-1 + alpha) * L_j_d_f[]^(1 - alpha) = 0    (K_j_d_f[])
+    -W_f[] + epsilon_a[] * mc_f[] * (1 - alpha) * K_j_d_f[]^alpha * L_j_d_f[]^(-alpha) = 0    (L_j_d_f[])
+
+Block: PRICE_SETTING_PROBLEM_FLEXIBLE
+ Controls:
+    Y_j_f[], P_j_f[]
+ Objective:
+    Pi_ps_f[] = Y_j_f[] * (-mc_f[] + P_j_f[])
+ Constraints:
+    -Y_j_f[] + Y_f[] * (P_f[]^-1 * P_j_f[])^(-lambda_p^-1 * (1 + lambda_p)) = 0    (lambda__PRICE_SETTING_PROBLEM_FLEXIBLE_1[])
+ First order conditions:
+    -lambda__PRICE_SETTING_PROBLEM_FLEXIBLE_1[] - mc_f[] + P_j_f[] = 0    (Y_j_f[])
+    Y_j_f[] - lambda_p^-1 * lambda__PRICE_SETTING_PROBLEM_FLEXIBLE_1[] * P_f[]^-1 * Y_f[] * (1 + lambda_p) * (P_f[]^-1 * P_j_f[])^(-1 - lambda_p^-1 * (1 + lambda_p)) = 0    (P_j_f[])
+ First order conditions after reduction:
+    Y_j_f[] - lambda_p^-1 * P_f[]^-1 * Y_f[] * (1 + lambda_p) * (-mc_f[] + P_j_f[]) * (P_f[]^-1 * P_j_f[])^(-1 - lambda_p^-1 * (1 + lambda_p)) = 0    (P_j_f[])
+
+Block: FACTOR_DEMAND_AGGREGATION_FLEXIBLE
+ Identities:
+    K_j_d_f[] - K_d_f[] = 0
+    L_j_d_f[] - L_d_f[] = 0
+
+Block: PRODUCT_AGGREGATION_FLEXIBLE
+ Identities:
+    Y_j_f[] - Y_s_f[] = 0
+    -Y_f[] + Y_s_f[] = 0
+
+Block: PRICE_EVOLUTION_FLEXIBLE
+ Identities:
+    1 - P_f[] = 0
+
+Block: GOVERNMENT
+ Identities:
+    -G[] + G_bar * epsilon_G[] = 0
+    -G[] + T[] - B[-1] * pi[]^-1 + B[] * R[]^-1 = 0
+
+Block: GOVERNMENT_SPENDING_SHOCK
+ Identities:
+    eta_G[] - log(epsilon_G[]) + rho_G * log(epsilon_G[-1]) = 0
+
+Block: GOVERNMENT_FLEXIBLE
+ Identities:
+    -G_f[] + G_bar * epsilon_G[] = 0
+    -B_f[-1] - G_f[] + T_f[] + B_f[] * R_f[]^-1 = 0
+
+Block: MONETARY_POLICY_AUTHORITY
+ Identities:
+    -calibr_pi + eta_R[] - log(R[ss]^-1 * R[]) + r_Delta_pi * (-log(pi[ss]^-1 * pi[-1]) + log(pi[ss]^-1 * pi[])) + r_Delta_y * (-log(Y[ss]^-1 * Y[-1]) + log(Y[ss]^-1 * Y[]) + log(Y_f[ss]^-1 * Y_f[-1]) - log(Y_f[ss]^-1 * Y_f[])) + rho * log(R[ss]^-1 * R[-1]) + (1 - rho) * (log(pi_obj[]) + r_pi * (-log(pi_obj[]) + log(pi[ss]^-1 * pi[-1])) + r_Y * (log(Y[ss]^-1 * Y[]) - log(Y_f[ss]^-1 * Y_f[]))) = 0
+    eta_pi[] - log(pi_obj[]) + rho_pi_bar * log(pi_obj[-1]) + log(calibr_pi_obj) * (1 - rho_pi_bar) = 0
+
+Block: EQUILIBRIUM
+ Identities:
+    -K_d[] + K[-1] * z[] = 0
+    -L[] + L_d[] = 0
+    -B[] = 0
+    -Div[] + Y[] - r_k[] * K_d[] - L_d[] * W[] = 0
+
+Block: EQUILIBRIUM_FLEXIBLE
+ Identities:
+    -K_d_f[] + K_f[-1] * z_f[] = 0
+    L_d_f[] - L_f[] = 0
+    -B_f[] = 0
+    -Div_f[] + Y_f[] - r_k_f[] * K_d_f[] - L_d_f[] * W_f[] = 0
+
+Variables (54):
+    epsilon_b[], epsilon_L[], epsilon_I[], epsilon_a[], epsilon_G[], f_1[], f_2[], g_1[], g_2[], mc[], mc_f[], nu_w[], nu_p[], pi[], pi_star[], pi_obj[], q[], q_f[], r_k[], r_k_f[], w_star[], z[], z_f[], C[], C_f[], G[], G_f[], I[], I_f[], K[], K_f[], L[], L_s[], L_s_f[], L_f[], P_j_f[], Pi_ws_f[], Pi_ps_f[], Q[], Q_f[], R[], R_f[], T[], T_f[], U[], U_f[], W[], W_disutil_f[], W_i_f[], W_f[], Y[], Y_s[], Y_f[], Y_s_f[]
+
+Shocks (9):
+    eta_b[], eta_L[], eta_I[], eta_w[], eta_a[], eta_p[], eta_G[], eta_R[], eta_pi[]
+
+Parameters (30):
+    alpha, beta, calibr_pi, calibr_pi_obj, gamma_w, gamma_p, h, lambda_w, lambda_p, omega, psi, r_pi, r_Y, r_Delta_pi, r_Delta_y, rho_b, rho_L, rho_I, rho_a, rho_G, rho, rho_pi_bar, sigma_c, sigma_l, tau, varphi, xi_w, xi_p, G_bar, Phi
+
+Free parameters (25):
+    alpha, beta, gamma_w, gamma_p, h, lambda_w, omega, psi, r_pi, r_Y, r_Delta_pi, r_Delta_y, rho_b, rho_L, rho_I, rho_a, rho_G, rho, rho_pi_bar, sigma_c, sigma_l, tau, varphi, xi_w, xi_p
+
+Calibrated parameters (5):
+    calibr_pi, calibr_pi_obj, lambda_p, G_bar, Phi
+
+Equations (54):
+ (1)  -q[] + beta * ((1 - tau) * E[][q[1]] + E[][epsilon_b[1] * (r_k[1] * z[1] - psi^-1 * r_k[ss] * (-1 + exp(psi * (-1 + z[1])))) * (C[1] - h * C[])^(-sigma_c)]) = 0
+ (2)  -q_f[] + beta * ((1 - tau) * E[][q_f[1]] + E[][epsilon_b[1] * (r_k_f[1] * z_f[1] - psi^-1 * r_k_f[ss] * (-1 + exp(psi * (-1 + z_f[1])))) * (C_f[1] - h * C_f[])^(-sigma_c)]) = 0
+ (3)  -r_k[] + alpha * epsilon_a[] * mc[] * L[]^(1 - alpha) * (K[-1] * z[])^(-1 + alpha) = 0
+ (4)  -r_k_f[] + alpha * epsilon_a[] * mc_f[] * L_f[]^(1 - alpha) * (K_f[-1] * z_f[])^(-1 + alpha) = 0
+ (5)  -G[] + T[] = 0
+ (6)  -G[] + G_bar * epsilon_G[] = 0
+ (7)  -G_f[] + T_f[] = 0
+ (8)  -G_f[] + G_bar * epsilon_G[] = 0
+ (9)  -L[] + nu_w[]^-1 * L_s[] = 0
+ (10)  -L_s_f[] + L_f[] * (W_i_f[] * W_f[]^-1)^(lambda_w^-1 * (-1 - lambda_w)) = 0
+ (11)  L_s_f[] - L_f[] = 0
+ (12)  L_s_f[] + lambda_w^-1 * L_f[] * W_f[]^-1 * (-1 - lambda_w) * (-W_disutil_f[] + W_i_f[]) * (W_i_f[] * W_f[]^-1)^(-1 + lambda_w^-1 * (-1 - lambda_w)) = 0
+ (13)  Pi_ws_f[] - L_s_f[] * (-W_disutil_f[] + W_i_f[]) = 0
+ (14)  Pi_ps_f[] - Y_f[] * (-mc_f[] + P_j_f[]) * P_j_f[]^(-lambda_p^-1 * (1 + lambda_p)) = 0
+ (15)  -Q[] + epsilon_b[]^-1 * q[] * (C[] - h * C[-1])^(sigma_c) = 0
+ (16)  -Q_f[] + epsilon_b[]^-1 * q_f[] * (C_f[] - h * C_f[-1])^(sigma_c) = 0
+ (17)  -W[] + epsilon_a[] * mc[] * (1 - alpha) * L[]^(-alpha) * (K[-1] * z[])^alpha = 0
+ (18)  -W_f[] + epsilon_a[] * mc_f[] * (1 - alpha) * L_f[]^(-alpha) * (K_f[-1] * z_f[])^alpha = 0
+ (19)  Y_s[] - nu_p[] * Y[] = 0
+ (20)  -Y_f[] + Y_s_f[] = 0
+ (21)  -Y_s_f[] + Y_f[] * P_j_f[]^(-lambda_p^-1 * (1 + lambda_p)) = 0
+ (22)  beta * E[][epsilon_b[1] * (C_f[1] - h * C_f[])^(-sigma_c)] - epsilon_b[] * R_f[]^-1 * (C_f[] - h * C_f[-1])^(-sigma_c) = 0
+ (23)  beta * E[][epsilon_b[1] * pi[1]^-1 * (C[1] - h * C[])^(-sigma_c)] - epsilon_b[] * R[]^-1 * (C[] - h * C[-1])^(-sigma_c) = 0
+ (24)  Y_f[] * P_j_f[]^(-lambda_p^-1 * (1 + lambda_p)) - lambda_p^-1 * Y_f[] * (1 + lambda_p) * (-mc_f[] + P_j_f[]) * P_j_f[]^(-1 - lambda_p^-1 * (1 + lambda_p)) = 0
+ (25)  epsilon_b[] * W_disutil_f[] * (C_f[] - h * C_f[-1])^(-sigma_c) - omega * epsilon_b[] * epsilon_L[] * L_s_f[]^sigma_l = 0
+ (26)  -1 + xi_p * (pi[]^-1 * pi[-1]^gamma_p)^(-lambda_p^-1) + (1 - xi_p) * pi_star[]^(-lambda_p^-1) = 0
+ (27)  -1 + (1 - xi_w) * (w_star[] * W[]^-1)^(-lambda_w^-1) + xi_w * (W[-1] * W[]^-1)^(-lambda_w^-1) * (pi[]^-1 * pi[-1]^gamma_w)^(-lambda_w^-1) = 0
+ (28)  -Phi - Y_s[] + epsilon_a[] * L[]^(1 - alpha) * (K[-1] * z[])^alpha = 0
+ (29)  -Phi - Y_f[] * P_j_f[]^(-lambda_p^-1 * (1 + lambda_p)) + epsilon_a[] * L_f[]^(1 - alpha) * (K_f[-1] * z_f[])^alpha = 0
+ (30)  eta_b[] - log(epsilon_b[]) + rho_b * log(epsilon_b[-1]) = 0
+ (31)  -eta_L[] - log(epsilon_L[]) + rho_L * log(epsilon_L[-1]) = 0
+ (32)  eta_I[] - log(epsilon_I[]) + rho_I * log(epsilon_I[-1]) = 0
+ (33)  eta_w[] - f_1[] + f_2[] = 0
+ (34)  eta_a[] - log(epsilon_a[]) + rho_a * log(epsilon_a[-1]) = 0
+ (35)  eta_p[] - g_1[] + g_2[] * (1 + lambda_p) = 0
+ (36)  eta_G[] - log(epsilon_G[]) + rho_G * log(epsilon_G[-1]) = 0
+ (37)  -f_1[] + beta * xi_w * E[][f_1[1] * (w_star[]^-1 * w_star[1])^(lambda_w^-1) * (pi[1]^-1 * pi[]^gamma_w)^(-lambda_w^-1)] + epsilon_b[] * w_star[] * L[] * (1 + lambda_w)^-1 * (C[] - h * C[-1])^(-sigma_c) * (w_star[] * W[]^-1)^(-lambda_w^-1 * (1 + lambda_w)) = 0
+ (38)  -f_2[] + beta * xi_w * E[][f_2[1] * (w_star[]^-1 * w_star[1])^(lambda_w^-1 * (1 + lambda_w) * (1 + sigma_l)) * (pi[1]^-1 * pi[]^gamma_w)^(-lambda_w^-1 * (1 + lambda_w) * (1 + sigma_l))] + omega * epsilon_b[] * epsilon_L[] * (L[] * (w_star[] * W[]^-1)^(-lambda_w^-1 * (1 + lambda_w)))^(1 + sigma_l) = 0
+ (39)  -g_1[] + beta * xi_p * pi_star[] * E[][g_1[1] * pi_star[1]^-1 * (pi[1]^-1 * pi[]^gamma_p)^(-lambda_p^-1)] + epsilon_b[] * pi_star[] * Y[] * (C[] - h * C[-1])^(-sigma_c) = 0
+ (40)  -g_2[] + beta * xi_p * E[][g_2[1] * (pi[1]^-1 * pi[]^gamma_p)^(-lambda_p^-1 * (1 + lambda_p))] + epsilon_b[] * mc[] * Y[] * (C[] - h * C[-1])^(-sigma_c) = 0
+ (41)  -nu_w[] + (1 - xi_w) * (w_star[] * W[]^-1)^(-lambda_w^-1 * (1 + lambda_w)) + xi_w * nu_w[-1] * (W[-1] * pi[]^-1 * W[]^-1 * pi[-1]^gamma_w)^(-lambda_w^-1 * (1 + lambda_w)) = 0
+ (42)  -nu_p[] + (1 - xi_p) * pi_star[]^(-lambda_p^-1 * (1 + lambda_p)) + xi_p * nu_p[-1] * (pi[]^-1 * pi[-1]^gamma_p)^(-lambda_p^-1 * (1 + lambda_p)) = 0
+ (43)  -K[] + K[-1] * (1 - tau) + I[] * (1 - 0.5 * varphi * (-1 + I[-1]^-1 * epsilon_I[] * I[])^2) = 0
+ (44)  -K_f[] + K_f[-1] * (1 - tau) + I_f[] * (1 - 0.5 * varphi * (-1 + I_f[-1]^-1 * epsilon_I[] * I_f[])^2) = 0
+ (45)  U[] - beta * E[][U[1]] - epsilon_b[] * ((1 - sigma_c)^-1 * (C[] - h * C[-1])^(1 - sigma_c) - omega * epsilon_L[] * (1 + sigma_l)^-1 * L_s[]^(1 + sigma_l)) = 0
+ (46)  U_f[] - beta * E[][U_f[1]] - epsilon_b[] * ((1 - sigma_c)^-1 * (C_f[] - h * C_f[-1])^(1 - sigma_c) - omega * epsilon_L[] * (1 + sigma_l)^-1 * L_s_f[]^(1 + sigma_l)) = 0
+ (47)  -epsilon_b[] * (C[] - h * C[-1])^(-sigma_c) + q[] * (1 - 0.5 * varphi * (-1 + I[-1]^-1 * epsilon_I[] * I[])^2 - varphi * I[-1]^-1 * epsilon_I[] * I[] * (-1 + I[-1]^-1 * epsilon_I[] * I[])) + beta * varphi * I[]^-2 * E[][epsilon_I[1] * q[1] * I[1]^2 * (-1 + I[]^-1 * epsilon_I[1] * I[1])] = 0
+ (48)  -epsilon_b[] * (C_f[] - h * C_f[-1])^(-sigma_c) + q_f[] * (1 - 0.5 * varphi * (-1 + I_f[-1]^-1 * epsilon_I[] * I_f[])^2 - varphi * I_f[-1]^-1 * epsilon_I[] * I_f[] * (-1 + I_f[-1]^-1 * epsilon_I[] * I_f[])) + beta * varphi * I_f[]^-2 * E[][epsilon_I[1] * q_f[1] * I_f[1]^2 * (-1 + I_f[]^-1 * epsilon_I[1] * I_f[1])] = 0
+ (49)  eta_pi[] - log(pi_obj[]) + rho_pi_bar * log(pi_obj[-1]) + log(calibr_pi_obj) * (1 - rho_pi_bar) = 0
+ (50)  -C[] - I[] - T[] + Y[] - psi^-1 * r_k[ss] * K[-1] * (-1 + exp(psi * (-1 + z[]))) = 0
+ (51)  -calibr_pi + eta_R[] - log(R[ss]^-1 * R[]) + r_Delta_pi * (-log(pi[ss]^-1 * pi[-1]) + log(pi[ss]^-1 * pi[])) + r_Delta_y * (-log(Y[ss]^-1 * Y[-1]) + log(Y[ss]^-1 * Y[]) + log(Y_f[ss]^-1 * Y_f[-1]) - log(Y_f[ss]^-1 * Y_f[])) + rho * log(R[ss]^-1 * R[-1]) + (1 - rho) * (log(pi_obj[]) + r_pi * (-log(pi_obj[]) + log(pi[ss]^-1 * pi[-1])) + r_Y * (log(Y[ss]^-1 * Y[]) - log(Y_f[ss]^-1 * Y_f[]))) = 0
+ (52)  -C_f[] - I_f[] + Pi_ws_f[] - T_f[] + Y_f[] + L_s_f[] * W_disutil_f[] - L_f[] * W_f[] - psi^-1 * r_k_f[ss] * K_f[-1] * (-1 + exp(psi * (-1 + z_f[]))) = 0
+ (53)  epsilon_b[] * (K[-1] * r_k[] - r_k[ss] * K[-1] * exp(psi * (-1 + z[]))) * (C[] - h * C[-1])^(-sigma_c) = 0
+ (54)  epsilon_b[] * (K_f[-1] * r_k_f[] - r_k_f[ss] * K_f[-1] * exp(psi * (-1 + z_f[]))) * (C_f[] - h * C_f[-1])^(-sigma_c) = 0
+
+Steady state equations (54):
+ (1)  -q[ss] + beta * (q[ss] * (1 - tau) + epsilon_b[ss] * (r_k[ss] * z[ss] - psi^-1 * r_k[ss] * (-1 + exp(psi * (-1 + z[ss])))) * (C[ss] - h * C[ss])^(-sigma_c)) = 0
+ (2)  -q_f[ss] + beta * (q_f[ss] * (1 - tau) + epsilon_b[ss] * (r_k_f[ss] * z_f[ss] - psi^-1 * r_k_f[ss] * (-1 + exp(psi * (-1 + z_f[ss])))) * (C_f[ss] - h * C_f[ss])^(-sigma_c)) = 0
+ (3)  -r_k[ss] + alpha * epsilon_a[ss] * mc[ss] * L[ss]^(1 - alpha) * (z[ss] * K[ss])^(-1 + alpha) = 0
+ (4)  -r_k_f[ss] + alpha * epsilon_a[ss] * mc_f[ss] * L_f[ss]^(1 - alpha) * (z_f[ss] * K_f[ss])^(-1 + alpha) = 0
+ (5)  -G[ss] + T[ss] = 0
+ (6)  -G[ss] + G_bar * epsilon_G[ss] = 0
+ (7)  -G_f[ss] + T_f[ss] = 0
+ (8)  -G_f[ss] + G_bar * epsilon_G[ss] = 0
+ (9)  -L[ss] + nu_w[ss]^-1 * L_s[ss] = 0
+ (10)  -L_s_f[ss] + L_f[ss] * (W_i_f[ss] * W_f[ss]^-1)^(lambda_w^-1 * (-1 - lambda_w)) = 0
+ (11)  L_s_f[ss] - L_f[ss] = 0
+ (12)  L_s_f[ss] + lambda_w^-1 * L_f[ss] * W_f[ss]^-1 * (-1 - lambda_w) * (-W_disutil_f[ss] + W_i_f[ss]) * (W_i_f[ss] * W_f[ss]^-1)^(-1 + lambda_w^-1 * (-1 - lambda_w)) = 0
+ (13)  Pi_ws_f[ss] - L_s_f[ss] * (-W_disutil_f[ss] + W_i_f[ss]) = 0
+ (14)  Pi_ps_f[ss] - Y_f[ss] * (-mc_f[ss] + P_j_f[ss]) * P_j_f[ss]^(-lambda_p^-1 * (1 + lambda_p)) = 0
+ (15)  -Q[ss] + epsilon_b[ss]^-1 * q[ss] * (C[ss] - h * C[ss])^(sigma_c) = 0
+ (16)  -Q_f[ss] + epsilon_b[ss]^-1 * q_f[ss] * (C_f[ss] - h * C_f[ss])^(sigma_c) = 0
+ (17)  -W[ss] + epsilon_a[ss] * mc[ss] * (1 - alpha) * L[ss]^(-alpha) * (z[ss] * K[ss])^alpha = 0
+ (18)  -W_f[ss] + epsilon_a[ss] * mc_f[ss] * (1 - alpha) * L_f[ss]^(-alpha) * (z_f[ss] * K_f[ss])^alpha = 0
+ (19)  Y_s[ss] - nu_p[ss] * Y[ss] = 0
+ (20)  -Y_f[ss] + Y_s_f[ss] = 0
+ (21)  -Y_s_f[ss] + Y_f[ss] * P_j_f[ss]^(-lambda_p^-1 * (1 + lambda_p)) = 0
+ (22)  beta * epsilon_b[ss] * (C_f[ss] - h * C_f[ss])^(-sigma_c) - epsilon_b[ss] * R_f[ss]^-1 * (C_f[ss] - h * C_f[ss])^(-sigma_c) = 0
+ (23)  -epsilon_b[ss] * R[ss]^-1 * (C[ss] - h * C[ss])^(-sigma_c) + beta * epsilon_b[ss] * pi[ss]^-1 * (C[ss] - h * C[ss])^(-sigma_c) = 0
+ (24)  Y_f[ss] * P_j_f[ss]^(-lambda_p^-1 * (1 + lambda_p)) - lambda_p^-1 * Y_f[ss] * (1 + lambda_p) * (-mc_f[ss] + P_j_f[ss]) * P_j_f[ss]^(-1 - lambda_p^-1 * (1 + lambda_p)) = 0
+ (25)  epsilon_b[ss] * W_disutil_f[ss] * (C_f[ss] - h * C_f[ss])^(-sigma_c) - omega * epsilon_b[ss] * epsilon_L[ss] * L_s_f[ss]^sigma_l = 0
+ (26)  -1 + xi_p * (pi[ss]^-1 * pi[ss]^gamma_p)^(-lambda_p^-1) + (1 - xi_p) * pi_star[ss]^(-lambda_p^-1) = 0
+ (27)  -1 + (1 - xi_w) * (w_star[ss] * W[ss]^-1)^(-lambda_w^-1) + xi_w * 1^(-lambda_w^-1) * (pi[ss]^-1 * pi[ss]^gamma_w)^(-lambda_w^-1) = 0
+ (28)  -Phi - Y_s[ss] + epsilon_a[ss] * L[ss]^(1 - alpha) * (z[ss] * K[ss])^alpha = 0
+ (29)  -Phi - Y_f[ss] * P_j_f[ss]^(-lambda_p^-1 * (1 + lambda_p)) + epsilon_a[ss] * L_f[ss]^(1 - alpha) * (z_f[ss] * K_f[ss])^alpha = 0
+ (30)  -log(epsilon_b[ss]) + rho_b * log(epsilon_b[ss]) = 0
+ (31)  -log(epsilon_L[ss]) + rho_L * log(epsilon_L[ss]) = 0
+ (32)  -log(epsilon_I[ss]) + rho_I * log(epsilon_I[ss]) = 0
+ (33)  -f_1[ss] + f_2[ss] = 0
+ (34)  -log(epsilon_a[ss]) + rho_a * log(epsilon_a[ss]) = 0
+ (35)  -g_1[ss] + g_2[ss] * (1 + lambda_p) = 0
+ (36)  -log(epsilon_G[ss]) + rho_G * log(epsilon_G[ss]) = 0
+ (37)  -f_1[ss] + beta * xi_w * f_1[ss] * 1^(lambda_w^-1) * (pi[ss]^-1 * pi[ss]^gamma_w)^(-lambda_w^-1) + epsilon_b[ss] * w_star[ss] * L[ss] * (1 + lambda_w)^-1 * (C[ss] - h * C[ss])^(-sigma_c) * (w_star[ss] * W[ss]^-1)^(-lambda_w^-1 * (1 + lambda_w)) = 0
+ (38)  -f_2[ss] + omega * epsilon_b[ss] * epsilon_L[ss] * (L[ss] * (w_star[ss] * W[ss]^-1)^(-lambda_w^-1 * (1 + lambda_w)))^(1 + sigma_l) + beta * xi_w * f_2[ss] * 1^(lambda_w^-1 * (1 + lambda_w) * (1 + sigma_l)) * (pi[ss]^-1 * pi[ss]^gamma_w)^(-lambda_w^-1 * (1 + lambda_w) * (1 + sigma_l)) = 0
+ (39)  -g_1[ss] + beta * xi_p * g_1[ss] * (pi[ss]^-1 * pi[ss]^gamma_p)^(-lambda_p^-1) + epsilon_b[ss] * pi_star[ss] * Y[ss] * (C[ss] - h * C[ss])^(-sigma_c) = 0
+ (40)  -g_2[ss] + beta * xi_p * g_2[ss] * (pi[ss]^-1 * pi[ss]^gamma_p)^(-lambda_p^-1 * (1 + lambda_p)) + epsilon_b[ss] * mc[ss] * Y[ss] * (C[ss] - h * C[ss])^(-sigma_c) = 0
+ (41)  -nu_w[ss] + (1 - xi_w) * (w_star[ss] * W[ss]^-1)^(-lambda_w^-1 * (1 + lambda_w)) + xi_w * nu_w[ss] * (pi[ss]^-1 * pi[ss]^gamma_w)^(-lambda_w^-1 * (1 + lambda_w)) = 0
+ (42)  -nu_p[ss] + (1 - xi_p) * pi_star[ss]^(-lambda_p^-1 * (1 + lambda_p)) + xi_p * nu_p[ss] * (pi[ss]^-1 * pi[ss]^gamma_p)^(-lambda_p^-1 * (1 + lambda_p)) = 0
+ (43)  -K[ss] + I[ss] * (1 - 0.5 * varphi * (-1 + epsilon_I[ss])^2) + K[ss] * (1 - tau) = 0
+ (44)  -K_f[ss] + I_f[ss] * (1 - 0.5 * varphi * (-1 + epsilon_I[ss])^2) + K_f[ss] * (1 - tau) = 0
+ (45)  U[ss] - beta * U[ss] - epsilon_b[ss] * ((1 - sigma_c)^-1 * (C[ss] - h * C[ss])^(1 - sigma_c) - omega * epsilon_L[ss] * (1 + sigma_l)^-1 * L_s[ss]^(1 + sigma_l)) = 0
+ (46)  U_f[ss] - beta * U_f[ss] - epsilon_b[ss] * ((1 - sigma_c)^-1 * (C_f[ss] - h * C_f[ss])^(1 - sigma_c) - omega * epsilon_L[ss] * (1 + sigma_l)^-1 * L_s_f[ss]^(1 + sigma_l)) = 0
+ (47)  -epsilon_b[ss] * (C[ss] - h * C[ss])^(-sigma_c) + q[ss] * (1 - 0.5 * varphi * (-1 + epsilon_I[ss])^2 - varphi * epsilon_I[ss] * (-1 + epsilon_I[ss])) + beta * varphi * epsilon_I[ss] * q[ss] * (-1 + epsilon_I[ss]) = 0
+ (48)  -epsilon_b[ss] * (C_f[ss] - h * C_f[ss])^(-sigma_c) + q_f[ss] * (1 - 0.5 * varphi * (-1 + epsilon_I[ss])^2 - varphi * epsilon_I[ss] * (-1 + epsilon_I[ss])) + beta * varphi * epsilon_I[ss] * q_f[ss] * (-1 + epsilon_I[ss]) = 0
+ (49)  -log(pi_obj[ss]) + rho_pi_bar * log(pi_obj[ss]) + log(calibr_pi_obj) * (1 - rho_pi_bar) = 0
+ (50)  -C[ss] - I[ss] - T[ss] + Y[ss] - psi^-1 * r_k[ss] * K[ss] * (-1 + exp(psi * (-1 + z[ss]))) = 0
+ (51)  -calibr_pi + (1 - rho) * (log(pi_obj[ss]) - r_pi * log(pi_obj[ss])) = 0
+ (52)  -C_f[ss] - I_f[ss] + Pi_ws_f[ss] - T_f[ss] + Y_f[ss] + L_s_f[ss] * W_disutil_f[ss] - L_f[ss] * W_f[ss] - psi^-1 * r_k_f[ss] * K_f[ss] * (-1 + exp(psi * (-1 + z_f[ss]))) = 0
+ (53)  epsilon_b[ss] * (r_k[ss] * K[ss] - r_k[ss] * K[ss] * exp(psi * (-1 + z[ss]))) * (C[ss] - h * C[ss])^(-sigma_c) = 0
+ (54)  epsilon_b[ss] * (r_k_f[ss] * K_f[ss] - r_k_f[ss] * K_f[ss] * exp(psi * (-1 + z_f[ss]))) * (C_f[ss] - h * C_f[ss])^(-sigma_c) = 0
+
+Calibrating equations (5):
+ (1)  -1.408 + Y_s[ss]^-1 * (Phi + Y_s[ss]) = 0
+ (2)  -1 + pi_obj[ss] = 0
+ (3)  -0.6 + C_f[ss] * Y_f[ss]^-1 = 0
+ (4)  -0.18 + G[ss] * Y[ss]^-1 = 0
+ (5)  pi[ss] - pi_obj[ss] = 0
+
+Parameter settings (25):
+ (1)  alpha = 0.3
+ (2)  beta = 0.99
+ (3)  gamma_w = 0.763
+ (4)  gamma_p = 0.469
+ (5)  h = 0.573
+ (6)  lambda_w = 0.5
+ (7)  omega = 1
+ (8)  psi = 0.169
+ (9)  r_pi = 1.684
+ (10)  r_Y = 0.099
+ (11)  r_Delta_pi = 0.14
+ (12)  r_Delta_y = 0.159
+ (13)  rho_b = 0.855
+ (14)  rho_L = 0.889
+ (15)  rho_I = 0.927
+ (16)  rho_a = 0.823
+ (17)  rho_G = 0.949
+ (18)  rho = 0.961
+ (19)  rho_pi_bar = 0.924
+ (20)  sigma_c = 1.353
+ (21)  sigma_l = 2.4
+ (22)  tau = 0.025
+ (23)  varphi = 6.771
+ (24)  xi_w = 0.737
+ (25)  xi_p = 0.908
+
+
+1 WARNING
+(gEcon model warning 1): variable "Y_j[]" selected for reduction appears in calibrating equation "-1.408 + Y_j[ss]^-1 * (Phi + Y_j[ss]) = 0"
