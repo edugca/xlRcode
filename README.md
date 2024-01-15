@@ -83,7 +83,7 @@ That should do the trick!
 https://www.dartistics.com/fast-r-code.html
 https://bookdown.org/content/d1e53ac9-28ce-472f-bc2c-f499f18264a3/speedtips.html
 - Use array formulas whenever possible as they reduce the amount of individual calls from Excel to R and therefore each function overhead time toll.
-- Time-demanding commands/scripts should not be called from cells because Excel is unresponsive while R is running code.
+- Time-demanding commands/scripts should be called with care from cells because the R status while running code may be opaque.
 - You can split commands in different cells and provide the reference to their joint address as the code argument in XLRCODE or XLRCODE_ENV functions. Cells will be read in the same environment in order from left to right and then from top to bottom.
 - You can split script paths in different cells and provide the reference to their joint address as the code argument in XLRSCRIPT or XLRSCRIPT_ENV functions. Cells will be read in the same environment in order from left to right and then from top to bottom.
 
