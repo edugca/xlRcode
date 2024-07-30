@@ -1,6 +1,5 @@
 # xlRcode (v. 0.2.0)
-<img src="[https://github.com/favicon.ico](https://github.com/user-attachments/assets/4039bd04-d312-46f3-b0bd-480658f983c5)" width="100">
-
+<img src="[https://github.com/user-attachments/assets/4039bd04-d312-46f3-b0bd-480658f983c5" width=50% height=50%>
 Call R from Excel. Create new Excel functions that make use of R packages. Integrate both tools seamlessly.
 
 A work in progress...
