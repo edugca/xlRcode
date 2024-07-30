@@ -1,6 +1,6 @@
 # xlRcode (v. 0.2.0)
 
-![image](https://github.com/user-attachments/assets/4039bd04-d312-46f3-b0bd-480658f983c5)
+![image](https://github.com/user-attachments/assets/4039bd04-d312-46f3-b0bd-480658f983c5 | width=100)
 
 Call R from Excel. Create new Excel functions that make use of R packages. Integrate both tools seamlessly.
 
