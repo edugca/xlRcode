@@ -5,6 +5,10 @@ Call R from Excel. Create new Excel functions that make use of R packages. Integ
 
 A work in progress...
 
+## Suggested citation
+
+Amaral, E. G. C. (2023). xlRcode: R functions and packages in Excel (Version 0.2.0) [Computer software]. [GitHub](https://github.com/edugca/xlRcode).
+
 ## Documentation
 
 For documentation, check the spreadsheet file "xlRcode - Main.xlsx".			
